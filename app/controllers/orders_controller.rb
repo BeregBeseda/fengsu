@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :set_menu, only: [:new]
 
-  def new
+  def new_order
     @order = Order.new
   end
   
@@ -14,10 +14,23 @@ class OrdersController < ApplicationController
         
     @order.save  
     OrderMailer.confirm_pay(@order).deliver      
-    redirect_to '/click_for_pay' 
+    redirect_to '/click_for_pay' # redirect to payment GATEWAY
   end
   
-  def update
+  
+  
+  def form_for_get_consult_after_pay # for ENTER payment data
+    @name = params[:name]
+    @id = params[:id]
+    @akey = params[:akey]
+    if Order.where(id: @id).empty? or Order.find(@id).akey != @akey
+      redirect_to '/'
+    else
+      @order = Order.find(@id)
+    end  
+  end    
+  
+  def update # for SAVE payment data
     @order = Order.find(params[:id])
     @order.update_attributes(order_params)    
     @order.save

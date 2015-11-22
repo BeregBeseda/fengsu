@@ -1,0 +1,8 @@
+= @menu.description.html_safe  
+
+= form_for @order, action: "create" do |f|
+  = f.text_field :name
+  = f.text_field :email  
+  = f.text_field :cool_time1  
+  = f.submit 'Ok'  
+  

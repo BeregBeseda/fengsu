@@ -9,7 +9,7 @@ class OrderMailer < ActionMailer::Base
     @pay_url = "http://psysite.herokuapp.com/click_for_pay"    
     
     @url_name = URI.encode(@order.name)    
-    @form_url = "http://psysite.herokuapp.com/confirm_form/#{@url_name}/#{@order.akey}/#{@order.id}"
+    @form_url = "http://psysite.herokuapp.com/confirm_pay/#{@url_name}/#{@order.akey}/#{@order.id}"
 
     mail(to: @order.email, subject: 'Фен-Шуй консультация')    
   end
