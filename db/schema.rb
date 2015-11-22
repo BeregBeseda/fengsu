@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019115847) do
+ActiveRecord::Schema.define(version: 20151023175304) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -46,6 +46,19 @@ ActiveRecord::Schema.define(version: 20151019115847) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
 
+  create_table "consults", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.decimal  "price"
+    t.date     "at_last_price_installed_at"
+    t.string   "link_for_pay_from_ukr_card_with_price"
+    t.date     "at_last_link_for_pay_from_ukr_card_with_price_installed_at"
+    t.string   "ukr_pay_link_without_price"
+    t.boolean  "able"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "menus", force: :cascade do |t|
     t.string   "title"
     t.string   "name"
@@ -54,6 +67,23 @@ ActiveRecord::Schema.define(version: 20151019115847) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "translit"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.boolean  "payed"
+    t.string   "name"
+    t.string   "email"
+    t.string   "cool_time1"
+    t.string   "cool_time2"
+    t.string   "akey"
+    t.string   "pay_way"
+    t.integer  "end_cards"
+    t.decimal  "sum_for_pay"
+    t.string   "when_payed"
+    t.string   "akey_payed"
+    t.boolean  "able"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
