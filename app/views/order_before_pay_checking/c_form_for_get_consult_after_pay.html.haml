@@ -1,0 +1,15 @@
+= form_for @order, url: "../../../../../../save_pay_info/#{@order.id}" do |f|
+
+  = @name
+  , пожалуйста, 
+  введите Ваше имя:
+  = f.text_field :name  
+  
+  2 последние цифры 
+  кредитной карты:       
+  = f.text_field :end_cards  
+  
+  Дату и время оплаты:     
+  = f.text_field :when_payed
+  
+  = f.submit 'Ok'
