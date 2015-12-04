@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+
   before_action :set_menu, only: [:a_new_order]
 
   def a_new_order
@@ -16,12 +17,12 @@ class OrdersController < ApplicationController
     OrderMailer.a_has_client_payed(@order).deliver # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
     redirect_to '/click_for_pay' # redirect to payment GATEWAY
   end
+#*********************************************************************************************************************************************  
   
   
   # client ends the PAY PROCESS
   # and goes from her email
-  # to ask for CONSULTATION BODY  
-     
+  # to ask for CONSULTATION BODY       
             
   def c_form_for_get_consult_after_pay # for ENTER payment data (2 last DIGITS of credit card & PAYMENT DATE) 
     @name = params[:name]
@@ -46,6 +47,8 @@ class OrdersController < ApplicationController
   def d_pay_info_success_sent
     @order_info_page = OrderInfoPage.find(params[:id])
   end
+#*********************************************************************************************************************************************  
+
     
   def change_status_to_payed
     @order = Order.find(params[:id])
@@ -56,13 +59,14 @@ class OrdersController < ApplicationController
     OrderMailer.c_info_to_client_that_pay_data_is_right(@order).deliver
     redirect_to '/request_sent/2'     
   end 
+#*********************************************************************************************************************************************  
     
   
   def order_params
     params.require(:order).permit(:payed, :name, :email, :cool_time1, :cool_time2, :akey, :pay_way, :end_cards, :sum_for_pay, :when_payed, :akey_payed, :able)
   end  
   
-  
+    
   private
   def set_menu
     @menu = Menu.find_by translit:(params[:translit])   # 1)   get menu-record with title == params[:translit]     // like 'lichnaja-zhizn' etc.
