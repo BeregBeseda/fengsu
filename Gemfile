@@ -12,6 +12,9 @@ gem 'jquery-rails'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 
+gem 'mail'
+
+
 gem 'passenger'
 gem 'heroku'
 
