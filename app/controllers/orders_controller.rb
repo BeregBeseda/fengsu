@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
     @order.able = 'true'
         
     @order.save  
-    OrderMailer.a_has_client_payed(@order).deliver!    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
+    OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
     redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
   end
 
