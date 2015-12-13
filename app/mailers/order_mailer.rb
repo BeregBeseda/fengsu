@@ -1,7 +1,8 @@
 # encoding: utf-8
 class OrderMailer < ActionMailer::Base
 
-  default from: "Фен-Шуй консультация"
+  #default from: "Фен-Шуй консультация"
+  default from: 'bereg.beseda@ukr.net'
 
   
   def a_has_client_payed(order)
