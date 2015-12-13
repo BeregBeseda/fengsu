@@ -7,17 +7,17 @@ class OrderMailer < ActionMailer::Base
   
   def a_has_client_payed(order)
     @order = order    
-    @pay_url = "http://psysite.herokuapp.com/click_for_pay"    
+    @pay_url = "http://feng-consult.herokuapp.com/click_for_pay"    
     
     @url_name = URI.encode(@order.name)    
-    @form_url = "http://psysite.herokuapp.com/i_have_payed/#{@url_name}/#{@order.akey}/#{@order.id}"
+    @form_url = "http://feng-consult.herokuapp.com/i_have_payed/#{@url_name}/#{@order.akey}/#{@order.id}"
 
     mail(to: @order.email, subject: 'Фен-Шуй консультация')    
   end
   
   def b_confirm_pay_info_to_psyc_for_check(order)
     @order = order    
-    @change_status_to_payed_url = "http://psysite.herokuapp.com/payed/#{@order.akey}/#{@order.id}/#{@order.akey_payed}"    
+    @change_status_to_payed_url = "http://feng-consult.herokuapp.com/payed/#{@order.akey}/#{@order.id}/#{@order.akey_payed}"    
     
     mail(to: 'bereg.beseda@ukr.net', subject: 'Оплата консультации')        
   end  
