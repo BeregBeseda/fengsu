@@ -4,10 +4,10 @@
     = @name
     , пожалуйста, 
     введите дату и время оплаты:     
-    = f.text_field :when_payed, required: '', maxlength: '100'
+    = f.text_field :when_payed
     
     И 2 последние цифры 
     кредитной карты:       
-    = f.text_field :end_cards, type: 'number', required: '', maxlength: '2'  
+    = f.text_field :end_cards
     
     = f.submit 'Ok'

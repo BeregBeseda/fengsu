@@ -6,11 +6,11 @@
 
     %div  
       Пожалуйста, введите Ваше имя:
-    = f.text_field :name, required: '', maxlength: '70'
+    = f.text_field :name
 
     %div  
       И E-mail:
-    = f.text_field :email, type: 'email', required: '', maxlength: '70'
+    = f.text_field :email
   
     = f.submit 'Ok'  
   

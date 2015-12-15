@@ -11,9 +11,8 @@ class OrdersController < ApplicationController
     @order.akey = akey
     @order.akey_payed = akey    
     @order.email.downcase!
-    @order.able = 'true'
             
-    @order.save  
+    @order.update
     OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
     redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
   end
@@ -41,7 +40,7 @@ class OrdersController < ApplicationController
     @order.update_attributes(order_params)    
     
     OrderMailer.b_confirm_pay_info_to_psyc_for_check(@order).deliver
-    @order.save        
+    @order.update      
     redirect_to '/request_sent/1'     
   end
    
