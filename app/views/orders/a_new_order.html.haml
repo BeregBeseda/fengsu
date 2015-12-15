@@ -1,8 +1,16 @@
-= @menu.description.html_safe  
+%div
+  = @menu.description.html_safe  
 
-= form_for @order, action: "create" do |f|
-  = f.text_field :name
-  = f.text_field :email  
-  = f.text_field :cool_time1  
-  = f.submit 'Ok'  
+%div
+  = form_for @order, action: "create" do |f|
+
+    %div  
+      Пожалуйста, введите Ваше имя:
+    = f.text_field :name, required: '', maxlength: '70'
+
+    %div  
+      И E-mail:
+    = f.text_field :email, type: 'email', required: '', maxlength: '70'
+  
+    = f.submit 'Ok'  
   
