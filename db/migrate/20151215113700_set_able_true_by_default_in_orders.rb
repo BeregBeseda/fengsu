@@ -1,5 +1,5 @@
 class SetAbleTrueByDefaultInOrders < ActiveRecord::Migration
   def change
-    change_column_default :orders, :able, from: false, to: true
+    change_column :orders, :able, default: 'true'
   end
 end
