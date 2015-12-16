@@ -1,13 +1,18 @@
 %div
   = form_for @order, url: "../../../../../../save_pay_info/#{@order.id}" do |f|
 
-    = @name
-    , пожалуйста, 
-    введите дату и время оплаты:     
-    = f.text_field :when_payed
+    %div 
+      = @name
+      , пожалуйста, 
+      введите дату и время оплаты:     
+    %div   
+      = f.text_field :when_payed
     
-    И 2 последние цифры 
-    кредитной карты:       
-    = f.text_field :end_cards
+    %div
+      И 2 последние цифры 
+      кредитной карты:       
+    %div   
+      = f.text_field :end_cards
     
-    = f.submit 'Ok'
+    %div 
+      = f.submit 'Ok'

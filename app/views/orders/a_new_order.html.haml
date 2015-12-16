@@ -5,12 +5,15 @@
   = form_for @order, action: "create" do |f|
 
     %div  
-      Пожалуйста, введите Ваше имя:
-    = f.text_field :name
+      Пожалуйста, введите Ваше имя:    
+    %div    
+      = f.text_field :name, value: "#{flash[:order_name] || nil}"
 
     %div  
-      И E-mail:
-    = f.text_field :email
+      И E-mail:      
+    %div    
+      = f.text_field :email, value: "#{flash[:order_email] || nil}"
   
-    = f.submit 'Ok'  
+    %div       
+      = f.submit 'Ok'  
   

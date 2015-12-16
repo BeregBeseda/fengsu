@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
 
-  before_action :set_menu, only: [:a_new_order]
+  before_action :set_menu,  only: [:a_new_order]
+  before_action :set_order, only: [:update, :change_status_to_payed]
 
   def a_new_order
     @order = Order.new
@@ -10,11 +11,21 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.akey = akey
     @order.akey_payed = akey    
-    @order.email.downcase!
+    
+    flash[:order_name] = @order.name
+    flash[:order_email] = @order.email
             
-    @order.update
-    OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
-    redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
+    if @order.save
+      OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
+      flash.delete(:order_name)
+      flash.delete(:order_email)
+      flash.delete(:translit)
+      redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
+      
+    else  
+      flash[:translit] = flash[:translit] || 'lichnaja-zhizn'
+      redirect_to "/about/#{flash[:translit]}"
+    end  
   end
 
 #*********************************************************************************************************************************************  
@@ -22,7 +33,7 @@ class OrdersController < ApplicationController
   
   # client ends the PAY PROCESS
   # and goes from her email
-  # to ask for CONSULTATION BODY       
+  # to ask for CONSULTATION TEXT       
             
   def c_form_for_get_consult_after_pay                # for ENTER payment data (2 last DIGITS of credit card & PAYMENT DATE) 
     @name = params[:name]
@@ -35,13 +46,15 @@ class OrdersController < ApplicationController
     end  
   end    
   
-  def update_pay_data
-    @order = Order.find(params[:id])
+  def update
     @order.update_attributes(order_params)    
     
     OrderMailer.b_confirm_pay_info_to_psyc_for_check(@order).deliver
-    @order.update      
-    redirect_to '/request_sent/1'     
+    if @order.save
+      redirect_to '/request_sent/1'
+    else
+      redirect_to '/'            
+    end
   end
    
   def d_pay_info_success_sent
@@ -50,8 +63,7 @@ class OrdersController < ApplicationController
 #*********************************************************************************************************************************************  
 
     
-  def change_status_to_payed
-    @order = Order.find(params[:id])
+  def change_status_to_payed    
     @order.payed = true
     @order.akey_payed = nil
     
@@ -63,7 +75,7 @@ class OrdersController < ApplicationController
     
   
   def order_params
-    params.require(:order).permit(:payed, :name, :email, :cool_time1, :cool_time2, :akey, :pay_way, :end_cards, :sum_for_pay, :when_payed, :akey_payed, :able)
+    params.require(:order).permit(:payed, :name, :email, :akey, :end_cards, :sum_for_pay, :when_payed, :akey_payed, :able)
   end  
   
     
@@ -71,6 +83,11 @@ class OrdersController < ApplicationController
   def set_menu
     @menu = Menu.find_by translit:(params[:translit])   # 1)   get menu-record with title == params[:translit]     // like 'lichnaja-zhizn' etc.
     @menu ||= Menu.first                                # 2)   if record not found -> display the first record  
-  end                                                        
+    flash[:translit] = params[:translit]
+  end  
+  
+  def set_order
+    @order = Order.find(params[:id])
+  end                                                      
 end    
   
