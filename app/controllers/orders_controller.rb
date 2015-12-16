@@ -10,10 +10,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.akey = akey
-    @order.akey_payed = akey    
-    
-    flash[:order_name] = @order.name
-    flash[:order_email] = @order.email
+    @order.akey_payed = akey       
             
     if @order.save
       OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
@@ -23,8 +20,19 @@ class OrdersController < ApplicationController
       redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
       
     else  
+      flash[:order_name] = @order.name
+      flash[:order_email] = @order.email    
       flash[:translit] = flash[:translit] || 'lichnaja-zhizn'
-      redirect_to "/about/#{flash[:translit]}"
+      flash[:order_errors] = @order.errors
+      
+      #if cookies are OFF -> show errors in FIRST menu url-case
+      @url = '/about/' + 
+        if flash[:translit]
+          "#{flash[:translit]}"
+        else
+          'lichnaja-zhizn'
+        end        
+      redirect_to "#{@url}"
     end  
   end
 

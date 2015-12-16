@@ -3,7 +3,14 @@
 
 %div
   = form_for @order, action: "create" do |f|
-
+  
+    %div
+      - if flash[:order_errors]
+        - flash[:order_errors].each do |attr, error_msg|
+          - error_msg.each do |msg|
+            %div
+              =msg              
+    
     %div  
       Пожалуйста, введите Ваше имя:    
     %div    
