@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
     @order.akey_payed = akey       
             
     if @order.save
-      #OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
+      OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
       flash.delete(:order_name)
       flash.delete(:order_email)
       flash.delete(:translit)
@@ -58,7 +58,7 @@ class OrdersController < ApplicationController
     @order.update_attributes(order_params)    
     
     if @order.save
-      #OrderMailer.b_confirm_pay_info_to_psyc_for_check(@order).deliver    
+      OrderMailer.b_confirm_pay_info_to_psyc_for_check(@order).deliver    
       flash.delete(:order_name)
       flash.delete(:order_email)
       flash.delete(:translit)    

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217164700) do
+ActiveRecord::Schema.define(version: 20160127172100) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -61,11 +61,16 @@ ActiveRecord::Schema.define(version: 20151217164700) do
 
   create_table "menus", force: :cascade do |t|
     t.string   "title"
-    t.string   "name"
     t.text     "description"
     t.boolean  "able"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+    t.string   "price"
+    t.date     "at_last_price_installed_at"
+    t.string   "link_for_pay_from_ukr_card_with_price"
+    t.date     "at_last_link_for_pay_from_ukr_card_with_price_installed_at"
+    t.string   "ukr_pay_link_without_price"
+    t.string   "name"
     t.string   "translit"
   end
 

@@ -12,5 +12,6 @@ class ApplicationController < ActionController::Base
     key_int.shuffle!    
     key_int.join  
   end   
+
   
 end
