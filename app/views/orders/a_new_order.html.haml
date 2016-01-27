@@ -19,8 +19,12 @@
     %div  
       И E-mail:      
     %div    
-      = f.text_field :email, value: "#{flash[:order_email] || nil}"
-  
+      = f.text_field :email, value: "#{flash[:order_email] || nil}"      
+      - @order.sum_for_pay = @menu.price
+      
     %div       
       = f.submit 'Ok'  
-  
+      
+      
+%div
+  = render partial: 'a_list_of_menus_without_current' 

@@ -4,7 +4,7 @@ class Menu < ActiveRecord::Base
   private
   def translit_menu_title
     res = self.title.clone.to_s
-       
+    2.times do   
     for counter in 0..res.length 
       case res[counter]
       when 'а', 'А'
@@ -17,7 +17,7 @@ class Menu < ActiveRecord::Base
         res[counter] = 'g'  
       when 'д', 'Д'
         res[counter] = 'd'  
-      when 'е', 'Е', 'ё', 'Є', 'є'
+      when 'е', 'Е', 'ё', 'Є', 'є', 'Э', 'э'
         res[counter] = 'e' 
       when 'ж', 'Ж'
         res[counter] = 'zh'  
@@ -73,12 +73,16 @@ class Menu < ActiveRecord::Base
         res[counter] = '-'  
       end      
 
-    for counter in 0..res.length 
-      case res[counter]
-      when ' ' 
-        res[counter] = '-'
+      for counter in 0..res.length 
+        case res[counter]
+        when ' ' 
+          res[counter] = '-'
+        when '.', ',', ' ', '_', 'ь', 'ъ', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '"', "'", '[', ']', '{', '}', "\\", '|', '`', '~', '№', ';', '.', ',' 
+          res[counter] = ''
       end
-    end  
+      
+      res[res.length-1] = '' if res[res.length-1] == '-'        
+    end          
       #minus_qual = 0      
       #if res[counter] == '-'
       #  minus_qual = minus_qual+1
@@ -86,8 +90,8 @@ class Menu < ActiveRecord::Base
       #if minus_qual > 1
       #  res[counter] = ''
       #  minus_qual = 0
-      #end
-      
+      #end      
+    end
     end
     self.translit = res
   end 

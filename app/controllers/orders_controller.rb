@@ -1,16 +1,17 @@
 class OrdersController < ApplicationController
 
-  before_action :set_menu,  only: [:a_new_order]
+  before_action :set_menu, :set_all_menus,  only: [:a_new_order]
   before_action :set_order, only: [:update, :change_status_to_payed]
 
   def a_new_order
-    @order = Order.new
+    @order = Order.new    
   end
   
   def create
     @order = Order.new(order_params)
     @order.akey = akey
-    @order.akey_payed = akey       
+    @order.akey_payed = akey  
+    @order.sum_for_pay = params[:price]    
             
     if @order.save
       OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
@@ -100,6 +101,10 @@ class OrdersController < ApplicationController
     @menu ||= Menu.first                                # 2)   if record not found -> display the first record  
     flash[:translit] = params[:translit]
   end  
+    
+  def set_all_menus
+    @menus = Menu.all
+  end    
   
   def set_order
     @order = Order.find(params[:id])
