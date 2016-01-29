@@ -4,14 +4,13 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:update, :change_status_to_payed]
 
   def a_new_order
-    @order = Order.new    
+    @order = Order.new  
   end
   
   def create
     @order = Order.new(order_params)
     @order.akey = akey
     @order.akey_payed = akey  
-    @order.sum_for_pay = params[:price]    
             
     if @order.save
       OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
@@ -23,7 +22,7 @@ class OrdersController < ApplicationController
     else  
       flash[:order_name] = @order.name
       flash[:order_email] = @order.email    
-      flash[:translit] = flash[:translit] || 'lichnaja-zhizn'
+      flash[:translit] = flash[:translit] || 'lichnaya-zhizn'
       flash[:order_errors] = @order.errors
       
       #if cookies are OFF -> show errors in FIRST menu url-case
@@ -31,7 +30,7 @@ class OrdersController < ApplicationController
         if flash[:translit]
           "#{flash[:translit]}"
         else
-          'lichnaja-zhizn'
+          'lichnaya-zhizn'
         end        
       redirect_to "#{@url}"
     end  

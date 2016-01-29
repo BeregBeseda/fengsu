@@ -20,10 +20,12 @@
       И E-mail:      
     %div    
       = f.text_field :email, value: "#{flash[:order_email] || nil}"      
-      - @order.sum_for_pay = @menu.price
-      
+
+    = f.hidden_field :sum_for_pay, value: "#{@menu.price}"
+
     %div       
-      = f.submit 'Ok'  
+      = f.submit 'Ok'
+
       
       
 %div

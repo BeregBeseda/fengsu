@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
     
   match 'about/:translit',                 to: 'orders#a_new_order',                                via: 'get'  
-  post  '/orders',                        to: 'orders#create'                     # for OrderForm works (path for creating new order)
+  post  '/orders',                         to: 'orders#create'                     # for OrderForm works (path for creating new order)
   match '/click_for_pay',                  to: 'pays#b_page_for_select_pay_way',                    via: 'get'
   
   match '/i_have_payed/:name/:akey/:id',   to: 'orders#c_form_for_get_consult_after_pay',           via: 'get'    
