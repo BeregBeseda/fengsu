@@ -1,0 +1,34 @@
+%form{ "accept-charset" => "utf-8", :action => "https://www.liqpay.com/api/checkout", :method => "POST" }
+
+
+  %input{ :name => "public_key", :type => "hidden", :value => "i35395571497"}/
+  
+  %input{ :name => "amount", :type => "hidden", :value => "1"}/
+
+  %input{ :name => "currency", :type => "hidden", :value => "USD"}/
+
+  %input{ :name => "sandbox", :type => "hidden", :value => "1"}/
+
+  %input{ :name => "result_url", :type => "hidden", :value => "http://fengsu.herokuapp.com/about"}/
+
+  %input{ :name => "server_url", :type => "hidden", :value => "http://fengsu.herokuapp.com"}/
+
+
+
+  %input{ :name => 'card', :type => 'text', :value => "1111222233334444" }/
+  
+  %input{ :name => 'card_exp_month', :type => 'text', :value => "08" }/
+  
+  %input{ :name => 'card_exp_year', :type => 'text', :value => "19" }/
+  
+  %input{ :name => 'card_cvv', :type => 'text', :value => "123" }/
+  
+  %input{ :name => 'email', :type => 'text', :value => "vitalina.liane@gmail.com" }/        
+  
+  
+  %br/
+  %input{ :name => "btn_text", :type => "image", :value => 'С карточки зарубежного банка', }/
+
+
+
+
