@@ -1,3 +1,4 @@
+require 'liqpay'
 class OrdersController < ApplicationController
 
   before_action :set_menu, :set_all_menus,  only: [:a_new_order]
@@ -17,8 +18,40 @@ class OrdersController < ApplicationController
       flash.delete(:order_name)
       flash.delete(:order_email)
       flash.delete(:translit)
-      redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
+      #redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
       
+      ###      
+      #liqpay = Liqpay.new
+      #liqpay.api 'invoice/send', { 
+      #email: "#{@order.email}", 
+      #amount: "#{@order.sum_for_pay}", 
+      #currency: 'UAH',
+      #order_id: "#{@order.akey}",
+      #server_url: '/click_for_pay',
+      #result_url: '/'
+      ##, goods: [{
+      ##              amount: 100,
+      ##              count: 1,
+      ##              unit: 'pcs',
+      ##              name: 'Order' }]
+      #}      
+      ###
+      
+      liqpay = Liqpay::Liqpay.new(
+      :public_key  => 'i35395571497',
+      :private_key => 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
+      )
+      html = liqpay.cnb_form({      
+      :action         => "payment/pay",
+      :version        => '3',
+      #:amount         => "#{@order.sum_for_pay}",
+      :amount         => "1",
+      :currency       => "UAH",
+      :description    => "description text",
+      :order_id       => "#{@order.akey}",
+      server_url: '/click_for_pay',
+      result_url: '/'
+      })      
     else  
       flash[:order_name] = @order.name
       flash[:order_email] = @order.email    
