@@ -1,4 +1,8 @@
-require 'liqpay'
+# encoding: utf-8
+
+require 'base64'
+require 'json'
+
 class OrdersController < ApplicationController
 
   before_action :set_menu, :set_all_menus,  only: [:a_new_order]
@@ -20,38 +24,44 @@ class OrdersController < ApplicationController
       flash.delete(:translit)
       #redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
       
-      ###      
-      #liqpay = Liqpay.new
-      #liqpay.api 'invoice/send', { 
-      #email: "#{@order.email}", 
-      #amount: "#{@order.sum_for_pay}", 
-      #currency: 'UAH',
-      #order_id: "#{@order.akey}",
-      #server_url: '/click_for_pay',
-      #result_url: '/'
-      ##, goods: [{
-      ##              amount: 100,
-      ##              count: 1,
-      ##              unit: 'pcs',
-      ##              name: 'Order' }]
-      #}      
-      ###
-      
+      #LIQPAY      
       liqpay = Liqpay::Liqpay.new(
-      :public_key  => 'i35395571497',
-      :private_key => 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
+        :public_key  => 'i35395571497',
+        :private_key => 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
       )
-      html = liqpay.cnb_form({      
-      :action         => "payment/pay",
-      :version        => '3',
-      #:amount         => "#{@order.sum_for_pay}",
-      :amount         => "1",
-      :currency       => "UAH",
-      :description    => "description text",
-      :order_id       => "#{@order.akey}",
-      server_url: '/click_for_pay',
-      result_url: '/'
-      })      
+      
+      def encode_json(params)
+        JSON.generate(params)
+      end    
+      
+      def encode64(param)
+        (Base64.encode64 param).chomp.delete("\n")
+      end
+
+      def cnb_form_request(params = {}, liqpay)
+        fail "Version can't be empty" if params[:version].nil? or params[:version].empty?
+        language = 'ru'
+        language = params[:language] unless params[:language].nil?
+        params[:public_key] = ::Liqpay.config.public_key
+        json_params = encode64 encode_json params
+        signature = liqpay.cnb_signature params
+            
+        "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
+      end 
+
+      html = cnb_form_request({
+        :version        => '3',
+        :action         => "pay",
+        :amount         => "#{@order.sum_for_pay}",
+        :currency       => "UAH",
+        :description    => "description text",
+        :order_id       => "#{@order.akey}",
+        :server_url     => "http://feng-consult.herokuapp.com/",
+        :result_url     => "http://feng-consult.herokuapp.com/i_have_payed"        
+      }, liqpay)           
+
+      redirect_to html
+      
     else  
       flash[:order_name] = @order.name
       flash[:order_email] = @order.email    
