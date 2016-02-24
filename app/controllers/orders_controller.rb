@@ -55,7 +55,7 @@ class OrdersController < ApplicationController
         :amount         => "#{@order.sum_for_pay}",
         :currency       => "UAH",
         :description    => "description text",
-        :details        => "#{@order.id.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
+        :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :server_url     => "http://feng-consult.herokuapp.com/",
         :result_url     => "http://feng-consult.herokuapp.com/i_have_payed",
         :sandbox        => "1"        
@@ -104,12 +104,18 @@ class OrdersController < ApplicationController
     details = sign[:details]
     order_id_length = ''
     for i in 0..@details.length-1
-      if details[i] in (0..9) 
+      if (0..9).include?(details[i])
         order_id_length += details[i]
       else
         break
       end
     end
+    
+    akey = ''
+    #for i in ((@details.length-1)-order_id_length.to_i)..(@details.length-1)
+    for i in order_id_length.length..(((@details.length-1)-order_id_length.to_i)-1)
+       akey += @details[i]
+    end    
     
     order_id = ''
     for i in ((@details.length-1)-order_id_length.to_i)..(@details.length-1)
@@ -118,13 +124,18 @@ class OrdersController < ApplicationController
     
     
     
-    @name = params[:name]
-    @id = params[:id]
-    @akey = params[:akey]
-    if Order.where(id: @id).empty? or Order.find(@id).akey != @akey
+    #@name = params[:name]
+    #@id = params[:id]
+    #@akey = params[:akey]
+    
+    unless details[:status] == 'sandbox'
       redirect_to '/'
+    end
+    
+    if Order.where(id: order_id).empty? or Order.find(order_id).akey != akey
+      redirect_to '/about/lichnaya-zhizn'
     else
-      @order = Order.find(@id)
+      @order = Order.find(order_id)
     end  
   end    
   
