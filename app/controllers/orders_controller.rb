@@ -26,8 +26,8 @@ class OrdersController < ApplicationController
       
       #LIQPAY      
       liqpay = Liqpay::Liqpay.new(
-        :public_key  => 'i35395571497',
-        :private_key => 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
+        :public_key  => ::Liqpay.config.public_key,
+        :private_key => ::Liqpay.config.private_key
       )
       
       def encode_json(params)
@@ -55,9 +55,10 @@ class OrdersController < ApplicationController
         :amount         => "#{@order.sum_for_pay}",
         :currency       => "UAH",
         :description    => "description text",
-        :order_id       => "#{@order.akey}",
+        :details        => "#{@order.id.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :server_url     => "http://feng-consult.herokuapp.com/",
-        :result_url     => "http://feng-consult.herokuapp.com/i_have_payed"        
+        :result_url     => "http://feng-consult.herokuapp.com/i_have_payed",
+        :sandbox        => "1"        
       }, liqpay)           
 
       redirect_to html
@@ -82,11 +83,41 @@ class OrdersController < ApplicationController
 #*********************************************************************************************************************************************  
   
   
-  # client ends the PAY PROCESS
-  # and goes from her email
-  # to ask for CONSULTATION TEXT       
+  # client ends the PAY PROCESS [SUCCESSFUL]
+  # and want to get email with ACCESS INFO
             
   def c_form_for_get_consult_after_pay                # for ENTER payment data (2 last DIGITS of credit card & PAYMENT DATE) 
+    data = params[:data]
+    signature = params[:signature]
+    
+      liqpay = Liqpay::Liqpay.new(
+        :public_key  => ::Liqpay.config.public_key,
+        :private_key => ::Liqpay.config.private_key
+      )   
+
+    sign = liqpay.str_to_sign(
+      ::Liqpay.config.private_key + 
+      data +
+      ::Liqpay.config.private_key
+    )
+    
+    details = sign[:details]
+    order_id_length = ''
+    for i in 0..@details.length-1
+      if details[i] in (0..9) 
+        order_id_length += details[i]
+      else
+        break
+      end
+    end
+    
+    order_id = ''
+    for i in ((@details.length-1)-order_id_length.to_i)..(@details.length-1)
+       order_id += @details[i]
+    end
+    
+    
+    
     @name = params[:name]
     @id = params[:id]
     @akey = params[:akey]
