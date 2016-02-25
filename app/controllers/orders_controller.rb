@@ -1,7 +1,7 @@
 # encoding: utf-8
 
+require 'json'
 
-require 'base64'
 
 class OrdersController < ApplicationController
 
@@ -30,9 +30,9 @@ class OrdersController < ApplicationController
         :private_key => ::Liqpay.config.private_key
       )
       
-      def encode64(param)
-        (Base64.encode64 param).chomp.delete("\n")
-      end              
+      def encode_json(params)
+        JSON.generate(params)
+      end          
 
       redirect_to '/'
       
