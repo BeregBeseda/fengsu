@@ -32,11 +32,7 @@ class OrdersController < ApplicationController
       
       def encode_json(params)
         JSON.generate(params)
-      end    
-      
-      def encode64(param)
-        (Base64.encode64 param).chomp.delete("\n")
-      end
+      end          
 
       redirect_to '/'
       
