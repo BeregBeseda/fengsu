@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: ca94d1ccb1894ccbaedc40f6a6b948d1423b90bb
+  revision: f7483e3b8fcd74437b03c18fb658dac62a9fc62e
   specs:
     activeadmin (1.0.0.pre2)
       arbre (~> 1.0, >= 1.0.2)
@@ -15,10 +15,11 @@ GIT
       rails (>= 3.2, < 5.0)
       ransack (~> 1.3)
       sass-rails
+      sprockets (< 4)
 
 GIT
   remote: git://github.com/liqpay/sdk-ruby.git
-  revision: 3cbb88e3dfcdd4d7c0bbd0c7e0284f4df13dcfd2
+  revision: 2970cc6a376835e84bfb812e3d9f5c7a108f5f71
   specs:
     liqpay (0.0.1)
 
@@ -71,7 +72,7 @@ GEM
       sass (~> 3.4)
       thor (~> 0.19)
     builder (3.2.2)
-    byebug (8.2.1)
+    byebug (8.2.2)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -81,7 +82,7 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
-    devise (3.5.5)
+    devise (3.5.6)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -103,7 +104,7 @@ GEM
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
-    heroku (3.42.31)
+    heroku (3.42.37)
       heroku-api (= 0.3.23)
       launchy (= 2.4.3)
       multi_json (= 1.11.2)
@@ -121,7 +122,7 @@ GEM
       has_scope (~> 0.6.0.rc)
       railties (>= 3.2, < 5)
       responders
-    jbuilder (2.4.0)
+    jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     jquery-rails (4.1.0)
@@ -151,7 +152,7 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
-    passenger (5.0.23)
+    passenger (5.0.25)
       rack
       rake (>= 0.8.1)
     pg (0.18.4)
@@ -191,7 +192,7 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
-    rdoc (4.2.1)
+    rdoc (4.2.2)
       json (~> 1.4)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
@@ -209,11 +210,11 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    spring (1.6.2)
+    spring (1.6.3)
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.0.0)
+    sprockets-rails (3.0.2)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
@@ -228,9 +229,9 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    warden (1.2.4)
+    warden (1.2.6)
       rack (>= 1.0)
-    web-console (2.2.1)
+    web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
@@ -249,6 +250,7 @@ DEPENDENCIES
   heroku
   jbuilder (~> 2.0)
   jquery-rails
+  json (~> 1.8, >= 1.8.3)
   liqpay!
   mail
   passenger
@@ -263,4 +265,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

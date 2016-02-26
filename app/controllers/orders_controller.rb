@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require 'base64'
 require 'json'
 
 
@@ -32,7 +33,15 @@ class OrdersController < ApplicationController
       
       def encode_json(params)
         JSON.generate(params)
-      end          
+      end    
+      
+      def encode64(param)
+        (Base64.encode64 param).chomp.delete("\n")
+      end
+            
+        "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
+      end 
+      
 
       redirect_to '/'
       
