@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
       flash.delete(:translit)
       #redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
       
-      #LIQPAY      
+      ###LIQPAY      
       liqpay = Liqpay::Liqpay.new(
         :public_key  => ::Liqpay.config.public_key,
         :private_key => ::Liqpay.config.private_key
