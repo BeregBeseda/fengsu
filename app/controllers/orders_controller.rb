@@ -45,7 +45,7 @@ class OrdersController < ApplicationController
         fail "Version can't be empty" if params[:version].nil? or params[:version].empty?
         language = 'ru'
         language = params[:language] unless params[:language].nil?
-        params[:public_key] = ::Liqpay.config.public_key       
+        params[:public_key] = ''
       #  json_params = encode64 encode_json params
       #  signature = liqpay.cnb_signature params
             
