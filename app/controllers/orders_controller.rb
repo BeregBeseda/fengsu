@@ -27,8 +27,10 @@ class OrdersController < ApplicationController
       
       ###LIQPAY      
       liqpay = Liqpay::Liqpay.new(
-        :public_key  => ::Liqpay.config.public_key,
-        :private_key => ::Liqpay.config.private_key
+        :public_key  => ''
+        :private_key => ''
+        #:public_key  => ::Liqpay.config.public_key,
+        #:private_key => ::Liqpay.config.private_key
       )
       
       #def encode_json(params)
