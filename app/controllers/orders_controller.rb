@@ -48,7 +48,20 @@ class OrdersController < ApplicationController
         #signature = liqpay.cnb_signature params
             
         "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
-      end 
+      end
+      
+      html = cnb_form_request({
+        :version        => '3',
+        :action         => "pay",
+        :amount         => "#{@order.sum_for_pay}",
+        :currency       => "UAH",
+        :description    => "description text",
+        :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
+        :server_url     => "http://feng-consult.herokuapp.com/",
+        :result_url     => "http://feng-consult.herokuapp.com/i_have_payed",
+        :sandbox        => "1"        
+      }, liqpay)           
+       
       
       #  "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
       #end 
