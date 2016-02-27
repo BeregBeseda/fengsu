@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-require 'base64'
-require 'json'
+#require 'base64'
+#require 'json'
 
 
 class OrdersController < ApplicationController
@@ -31,13 +31,13 @@ class OrdersController < ApplicationController
         :private_key => ::Liqpay.config.private_key
       )
       
-      def encode_json(params)
-        JSON.generate(params)
-      end    
+      #def encode_json(params)
+      #  JSON.generate(params)
+      #end    
       
-      def encode64(param)
-        (Base64.encode64 params).chomp.delete("\n")
-      end
+      #def encode64(param)
+      #  (Base64.encode64 params).chomp.delete("\n")
+      #end
       
       def cnb_form_request(params = {}, liqpay)
         fail "Version can't be empty" if params[:version].nil? or params[:version].empty?
