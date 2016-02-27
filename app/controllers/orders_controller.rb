@@ -36,7 +36,7 @@ class OrdersController < ApplicationController
       end    
       
       def encode64(param)
-        (Base64::encode64 param).chomp.delete("\n")
+        (Base64.encode64 param).chomp.delete("\n")
       end
       
       def cnb_form_request(params = {}, liqpay)
@@ -62,7 +62,7 @@ class OrdersController < ApplicationController
         :sandbox        => "1"        
       }, liqpay)                              
 
-      redirect_to 'html'
+      redirect_to html
       
     else  
       flash[:order_name] = @order.name
