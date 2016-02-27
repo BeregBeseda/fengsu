@@ -36,10 +36,10 @@ class OrdersController < ApplicationController
       #end    
       
       #def encode64(param)
-      #  (Base64.encode64 params).chomp.delete("\n")
+      	#  (Base64.encode64 params).chomp.delete("\n")
       #end
       
-      def cnb_form_request(params = {}, liqpay)
+      def cnb_form_request(params = {})
         fail "Version can't be empty" if params[:version].nil? or params[:version].empty?
         language = 'ru'
         language = params[:language] unless params[:language].nil?
@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
         :server_url     => "http://feng-consult.herokuapp.com/",
         :result_url     => "http://feng-consult.herokuapp.com/i_have_payed",
         :sandbox        => "1"        
-      }, liqpay)                              
+      })                              
 
       #redirect_to html
       redirect_to '/'
