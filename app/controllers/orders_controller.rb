@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
         :server_url     => "http://feng-consult.herokuapp.com/",
         :result_url     => "http://feng-consult.herokuapp.com/i_have_payed",
         :sandbox        => "1"        
-      })                              
+      }, liqpay)                              
 
       #redirect_to html
       redirect_to '/'
