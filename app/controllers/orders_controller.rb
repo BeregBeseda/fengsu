@@ -36,7 +36,7 @@ class OrdersController < ApplicationController
       end    
       
       def encode64(param)
-        (Base64.encode64 param).chomp.delete("\n")
+        (Base64.encode64 param)
       end
       
       def cnb_form_request(params = {}, liqpay)
