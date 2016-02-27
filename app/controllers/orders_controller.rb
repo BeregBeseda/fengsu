@@ -35,9 +35,9 @@ class OrdersController < ApplicationController
         JSON.generate(params)
       end    
       
-      #def encode64(param)
-      #  (Base64.encode64 param).chomp.delete("\n")
-      #end
+      def encode64(param)
+        (Base64.encode64 param).chomp.delete("\n")
+      end
       
       def cnb_form_request(params = {}, liqpay)
         fail "Version can't be empty" if params[:version].nil? or params[:version].empty?
@@ -45,9 +45,9 @@ class OrdersController < ApplicationController
         language = params[:language] unless params[:language].nil?
         params[:public_key] = ::Liqpay.config.public_key
         json_params = encode64 encode_json params
-        #signature = liqpay.cnb_signature params
+        signature = liqpay.cnb_signature params
             
-        #"https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
+        "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
       end
       
       html = cnb_form_request({
