@@ -36,8 +36,7 @@ class OrdersController < ApplicationController
       end    
       
       def encode64(param)
-        JSON.generate(params)
-        #(Base64.encode64 params).chomp.delete("\n")
+        (Base64.encode64 params).chomp.delete("\n")
       end
       
       def cnb_form_request(params = {}, liqpay)
@@ -45,7 +44,7 @@ class OrdersController < ApplicationController
         language = 'ru'
         language = params[:language] unless params[:language].nil?
         params[:public_key] = ::Liqpay.config.public_key       
-        json_params = encode64 encode_json params
+        json_params = encode_json params
         signature = liqpay.cnb_signature params
             
         "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
