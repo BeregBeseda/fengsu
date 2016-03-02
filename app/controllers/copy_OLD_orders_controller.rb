@@ -1,5 +1,8 @@
 # encoding: utf-8
 
+require 'base64'
+require 'json'
+
 class OrdersController < ApplicationController
 
   before_action :set_menu, :set_all_menus,  only: [:a_new_order]
@@ -20,42 +23,46 @@ class OrdersController < ApplicationController
       flash.delete(:order_email)
       flash.delete(:translit)
       #redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
-
-
-      ###LIQPAY      
-      liqpay = Liqpay::Liqpay.new(
-        :public_key  => 'i35395571497',
-        :private_key => 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
-      )    
-    
+      
+      #LIQPAY      
+      liqpay = Liqpay::Liqpay.new(      
+        :public_key  => ::Liqpay.config.public_key,
+        :private_key => ::Liqpay.config.private_key
+      )
+      
       def encode_json(params)
         JSON.generate(params)
       end    
-    
-      def encode64(params)
-        (Base64.encode64 params).chomp.delete("\n")
-      end
-    
-      def cnb_form_request(params = {}, liqpay)
-        params[:public_key] = 'i35395571497'
-        json_params = encode64 encode_json params
-        signature = liqpay.cnb_signature params            
-       "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
-      end
       
+      def encode64(param)
+        (Base64.encode64 param).chomp.delete("\n")
+      end
+
+      def cnb_form_request(params = {}, liqpay)
+        fail "Version can't be empty" if params[:version].nil? or params[:version].empty?
+        language = 'ru'
+        language = params[:language] unless params[:language].nil?
+        params[:public_key] = ::Liqpay.config.public_key
+        json_params = encode64 encode_json params
+        signature = liqpay.cnb_signature params
+            
+        "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
+      end 
+
       html = cnb_form_request({
         :version        => '3',
-        :action         => 'pay',
+        :action         => "pay",
         :amount         => "#{@order.sum_for_pay}",
-        :currency       => 'UAH',
-        :description    => 'description text',
+        :currency       => "UAH",
+        :description    => "description text",
         :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :server_url     => "http://feng-consult.herokuapp.com/",
         :result_url     => "http://feng-consult.herokuapp.com/i_have_payed",
-        :sandbox        => '1'        
-      }, liqpay)                                  
+        :sandbox        => "1"        
+      }, liqpay)           
 
-      redirect_to html      
+      redirect_to html
+      
     else  
       flash[:order_name] = @order.name
       flash[:order_email] = @order.email    

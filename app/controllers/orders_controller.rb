@@ -1,9 +1,5 @@
 # encoding: utf-8
 
-#require 'base64'
-#require 'json'
-
-
 class OrdersController < ApplicationController
 
   before_action :set_menu, :set_all_menus,  only: [:a_new_order]
@@ -24,50 +20,42 @@ class OrdersController < ApplicationController
       flash.delete(:order_email)
       flash.delete(:translit)
       #redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
-      
+
+
       ###LIQPAY      
       liqpay = Liqpay::Liqpay.new(
-        :public_key  => ''
-        :private_key => ''
-        #:public_key  => ::Liqpay.config.public_key,
-        #:private_key => ::Liqpay.config.private_key
-      )
-      
-      #def encode_json(params)
-      #  JSON.generate(params)
-      #end    
-      
-      #def encode64(param)
-      #  (Base64.encode64 params).chomp.delete("\n")
-      #end
-      
-      #def cnb_form_request(params = {})
-      #  fail "Version can't be empty" if params[:version].nil? or params[:version].empty?
-      #  language = 'ru'
-      #  language = params[:language] unless params[:language].nil?
-      #  params[:public_key] = ''
-      #  json_params = encode64 encode_json params
-      #  signature = liqpay.cnb_signature params
-            
-      #  "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
+        :public_key  => 'i35395571497',
+        :private_key => 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
+      )    
+    
+      def encode_json(params)
+        JSON.generate(params)
+      end    
+    
+      def encode64(params)
+        (Base64.encode64 params).chomp.delete("\n")
+      end
+    
+      def cnb_form_request(params = {}, liqpay)
+        params[:public_key] = 'i35395571497'
+        json_params = encode64 encode_json params
+        signature = liqpay.cnb_signature params            
+       "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
       end
       
       html = cnb_form_request({
         :version        => '3',
-        :action         => "pay",
+        :action         => 'pay',
         :amount         => "#{@order.sum_for_pay}",
-        :currency       => "UAH",
-        :description    => "description text",
+        :currency       => 'UAH',
+        :description    => 'description text',
         :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :server_url     => "http://feng-consult.herokuapp.com/",
         :result_url     => "http://feng-consult.herokuapp.com/i_have_payed",
-        :sandbox        => "1"        
-      #}, liqpay)                              
-      })
+        :sandbox        => '1'        
+      }, liqpay)                                  
 
-      #redirect_to html
-      redirect_to '/'
-      
+      redirect_to html      
     else  
       flash[:order_name] = @order.name
       flash[:order_email] = @order.email    
@@ -92,56 +80,6 @@ class OrdersController < ApplicationController
   # and want to get email with ACCESS INFO
             
   def c_form_for_get_consult_after_pay                # for ENTER payment data (2 last DIGITS of credit card & PAYMENT DATE) 
-    data = params[:data]
-    signature = params[:signature]
-    
-      liqpay = Liqpay::Liqpay.new(
-        :public_key  => ::Liqpay.config.public_key,
-        :private_key => ::Liqpay.config.private_key
-      )   
-
-    sign = liqpay.str_to_sign(
-      ::Liqpay.config.private_key + 
-      data +
-      ::Liqpay.config.private_key
-    )
-    
-    details = sign[:details]
-    order_id_length = ''
-    for i in 0..@details.length-1
-      if (0..9).include?(details[i])
-        order_id_length += details[i]
-      else
-        break
-      end
-    end
-    
-    akey = ''
-    #for i in ((@details.length-1)-order_id_length.to_i)..(@details.length-1)
-    for i in order_id_length.length..(((@details.length-1)-order_id_length.to_i)-1)
-       akey += @details[i]
-    end    
-    
-    order_id = ''
-    for i in ((@details.length-1)-order_id_length.to_i)..(@details.length-1)
-       order_id += @details[i]
-    end
-    
-    
-    
-    #@name = params[:name]
-    #@id = params[:id]
-    #@akey = params[:akey]
-    
-    unless details[:status] == 'sandbox'
-      redirect_to '/'
-    end
-    
-    if Order.where(id: order_id).empty? or Order.find(order_id).akey != akey
-      redirect_to '/about/lichnaya-zhizn'
-    else
-      @order = Order.find(order_id)
-    end  
   end    
   
   def update
