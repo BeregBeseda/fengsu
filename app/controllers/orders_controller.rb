@@ -48,14 +48,17 @@ class OrdersController < ApplicationController
         :action         => 'pay',
         :amount         => "#{@order.sum_for_pay}",
         :currency       => 'UAH',
-        :description    => 'description text',
+        :description    => 'Description_of_pay_status'
+        #:description    => "zakaz_na_summu_#{@order.sum_for_pay}_oplachen_vvvvvvvvvvv_id_clienta_is_#{@order.id}_vvvvvvvvvvv_akey_clienta_is_#{@order.akey}",
+        #:details        => "zakaz_na_summu_#{@order.sum_for_pay}_oplachen_vvvvvvvvvvv_id_clienta_is_#{@order.id}_vvvvvvvvvvv_akey_clienta_is_#{@order.akey}",
         :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
-        :server_url     => "http://feng-consult.herokuapp.com/",
-        :result_url     => "http://feng-consult.herokuapp.com/i_have_payed",
+        :server_url     => "http://feng-consult.herokuapp.com/i_have_payed",
+        :result_url     => "http://feng-consult.herokuapp.com/",
         :sandbox        => '1'        
       }, liqpay)                                  
 
-      redirect_to html      
+      redirect_to html     
+       
     else  
       flash[:order_name] = @order.name
       flash[:order_email] = @order.email    
@@ -80,6 +83,31 @@ class OrdersController < ApplicationController
   # and want to get email with ACCESS INFO
             
   def c_form_for_get_consult_after_pay                # for ENTER payment data (2 last DIGITS of credit card & PAYMENT DATE) 
+    liqpay = Liqpay::Liqpay.new(
+      :public_key  => 'i35395571497',
+      :private_key => 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
+    )    
+    
+    sign = liqpay.str_to_sign(
+    #'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ' + 
+    PRIVATE_KEY
+    params[:data] +
+    PRIVATE_KEY
+    #'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'    
+    )
+    
+    if sign == params[:signature]
+      flash[:notice] = 'cool`response'
+      if params[:status] == 'success' or params[:status] == 'sandbox'
+        flash[:notice] += '& success|sandbox result'
+      else
+        flash[:notice] += '& FAIL result'  
+      end  
+    else
+      flash[:notice] = 'ERROR'
+    end  
+      
+    redirect_to '/'
   end    
   
   def update
