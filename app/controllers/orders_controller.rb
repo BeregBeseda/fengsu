@@ -84,15 +84,18 @@ class OrdersController < ApplicationController
   # and want to get email with ACCESS INFO
             
   def c_form_for_get_consult_after_pay                # for ENTER payment data (2 last DIGITS of credit card & PAYMENT DATE) 
+    public_key = 'i35395571497'
+    private_key = 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
+    
     liqpay = Liqpay::Liqpay.new(
-      :public_key  => 'i35395571497',
-      :private_key => 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
+      :public_key  => public_key,
+      :private_key => private_key
     )    
     
     sign = liqpay.str_to_sign(
-    PRIVATE_KEY +
+    private_key +
     params[:data] +
-    PRIVATE_KEY
+    private_key
 
     )
     
