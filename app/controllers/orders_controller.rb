@@ -46,9 +46,10 @@ class OrdersController < ApplicationController
       html = cnb_form_request({
         :version        => '3',
         :action         => 'pay',
-        :amount         => "#{@order.sum_for_pay}",
+        #:amount         => "#{@order.sum_for_pay}",
+        :amount         => '1',
         :currency       => 'UAH',
-        :description    => 'Description_of_pay_status'
+        :description    => 'Description_of_pay_status',
         #:description    => "zakaz_na_summu_#{@order.sum_for_pay}_oplachen_vvvvvvvvvvv_id_clienta_is_#{@order.id}_vvvvvvvvvvv_akey_clienta_is_#{@order.akey}",
         #:details        => "zakaz_na_summu_#{@order.sum_for_pay}_oplachen_vvvvvvvvvvv_id_clienta_is_#{@order.id}_vvvvvvvvvvv_akey_clienta_is_#{@order.akey}",
         :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
@@ -89,16 +90,15 @@ class OrdersController < ApplicationController
     )    
     
     sign = liqpay.str_to_sign(
-    #'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ' + 
-    PRIVATE_KEY
+    PRIVATE_KEY +
     params[:data] +
     PRIVATE_KEY
-    #'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'    
+
     )
     
     if sign == params[:signature]
       flash[:notice] = 'cool`response'
-      if params[:status] == 'success' or params[:status] == 'sandbox'
+      if params[:data][:status] == 'success' or params[:data][:status] == 'sandbox'
         flash[:notice] += '& success|sandbox result'
       else
         flash[:notice] += '& FAIL result'  
