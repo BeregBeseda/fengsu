@@ -88,7 +88,7 @@ class OrdersController < ApplicationController
     private_key = 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
     data = params[:data]
      
-    data_hash = decode_json decode64 data
+    data_hash = decode_json data
     #data_hash = decode_json data  
         
     liqpay = Liqpay::Liqpay.new(
