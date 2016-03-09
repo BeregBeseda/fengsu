@@ -95,19 +95,19 @@ class OrdersController < ApplicationController
     
     sign = liqpay.str_to_sign(
     private_key +
-    params[:data] +
+    data +
     private_key
     )
     
     if sign == params[:signature]
-      flash[:notice] = 'cool`SIGN response'
-      #if data.status == 'success' or data.status == 'sandbox' 
-      #  flash[:notice] += '& success|sandbox result'
-      #else
-      #  flash[:notice] += '& FAIL result'  
-      #end  
+      flash[:notice] = 'cool` response'
+      if data.status == 'success' or data.status == 'sandbox' 
+        flash[:notice] += '& success|sandbox result'
+      else
+        flash[:notice] += '& FAIL result'  
+      end  
     else
-      flash[:notice] = 'sign ERROR'
+      flash[:notice] = 'ERROR'
     end  
       
     redirect_to '/'
