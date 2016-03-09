@@ -86,7 +86,8 @@ class OrdersController < ApplicationController
   def c_form_for_get_consult_after_pay                # for ENTER payment data (2 last DIGITS of credit card & PAYMENT DATE) 
     public_key = 'i35395571497'
     private_key = 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
-    
+    data = params[:data]
+        
     liqpay = Liqpay::Liqpay.new(
       :public_key  => public_key,
       :private_key => private_key
@@ -98,16 +99,16 @@ class OrdersController < ApplicationController
     private_key
     )
     
-    #if sign == params[:signature]
-    #  flash[:notice] = 'cool`response'
-    #  if params[:data][:status] == 'success' or params[:data][:status] == 'sandbox'
-    #    flash[:notice] += '& success|sandbox result'
-    #  else
-    #    flash[:notice] += '& FAIL result'  
-    #  end  
-    #else
-    #  flash[:notice] = 'ERROR'
-    #end  
+    if sign == params[:signature]
+      flash[:notice] = 'cool`SIGN response'
+      #if data.status == 'success' or data.status == 'sandbox'
+      #  flash[:notice] += '& success|sandbox result'
+      #else
+      #  flash[:notice] += '& FAIL result'  
+      #end  
+    else
+      flash[:notice] = 'sign ERROR'
+    end  
       
     redirect_to '/'
   end    
