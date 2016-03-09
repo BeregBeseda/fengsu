@@ -101,7 +101,7 @@ class OrdersController < ApplicationController
     
     if sign == params[:signature]
       flash[:notice] = 'cool`SIGN response'
-      #if data.status == 'success' or data.status == 'sandbox'
+      #if data.status == 'success' or data.status == 'sandbox' 
       #  flash[:notice] += '& success|sandbox result'
       #else
       #  flash[:notice] += '& FAIL result'  
