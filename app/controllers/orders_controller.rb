@@ -87,6 +87,9 @@ class OrdersController < ApplicationController
     public_key = 'i35395571497'
     private_key = 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
     data = params[:data]
+     
+    data_hash = decode_json decode64 data
+    #data_hash = decode_json data  
         
     liqpay = Liqpay::Liqpay.new(
       :public_key  => public_key,
@@ -97,11 +100,11 @@ class OrdersController < ApplicationController
     private_key +
     data +
     private_key
-    )
+    )       
     
     if sign == params[:signature]
       flash[:notice] = 'cool` response'
-      if data.status == 'success' or data.status == 'sandbox' 
+      if data_hash.status == 'success' or data_hash.status == 'sandbox' 
         flash[:notice] += '& success|sandbox result'
       else
         flash[:notice] += '& FAIL result'  
