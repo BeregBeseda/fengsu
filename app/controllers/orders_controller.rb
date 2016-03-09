@@ -99,16 +99,16 @@ class OrdersController < ApplicationController
 
     )
     
-    if sign == params[:signature]
-      flash[:notice] = 'cool`response'
-      if params[:data][:status] == 'success' or params[:data][:status] == 'sandbox'
-        flash[:notice] += '& success|sandbox result'
-      else
-        flash[:notice] += '& FAIL result'  
-      end  
-    else
-      flash[:notice] = 'ERROR'
-    end  
+    #if sign == params[:signature]
+    #  flash[:notice] = 'cool`response'
+    #  if params[:data][:status] == 'success' or params[:data][:status] == 'sandbox'
+    #    flash[:notice] += '& success|sandbox result'
+    #  else
+    #    flash[:notice] += '& FAIL result'  
+    #  end  
+    #else
+    #  flash[:notice] = 'ERROR'
+    #end  
       
     redirect_to '/'
   end    
