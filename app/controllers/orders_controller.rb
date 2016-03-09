@@ -88,7 +88,8 @@ class OrdersController < ApplicationController
     private_key = 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
     data = params[:data]
      
-    data_hash = JSON.parse(data, :quirks_mode => true)
+    #data_hash = JSON.parse(data, :quirks_mode => true)
+    data_hash = JSON.parse([ "#{data}" ].to_json).first
         
     liqpay = Liqpay::Liqpay.new(
       :public_key  => public_key,
