@@ -1,5 +1,7 @@
 Rails.application.routes.draw do                
   match '/',                               to: 'menus#index',                                       via: 'get'  
+  post '/',                                to: 'menus#index'           
+  
   match 'about/',                          to: 'menus#index',                                       via: 'get'          
   
     

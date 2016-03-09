@@ -96,7 +96,6 @@ class OrdersController < ApplicationController
     private_key +
     params[:data] +
     private_key
-
     )
     
     #if sign == params[:signature]
