@@ -86,12 +86,13 @@ class OrdersController < ApplicationController
   def c_form_for_get_consult_after_pay                # for ENTER payment data (2 last DIGITS of credit card & PAYMENT DATE) 
     public_key = 'i35395571497'
     private_key = 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
-    
-    data = params[:data]     
+        
     #data_hash = JSON.parse(data, :quirks_mode => true)
     #data_hash = JSON.parse([ "#{data}" ].to_json).first
-    data_decoded64 = Base64.decode64(data)
-    data_hash = JSON.parse(data_decoded64)
+    data = params[:data]     
+    data_json = Base64.decode64(data)
+    data_string = JSON.parse(data_json)
+    data_hash = eval(data_string)
         
     liqpay = Liqpay::Liqpay.new(
       :public_key  => public_key,
@@ -105,17 +106,14 @@ class OrdersController < ApplicationController
     )       
     
     # Ok, SIGN is eq to SIGNATURE
-    ####
-    #if sign == params[:signature]
-    #  redirect_to '/about/sign_is_signature'
-    #end  
-    
-    #if data_hash[:status] == 'success' or data_hash[:status] == 'sandbox' 
-    #  redirect_to '/about/status_is_defined'
-    #else
-    #  redirect_to "/#{data_hash[:status]}"
-    #end       
-    redirect_to "/#{data_hash}"
+    ###
+    if sign == params[:signature]
+      if data_hash[:status] == 'success' or data_hash[:status] == 'sandbox' 
+        redirect_to '/about/sign_is_signature_and_status_is_defined'
+      else
+        redirect_to '/about/sign_is_signature_BUT_status_is_NOT_defined'
+      end  
+    end       
   end    
   
   def update
