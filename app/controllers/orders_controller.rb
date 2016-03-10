@@ -105,12 +105,14 @@ class OrdersController < ApplicationController
     )       
     
     if sign == params[:signature]
-      if data_hash[:status] == 'success' or data_hash[:status] == 'sandbox' 
-        redirect_to 'http://localhost:3000/about/izbavitsya-ot-privychki-kurit-pereedat-i-td'
-      end  
-    else
-      redirect_to '/'
-    end           
+      redirect_to '/about/sign_is_signature'
+    end  
+    
+    if data_hash[:status] == 'success' or data_hash[:status] == 'sandbox' 
+      redirect_to '/about/status_is_defined'
+    end
+        
+    redirect_to '/nothing'    
   end    
   
   def update
