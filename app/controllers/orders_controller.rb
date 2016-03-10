@@ -90,9 +90,8 @@ class OrdersController < ApplicationController
     #data_hash = JSON.parse(data, :quirks_mode => true)
     #data_hash = JSON.parse([ "#{data}" ].to_json).first
     data = params[:data]     
-    data_json = Base64.decode64(data)
-    #data_string = JSON.parse(data_json)
-    data_hash = JSON.decode(data_json)
+    data_json = Base64.decode64(data)    
+    data_hash = JSON.parse(data_json)
     #data_hash = eval(data_string)
         
     liqpay = Liqpay::Liqpay.new(
