@@ -104,15 +104,16 @@ class OrdersController < ApplicationController
     private_key
     )       
     
-    if sign == params[:signature]
-      redirect_to '/about/sign_is_signature'
-    end  
+    # Ok, SIGN is eq to SIGNATURE
+    #if sign == params[:signature]
+    #  redirect_to '/about/sign_is_signature'
+    #end  
     
     if data_hash[:status] == 'success' or data_hash[:status] == 'sandbox' 
       redirect_to '/about/status_is_defined'
-    end
-        
-    redirect_to '/nothing'    
+    else
+      redirect_to '/status_is_not_defined'          
+    end       
   end    
   
   def update
