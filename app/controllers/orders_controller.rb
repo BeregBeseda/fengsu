@@ -108,7 +108,7 @@ class OrdersController < ApplicationController
     # Ok, SIGN is eq to SIGNATURE
     ###
     if sign == params[:signature]
-      if data_hash[:status] == 'success' or data_hash[:status] == 'sandbox' 
+      if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
         redirect_to '/about/sign_is_signature_and_status_is_defined'
       else
         redirect_to '/about/sign_is_signature_BUT_status_is_NOT_defined'
