@@ -105,17 +105,12 @@ class OrdersController < ApplicationController
     )       
     
     if sign == params[:signature]
-      flash[:notice] = 'cool` response'
       if data_hash[:status] == 'success' or data_hash[:status] == 'sandbox' 
-        flash[:notice] = flash[:notice] + '& success|sandbox result'
-      else
-        flash[:notice] = flash[:notice] + '& FAIL result'  
+        redirect_to 'http://localhost:3000/about/izbavitsya-ot-privychki-kurit-pereedat-i-td'
       end  
     else
-      flash[:notice] = 'ERROR'
-    end  
-      
-    redirect_to '/'
+      redirect_to '/'
+    end           
   end    
   
   def update
