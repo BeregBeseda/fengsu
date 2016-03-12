@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127172100) do
+ActiveRecord::Schema.define(version: 20160312173204) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -95,6 +95,25 @@ ActiveRecord::Schema.define(version: 20160127172100) do
     t.string   "when_payed"
     t.string   "akey_payed"
     t.boolean  "able",        default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer  "number_of_question"
+    t.string   "title"
+    t.integer  "test_id"
+    t.integer  "to_ill_group_point_for_yes"
+    t.integer  "to_ill_group_point_for_no"
+    t.integer  "to_good_group_point_for_yes"
+    t.integer  "to_good_group_point_for_no"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.integer  "number_of_test"
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

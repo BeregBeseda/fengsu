@@ -47,7 +47,8 @@ GROUPS_CONTROLLER def AddToGroup:
 ______ 
  
 FORM for enter more info:
-1..n)I want ...
+1..n)I want girl with blue eyes 
+   n+1) and long hair
 
 
  
