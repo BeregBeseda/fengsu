@@ -11,16 +11,20 @@ class TestsController < ApplicationController
       @yes = "/test/#{params[:number].to_i + 1}/#{params[:ill_group].to_i + ill_yes}/#{params[:good_group].to_i + good_yes}/#{params[:order_id]}/#{params[:order_akey]}"
       @no = "/test/#{params[:number].to_i + 1}/#{params[:ill_group].to_i + ill_no}/#{params[:good_group].to_i + good_no}/#{params[:order_id]}/#{params[:order_akey]}"      
     else
-      
-      if params[:ill_group].to_i > 0 and params[:good_group].to_i > 1
-        result = 'Client to good group'
+      @order = Order.find(params[:order_id])
+      if @order and @order.akey == params[:order_akey]        
+        if params[:ill_group].to_i > 0 and params[:good_group].to_i > 1
+          result = 'Client has gone to good group'
+        else
+          result = 'Client has gone to ill group'
+        end
+        flash[:notice] = 'Test has ended successful. ' + result      
       else
-        result = 'Client to ill group'
-      end
-      
-      #flash[:notice] = 'params[:number].to_i: ' + "#{params[:number].to_i}" + ' & Test.find(1).questions.count: ' + "#{Test.find(1).questions.count}"  
-      flash[:notice] = 'Test have ended successful. ' + result
+        flash[:notice] = 'There is problem with your ID or Akey. Hm... Maybe you`re hacker?'
+      end       
       redirect_to '/'
-    end  
+    end      
+    
+    
   end
 end

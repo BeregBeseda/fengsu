@@ -15,13 +15,6 @@ class OrdersController < ApplicationController
     @order.akey_payed = akey  
             
     if @order.save
-      OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
-      flash.delete(:order_name)
-      flash.delete(:order_email)
-      flash.delete(:translit)
-      #redirect_to '/click_for_pay'                      # redirect to payment GATEWAY
-
-
       ###LIQPAY      
       liqpay = Liqpay::Liqpay.new(
         :public_key  => 'i35395571497',
@@ -40,7 +33,9 @@ class OrdersController < ApplicationController
         params[:public_key] = 'i35395571497'
         json_params = encode64 encode_json params
         signature = liqpay.cnb_signature params            
-       "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
+        @liqpay_url = "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
+        #"https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
+        @liqpay_url
       end
       
       html = cnb_form_request({
@@ -50,13 +45,17 @@ class OrdersController < ApplicationController
         :amount         => '1',
         :currency       => 'UAH',
         :description    => 'Description_of_pay_status',
-        #:description    => "zakaz_na_summu_#{@order.sum_for_pay}_oplachen_vvvvvvvvvvv_id_clienta_is_#{@order.id}_vvvvvvvvvvv_akey_clienta_is_#{@order.akey}",
-        #:details        => "zakaz_na_summu_#{@order.sum_for_pay}_oplachen_vvvvvvvvvvv_id_clienta_is_#{@order.id}_vvvvvvvvvvv_akey_clienta_is_#{@order.akey}",
         :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :server_url     => "http://feng-consult.herokuapp.com/i_have_payed",
-        :result_url     => "http://feng-consult.herokuapp.com/",
+        :result_url     => "http://feng-consult.herokuapp.com/thanks_please_visit_your_email",
         :sandbox        => '1'        
       }, liqpay)                                  
+
+      @order.pay_way = @liqpay_url
+      OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
+      flash.delete(:order_name)
+      flash.delete(:order_email)
+      flash.delete(:translit)
 
       redirect_to html     
        
@@ -81,18 +80,15 @@ class OrdersController < ApplicationController
   
   
   # client ends the PAY PROCESS [SUCCESSFUL]
-  # and want to get email with ACCESS INFO
+  # and want to ENTER TEST (and after - get ACCESS to INFO)
             
-  def c_form_for_get_consult_after_pay                # for ENTER payment data (2 last DIGITS of credit card & PAYMENT DATE) 
+  def b_test_for_get_consult_after_pay                
     public_key = 'i35395571497'
     private_key = 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
         
-    #data_hash = JSON.parse(data, :quirks_mode => true)
-    #data_hash = JSON.parse([ "#{data}" ].to_json).first
     data = params[:data]     
     data_json = Base64.decode64(data)    
     data_hash = JSON.parse(data_json)
-    #data_hash = eval(data_string)
         
     liqpay = Liqpay::Liqpay.new(
       :public_key  => public_key,
@@ -105,49 +101,46 @@ class OrdersController < ApplicationController
     private_key
     )       
     
-    # Ok, SIGN is eq to SIGNATURE
-    ###
     if sign == params[:signature]
-      if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
-        redirect_to '/about/sign_is_signature_and_status_is_defined'
+      if data_hash["status"].in? ['success', 'sandbox']
+      #if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
+      
+        details = data_hash["details"]
+        order_id_length = ''        
+        for i in 0..details.length-1
+          unless details[i].in? ('a'..'z')
+            order_id_length += "#{details[i]}"
+          else
+            break
+          end
+        end
+        order_id_length = order_id_length.to_i
+    
+        order_id = ''
+        for i in (details.length-order_id_length)..(details.length-1)
+           order_id += details[i]
+        end        
+    
+        akey = ''
+        for i in (order_id_length-1)..(details.length-1-order_id_length)
+           akey += details[i]
+        end                    
+ 
+        @order = Order.find(order_id)      
+        @order.payed = true
+        @order.save
+        OrderMailer.b_info_to_client_that_pay_data_is_right(@order).deliver
+        
+        redirect_to "/test/1/0/0/#{order_id}/#{order_akey}"
       else
-        redirect_to '/about/sign_is_signature_BUT_status_is_NOT_defined'
+        redirect_to '/'
       end  
+    else
+      redirect_to '/'  
     end       
   end    
   
-  def update
-    @order.update_attributes(order_params)    
-    
-    if @order.save
-      OrderMailer.b_confirm_pay_info_to_psyc_for_check(@order).deliver    
-      flash.delete(:order_name)
-      flash.delete(:order_email)
-      flash.delete(:translit)    
-      redirect_to '/request_sent/1'
-    else
-      flash[:order_when_payed] = @order.when_payed
-      flash[:order_end_cards] = @order.end_cards
-      flash[:order_errors] = @order.errors
-      
-      redirect_to "/i_have_payed/#{@order.name}/#{@order.akey}/#{@order.id}"
-    end
-  end
-   
-  def d_pay_info_success_sent
-    @order_info_page = OrderInfoPage.find(params[:id])
-  end
-#*********************************************************************************************************************************************  
-
-    
-  def change_status_to_payed    
-    @order.payed = true
-    @order.akey_payed = nil
-    
-    @order.save
-    OrderMailer.c_info_to_client_that_pay_data_is_right(@order).deliver
-    redirect_to '/request_sent/2'     
-  end 
+  
 #*********************************************************************************************************************************************  
     
   

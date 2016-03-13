@@ -5,7 +5,6 @@ class MenusController < ApplicationController
   end
   
   
-  
   private
   def set_menus
     @menus = Menu.all    

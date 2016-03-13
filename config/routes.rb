@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   #match '/click_for_pay',                  to: 'pays#b_page_for_select_pay_way',                    via: 'get'
   
   #match '/i_have_payed/:name/:akey/:id',   to: 'orders#c_form_for_get_consult_after_pay',           via: 'get'    
-  post '/i_have_payed',                    to: 'orders#c_form_for_get_consult_after_pay'           
+  post '/i_have_payed',                    to: 'orders#b_test_for_get_consult_after_pay'           
   
   post '/test/:number/:ill_group/:good_group/:order_id/:order_akey', 
                                            to: 'tests#load_page'
