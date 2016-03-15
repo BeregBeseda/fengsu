@@ -131,7 +131,8 @@ class OrdersController < ApplicationController
         @order.save
         OrderMailer.b_info_to_client_that_pay_data_is_right(@order).deliver
         
-        redirect_to "/test/1/0/0/#{order_id}/#{order_akey}"
+        #redirect_to "/test/1/0/0/#{order_id}/#{order_akey}"
+        redirect_to "/test/1/0/0/88/5g77y90xpy9573d82j82i88jt496"
       else
         redirect_to '/'
       end  
