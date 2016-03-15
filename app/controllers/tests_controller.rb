@@ -10,6 +10,7 @@ class TestsController < ApplicationController
       @question_title = question.title
       @yes = "/test/#{params[:number].to_i + 1}/#{params[:ill_group].to_i + ill_yes}/#{params[:good_group].to_i + good_yes}/#{params[:order_id]}/#{params[:order_akey]}"
       @no = "/test/#{params[:number].to_i + 1}/#{params[:ill_group].to_i + ill_no}/#{params[:good_group].to_i + good_no}/#{params[:order_id]}/#{params[:order_akey]}"      
+
     else
       @order = Order.find(params[:order_id])
       if @order and @order.akey == params[:order_akey]        
