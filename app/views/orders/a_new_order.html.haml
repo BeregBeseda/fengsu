@@ -1,3 +1,7 @@
+- unless @info_msg.nil? and @info_msg == ''
+  %h3 
+    =@info_msg
+
 %div
   = @menu.description.html_safe  
 

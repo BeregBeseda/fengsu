@@ -7,6 +7,9 @@ class OrdersController < ApplicationController
 
   def a_new_order
     @order = Order.new  
+    if params[:show_visit_email] == 1
+      @info_msg = OrderInfoPage.where(title_translit: 'proverit_email_posle_oplaty')
+    end
   end
   
   def create
@@ -41,13 +44,13 @@ class OrdersController < ApplicationController
       html = cnb_form_request({
         :version        => '3',
         :action         => 'pay',
-        #:amount         => "#{@order.sum_for_pay}",
-        :amount         => '1',
+        :amount         => "#{@order.sum_for_pay}",
+        #:amount         => '1',
         :currency       => 'UAH',
         :description    => 'Description_of_pay_status',
         :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :server_url     => "http://feng-consult.herokuapp.com/i_have_payed",
-        :result_url     => "http://feng-consult.herokuapp.com/thanks_please_visit_your_email",
+        :result_url     => "http://feng-consult.herokuapp.com/about/#{flash[:translit] or 'lichnaya-zhizn'}/1",
         :sandbox        => '1'        
       }, liqpay)                                  
 
@@ -131,10 +134,10 @@ class OrdersController < ApplicationController
         @order.save
         OrderMailer.b_info_to_client_that_pay_data_is_right(@order).deliver
         
-        #redirect_to "/test/1/0/0/#{order_id}/#{order_akey}"
-        redirect_to "/test/1/0/0/88/5g77y90xpy9573d82j82i88jt496"
+        redirect_to "/test/1/0/0/#{order_id}/#{order_akey}"
+        #redirect_to "/test/1/0/0/88/5g77y90xpy9573d82j82i88jt496"
       else
-        redirect_to '/'
+        redirect_to '/bad_pay_status'
       end  
     else
       redirect_to '/'  

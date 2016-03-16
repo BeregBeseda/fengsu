@@ -1,6 +1,6 @@
 class PaysController < ApplicationController
 
-  def b_page_for_select_pay_way # client come from email & start PAY PROCESS  
+  def please_visit_your_email # client come from email & start PAY PROCESS  
     @consult = Consult.first  # payment gateway gets ACTUAL PRICE
     
   end #   when client ends the PAY PROCESS, 
