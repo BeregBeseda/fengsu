@@ -2,5 +2,9 @@
 
 after new push - copy in db o_i_pages #2
 
+---
+
+someday: - in translit to the begin <- from the end
+
 
  

@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
         :description    => 'Description_of_pay_status',
         :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :server_url     => "http://feng-consult.herokuapp.com/i_have_payed",
-        :result_url     => "http://feng-consult.herokuapp.com/about/#{flash[:translit] or 'lichnaya-zhizn'}-",
+        :result_url     => "http://feng-consult.herokuapp.com/about/-#{flash[:translit] or 'lichnaya-zhizn'}",
         :sandbox        => '1'        
       }, liqpay)                                  
 
@@ -153,9 +153,9 @@ class OrdersController < ApplicationController
   private
   def set_menu
     translit = params[:translit]
-    if translit[translit.length-1] == '-'
-      @info_msg = OrderInfoPage.where(title_translit: 'proverte_email_posle_oplaty')
-      translit[translit.length-1] = ''
+    if translit[0] == '-'
+      @info_msg = (OrderInfoPage.find_by translit: 'proverte_email_posle_oplaty').msg
+      translit[0] = ''
     end
     @menu = Menu.find_by translit: translit  # 1)   get menu-record with title == params[:translit]     // like 'lichnaja-zhizn' etc.
     @menu ||= Menu.first                     # 2)   if record not found -> display the first record  
