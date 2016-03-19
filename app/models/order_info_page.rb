@@ -57,7 +57,7 @@ class OrderInfoPage < ActiveRecord::Base
         res[counter] = 'ch'                                                                
       when 'ш', 'Ш'
         res[counter] = 'sh'                                                                      
-      when 'ш', 'Щ'
+      when 'щ', 'Щ'
         res[counter] = 'shch'                                                                
       when 'ь', 'ъ', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '"', "'", '[', ']', '{', '}', "\\", '|', '`', '~', '№', ';', '.', ','
         res[counter] = ''

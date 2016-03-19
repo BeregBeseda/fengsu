@@ -102,8 +102,8 @@ class OrdersController < ApplicationController
     )       
     
     if sign == params[:signature]
-      if data_hash["status"].in? ['success', 'sandbox']
-      #if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
+      #if data_hash["status"].in? ['success', 'sandbox']
+      if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
       
         details = data_hash["details"]
         order_id_length = ''        

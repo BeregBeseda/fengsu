@@ -1,4 +1,6 @@
 11 groups
 
+after new push - copy in db o_i_pages #2
+
 
  
