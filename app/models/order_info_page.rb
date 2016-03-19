@@ -3,7 +3,7 @@ class OrderInfoPage < ActiveRecord::Base
   
   private
   def translit_order_info_page_title
-    res = self.nazva.clone.to_s
+    res = self.title.clone.to_s
     2.times do   
     for counter in 0..res.length 
       case res[counter]
@@ -83,17 +83,10 @@ class OrderInfoPage < ActiveRecord::Base
       
       res[res.length-1] = '' if res[res.length-1] == '_'        
     end          
-      #minus_qual = 0      
-      #if res[counter] == '-'
-      #  minus_qual = minus_qual+1
-      #end
-      #if minus_qual > 1
-      #  res[counter] = ''
-      #  minus_qual = 0
-      #end      
+
     end
     end
-    self.title_translit = res
+    self.translit = res
   end 
 
 

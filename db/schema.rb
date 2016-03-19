@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315073301) do
+ActiveRecord::Schema.define(version: 20160317162200) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -75,11 +75,11 @@ ActiveRecord::Schema.define(version: 20160315073301) do
   end
 
   create_table "order_info_pages", force: :cascade do |t|
-    t.string   "nazva"
     t.text     "msg"
-    t.string   "title_translit"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "title"
+    t.string   "translit"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -103,13 +103,10 @@ ActiveRecord::Schema.define(version: 20160315073301) do
     t.integer  "number_of_question"
     t.string   "title"
     t.integer  "test_id"
-    t.integer  "to_ill_group_point_for_yes"
-    t.integer  "to_ill_group_point_for_no"
-    t.integer  "to_good_group_point_for_yes"
-    t.integer  "to_good_group_point_for_no"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "able",                        default: true
+    t.boolean  "able",                           default: true
+    t.string   "for_yes_answer_plus_1_point_to"
   end
 
   create_table "tests", force: :cascade do |t|

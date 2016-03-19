@@ -7,9 +7,6 @@ class OrdersController < ApplicationController
 
   def a_new_order
     @order = Order.new  
-    if params[:show_visit_email] == 1
-      @info_msg = OrderInfoPage.where(title_translit: 'proverit_email_posle_oplaty')
-    end
   end
   
   def create
@@ -50,7 +47,7 @@ class OrdersController < ApplicationController
         :description    => 'Description_of_pay_status',
         :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :server_url     => "http://feng-consult.herokuapp.com/i_have_payed",
-        :result_url     => "http://feng-consult.herokuapp.com/about/#{flash[:translit] or 'lichnaya-zhizn'}/1",
+        :result_url     => "http://feng-consult.herokuapp.com/about/#{flash[:translit] or 'lichnaya-zhizn'}-",
         :sandbox        => '1'        
       }, liqpay)                                  
 
@@ -149,15 +146,20 @@ class OrdersController < ApplicationController
     
   
   def order_params
-    params.require(:order).permit(:payed, :name, :email, :akey, :end_cards, :sum_for_pay, :when_payed, :akey_payed, :able)
+    params.require(:order).permit(:payed, :name, :email, :akey, :pay_way, :end_cards, :sum_for_pay, :when_payed, :akey_payed, :able)
   end  
   
     
   private
   def set_menu
-    @menu = Menu.find_by translit:(params[:translit])   # 1)   get menu-record with title == params[:translit]     // like 'lichnaja-zhizn' etc.
-    @menu ||= Menu.first                                # 2)   if record not found -> display the first record  
-    flash[:translit] = params[:translit]
+    translit = params[:translit]
+    if translit[translit.length-1] == '-'
+      @info_msg = OrderInfoPage.where(title_translit: 'proverte_email_posle_oplaty')
+      translit[translit.length-1] = ''
+    end
+    @menu = Menu.find_by translit: translit  # 1)   get menu-record with title == params[:translit]     // like 'lichnaja-zhizn' etc.
+    @menu ||= Menu.first                     # 2)   if record not found -> display the first record  
+    flash[:translit] = translit
   end  
     
   def set_all_menus
