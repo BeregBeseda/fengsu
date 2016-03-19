@@ -4,7 +4,7 @@ class OrderInfoPage < ActiveRecord::Base
   private
   def translit_order_info_page_title
     res = self.title.clone.to_s
-    2.times do   
+    5.times do   
     for counter in 0..res.length 
       case res[counter]
       when 'а', 'А'

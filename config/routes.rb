@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post '/',                                to: 'menus#index'           
   
   match 'about/',                          to: 'menus#index',                                       via: 'get'               
+  match 'about/:translit',                  to: 'orders#a_new_order',                               via: 'get'  
   post 'about/:translit',                  to: 'orders#a_new_order'                                
   post  '/orders',                         to: 'orders#create'                     # for OrderForm works (path for creating new order)
   
