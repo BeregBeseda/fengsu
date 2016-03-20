@@ -1,15 +1,27 @@
 class TestsController < ApplicationController
   def load_page        
-    if params[:number].to_i < Test.find(1).questions.count + 1
-      question = Test.find(1).questions.find_by_number_of_question(params[:number])
-      ill_yes = question.to_ill_group_point_for_yes
-      ill_no = question.to_ill_group_point_for_no
-      good_yes = question.to_good_group_point_for_yes
-      good_no = question.to_good_group_point_for_no
-        
+    qw_number = params[:qw_number]
+    if qw_number.to_i < Test.find(1).questions.count + 1
+      question = Test.find(1).questions.find_by_number_of_question(qw_number)
       @question_title = question.title
-      @yes = "/test/#{params[:number].to_i + 1}/#{params[:ill_group].to_i + ill_yes}/#{params[:good_group].to_i + good_yes}/#{params[:order_id]}/#{params[:order_akey]}"
-      @no = "/test/#{params[:number].to_i + 1}/#{params[:ill_group].to_i + ill_no}/#{params[:good_group].to_i + good_no}/#{params[:order_id]}/#{params[:order_akey]}"      
+      
+      test_number = "/#{qw_number.to_i + 1}/"
+      order_id = params[:order_id]
+      order_akey = params[:order_akey]
+      
+      def qw_point(qw_number)
+        case question.for_yes_answer_plus_1_point_to
+        when
+      end  
+      al_no = "/#{params[:al]}" 
+      al_yes = al_no.to_i + qw_point('al')
+      
+      @yes = 'test' + test_number + order_id + order_akey + al_yes.to_s
+      @no = 'test' + test_number + order_id + order_akey + al_no
+      
+      @yes = "/#{params[:].to_i + good_yes}}"
+      @no = "/test/#{params[:test_number].to_i + 1}/#{params[:order_id]}/#{params[:order_akey]}/#{params[:]}}"      
+      /:al/:nl/:shl/:pl/:gml/:dl/:ml/:ol/:kl/:il/:disl
 
     else
       @order = Order.find(params[:order_id])
@@ -21,7 +33,7 @@ class TestsController < ApplicationController
         end
         flash[:notice] = 'Test has ended successful. ' + result      
       else
-        flash[:notice] = 'There is problem with your ID or Akey. Hm... Maybe you`re hacker?'
+        flash[:notice] = 'There is problem with your ID or Akey. Hm... Maybe you`re hacker, aren`t you?'
       end       
       redirect_to '/'
     end      

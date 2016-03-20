@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   
   post '/i_have_payed',                    to: 'orders#b_test_for_get_consult_after_pay'           
   
-  post '/test/:number/:ill_group/:good_group/:order_id/:order_akey', 
+  post '/test/:qw_number/:order_id/:order_akey/:al/:nl/:shl/:pl/:gml/:dl/:ml/:ol/:kl/:il/:disl', 
                                            to: 'tests#load_page'     
     
     

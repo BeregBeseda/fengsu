@@ -1,9 +1,8 @@
 # encoding: utf-8
-
 class OrdersController < ApplicationController
 
   before_action :set_menu, :set_all_menus,  only: [:a_new_order]
-  before_action :set_order, only: [:update, :change_status_to_payed]
+  
 
   def a_new_order
     @order = Order.new  
@@ -34,15 +33,13 @@ class OrdersController < ApplicationController
         json_params = encode64 encode_json params
         signature = liqpay.cnb_signature params            
         @liqpay_url = "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
-        #"https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
-        @liqpay_url
+        #@liqpay_url
       end
       
       html = cnb_form_request({
         :version        => '3',
         :action         => 'pay',
         :amount         => "#{@order.sum_for_pay}",
-        #:amount         => '1',
         :currency       => 'UAH',
         :description    => 'Description_of_pay_status',
         :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
@@ -126,15 +123,14 @@ class OrdersController < ApplicationController
            akey += details[i]
         end                    
  
+        @test_url = "/test/1/#{order_id}/#{order_akey}/0/0/0/0/0/0/0/0/0/0/0"
+ 
         @order = Order.find(order_id)      
         @order.payed = true
         @order.save
-        OrderMailer.b_info_to_client_that_pay_data_is_right(@order).deliver
-        
-        redirect_to "/test/1/0/0/#{order_id}/#{order_akey}"
-        #redirect_to "/test/1/0/0/88/5g77y90xpy9573d82j82i88jt496"
+        OrderMailer.b_info_to_client_that_pay_data_is_right(@order, @test_url).deliver        
       else
-        redirect_to '/bad_pay_status'
+        redirect_to '/'
       end  
     else
       redirect_to '/'  
@@ -164,10 +160,6 @@ class OrdersController < ApplicationController
     
   def set_all_menus
     @menus = Menu.all
-  end    
-  
-  def set_order
-    @order = Order.find(params[:id])
-  end                                                      
+  end                                                 
 end    
   
