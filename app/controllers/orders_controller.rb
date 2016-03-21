@@ -101,8 +101,8 @@ class OrdersController < ApplicationController
     if sign == params[:signature]
       #if data_hash["status"].in? ['success', 'sandbox']
       if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
-        redirect_to "cool status - #{data_hash["details"]}"
-      
+        redirect_to "#{data_hash["version"]}"
+        
         details = data_hash["details"]
         order_id_length = ''        
         for i in 0..details.length-1
