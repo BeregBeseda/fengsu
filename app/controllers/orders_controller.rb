@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
         json_params = encode64 encode_json params
         signature = liqpay.cnb_signature params            
         @liqpay_url = "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
-        @liqpay_url
+        #@liqpay_url
       end
       
       html = cnb_form_request({
@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
       }, liqpay)                                  
 
       @order.pay_way = @liqpay_url
-      OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with form_for_get_consult_after_pay & page_for_select_pay_way           
+      OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with preparing to test (after pay)
       flash.delete(:order_name)
       flash.delete(:order_email)
       flash.delete(:translit)
@@ -101,6 +101,7 @@ class OrdersController < ApplicationController
     if sign == params[:signature]
       #if data_hash["status"].in? ['success', 'sandbox']
       if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
+        redirect_to "cool status - #{data_hash["details"]}"
       
         details = data_hash["details"]
         order_id_length = ''        
