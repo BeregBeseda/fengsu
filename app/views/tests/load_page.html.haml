@@ -1,8 +1,5 @@
 %h3
   =@question_title
--#=button_to 'Yes', "#{@yes}"
--#=button_to 'No', "#{@no}" 
- 
--#= button_to '+', {:controller => "votes", :action => "create", :car_id => car.id, :user_id=> session[:user_id]} , :method=>:post
+
 = button_to 'Yes', @yes_params
 = button_to 'No', @no_params

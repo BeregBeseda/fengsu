@@ -23,18 +23,6 @@ class TestsController < ApplicationController
       
       next_qw_number = (qw_number + 1).to_s
             
-      al_yes = ''
-      nl_yes = ''
-      shl_yes = ''
-      pl_yes = ''
-      gml_yes = ''
-      dl_yes = ''
-      ml_yes = ''
-      ol_yes = ''
-      kl_yes = ''
-      il_yes = ''
-      disl_yes = ''
-                    
       case question.for_yes_answer_plus_1_point_to
         when 'al' 
           then al_yes = (al_no.to_i + 1).to_s
@@ -60,8 +48,8 @@ class TestsController < ApplicationController
           then disl_yes = (disl_no.to_i + 1).to_s
       end
       
-      @yes = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_yes + '/' + nl_yes + '/' + shl_yes + '/' + pl_yes + '/' + gml_yes + '/' + dl_yes + '/' + ml_yes + '/' + ol_yes + '/' + kl_yes + '/' + il_yes + '/' + disl_yes  
-      @no = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_no + '/' + nl_no + '/' + shl_no + '/' + pl_no + '/' + gml_no + '/' + dl_no + '/' + ml_no + '/' + ol_no + '/' + kl_no + '/' + il_no + '/' + disl_no      
+      #@yes = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_yes + '/' + nl_yes + '/' + shl_yes + '/' + pl_yes + '/' + gml_yes + '/' + dl_yes + '/' + ml_yes + '/' + ol_yes + '/' + kl_yes + '/' + il_yes + '/' + disl_yes  
+      #@no = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_no + '/' + nl_no + '/' + shl_no + '/' + pl_no + '/' + gml_no + '/' + dl_no + '/' + ml_no + '/' + ol_no + '/' + kl_no + '/' + il_no + '/' + disl_no      
       
       @yes_params = {
         :controller => 'tests', 
@@ -69,17 +57,17 @@ class TestsController < ApplicationController
         :qw_number => next_qw_number,
         :order_id => order_id,
         :order_akey => order_akey,
-        :al => al_yes,
-        :nl => nl_yes,
-        :shl => shl_yes,
-        :pl => pl_yes,
-        :gml => gml_yes,
-        :dl => dl_yes,
-        :ml => ml_yes,
-        :ol => ol_yes,
-        :kl => kl_yes,
-        :il => il_yes,
-        :disl => disl_yes
+        :al => "#{al_yes or al_no or '0'}",
+        :nl => "#{nl_yes or nl_no or '0'}",
+        :shl => "#{shl_yes or shl_no or '0'}",
+        :pl => "#{pl_yes or pl_no or '0'}",
+        :gml => "#{gml_yes or gml_no or '0'}",
+        :dl => "#{dl_yes or dl_no or '0'}",
+        :ml => "#{ml_yes or ml_no or '0'}",
+        :ol => "#{ol_yes or ol_no or '0'}",
+        :kl => "#{kl_yes or kl_no or '0'}",
+        :il => "#{il_yes or il_no or '0'}",
+        :disl => "#{disl_yes or disl_no or '0'}"
         }
          
       @no_params = {
@@ -88,17 +76,17 @@ class TestsController < ApplicationController
         :qw_number => next_qw_number,
         :order_id => order_id,
         :order_akey => order_akey,
-        :al => al_no,
-        :nl => nl_no,
-        :shl => shl_no,
-        :pl => pl_no,
-        :gml => gml_no,
-        :dl => dl_no,
-        :ml => ml_no,
-        :ol => ol_no,
-        :kl => kl_no,
-        :il => il_no,
-        :disl => disl_no
+        :al => "#{al_no or '0'}",
+        :nl => "#{nl_no or '0'}",
+        :shl => "#{shl_no or '0'}",
+        :pl => "#{pl_no or '0'}",
+        :gml => "#{gml_no or '0'}",
+        :dl => "#{dl_no or '0'}",
+        :ml => "#{ml_no or '0'}",
+        :ol => "#{ol_no or '0'}",
+        :kl => "#{kl_no or '0'}",
+        :il => "#{il_no or '0'}",
+        :disl => "#{disl_no or '0'}"
         }
                       
     else
