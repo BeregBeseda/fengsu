@@ -12,14 +12,16 @@ class TestsController < ApplicationController
       kl_no = params[:kl]
       il_no = params[:il]
       disl_no = params[:disl]
+      
+      order_id = params[:order_id]
+      order_akey = params[:order_akey]      
           
-    if qw_number.to_i < Test.find(1).questions.count + 1
-      question = Test.find(1).questions.find_by_number_of_question(qw_number)
+    questions = Test.find(1).questions       
+    if qw_number.to_i < questions.count + 1
+      question = questions.find_by_number_of_question(qw_number)
       @question_title = question.title
       
       next_qw_number = (qw_number + 1).to_s
-      order_id = params[:order_id]
-      order_akey = params[:order_akey]
             
       al_yes = ''
       nl_yes = ''
@@ -58,15 +60,15 @@ class TestsController < ApplicationController
           then disl_yes = (disl_no.to_i + 1).to_s
       end
       
-      @yes = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_yes + '/' + nl_yes + '/' + shl_yes + '/' + pl_yes + '/' + gml_yes + '/' + dl_yes + '/' + ml_yes + '/' + ol_yes + '/' + kl_yes + '/' + il_yes + '/' + disl_yes
+      @yes = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_yes + '/' + nl_yes + '/' + shl_yes + '/' + pl_yes + '/' + gml_yes + '/' + dl_yes + '/' + ml_yes + '/' + ol_yes + '/' + kl_yes + '/' + il_yes + '/' + disl_yes  
       @no = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_no + '/' + nl_no + '/' + shl_no + '/' + pl_no + '/' + gml_no + '/' + dl_no + '/' + ml_no + '/' + ol_no + '/' + kl_no + '/' + il_no + '/' + disl_no      
     else
           
       ill_group = al_no.to_i + nl_no.to_i + shl_no.to_i + pl_no.to_i + gml_no.to_i
       good_group = dl_no.to_i + ml_no.to_i + ol_no.to_i + kl_no.to_i + il_no.to_i + disl_no.to_i                
       
-      @order = Order.find(params[:order_id])      
-      if @order and @order.akey == params[:order_akey]        
+      @order = Order.find(order_id)
+      if @order and @order.akey == order_akey        
       
         if ill_group < 5 or good_group > 3
           result = 'Client has gone to good group'
@@ -78,8 +80,8 @@ class TestsController < ApplicationController
       else
         flash[:notice] = 'There is problem with your ID or Akey. Hm... Maybe you`re hacker, aren`t you?'
       end       
-      redirect_to '/'
       
+      redirect_to '/'      
     end              
   end
 end
