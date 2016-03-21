@@ -62,6 +62,45 @@ class TestsController < ApplicationController
       
       @yes = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_yes + '/' + nl_yes + '/' + shl_yes + '/' + pl_yes + '/' + gml_yes + '/' + dl_yes + '/' + ml_yes + '/' + ol_yes + '/' + kl_yes + '/' + il_yes + '/' + disl_yes  
       @no = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_no + '/' + nl_no + '/' + shl_no + '/' + pl_no + '/' + gml_no + '/' + dl_no + '/' + ml_no + '/' + ol_no + '/' + kl_no + '/' + il_no + '/' + disl_no      
+      
+      @yes_params = {
+        :controller => 'tests', 
+        :action => 'load_page', 
+        :qw_number => next_qw_number,
+        :order_id => order_id,
+        :order_akey => order_akey,
+        :al => al_yes,
+        :nl => nl_yes,
+        :shl => shl_yes,
+        :pl => pl_yes,
+        :gml => gml_yes,
+        :dl => dl_yes,
+        :ml => ml_yes,
+        :ol => ol_yes,
+        :kl => kl_yes,
+        :il => il_yes,
+        :disl => disl_yes
+        }
+         
+      @no_params = {
+        :controller => 'tests', 
+        :action => 'load_page', 
+        :qw_number => next_qw_number,
+        :order_id => order_id,
+        :order_akey => order_akey,
+        :al => al_no,
+        :nl => nl_no,
+        :shl => shl_no,
+        :pl => pl_no,
+        :gml => gml_no,
+        :dl => dl_no,
+        :ml => ml_no,
+        :ol => ol_no,
+        :kl => kl_no,
+        :il => il_no,
+        :disl => disl_no
+        }
+                      
     else
           
       ill_group = al_no.to_i + nl_no.to_i + shl_no.to_i + pl_no.to_i + gml_no.to_i
@@ -70,7 +109,7 @@ class TestsController < ApplicationController
       @order = Order.find(order_id)
       if @order and @order.akey == order_akey        
       
-        if ill_group < 5 or good_group > 3
+        if ill_group < 2 or good_group > 1
           result = 'Client has gone to good group'
         else
           result = 'Client has gone to ill group'
