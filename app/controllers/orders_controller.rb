@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
         :amount         => "#{@order.sum_for_pay}",
         :currency       => 'UAH',
         :description    => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
-        #:details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
+        :details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :server_url     => "http://feng-consult.herokuapp.com/i_have_payed",
         :result_url     => "http://feng-consult.herokuapp.com/about/-#{flash[:translit] or 'lichnaya-zhizn'}",
         :sandbox        => '1'        
