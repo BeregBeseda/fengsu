@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
         json_params = encode64 encode_json params
         signature = liqpay.cnb_signature params            
         @liqpay_url = "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
-        #@liqpay_url
+        @liqpay_url
       end
       
       html = cnb_form_request({

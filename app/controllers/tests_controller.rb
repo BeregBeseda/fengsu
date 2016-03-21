@@ -46,10 +46,7 @@ class TestsController < ApplicationController
           then il_yes = (il_no.to_i + 1).to_s
         when 'disl' 
           then disl_yes = (disl_no.to_i + 1).to_s
-      end
-      
-      #@yes = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_yes + '/' + nl_yes + '/' + shl_yes + '/' + pl_yes + '/' + gml_yes + '/' + dl_yes + '/' + ml_yes + '/' + ol_yes + '/' + kl_yes + '/' + il_yes + '/' + disl_yes  
-      #@no = 'test' + '/' + next_qw_number + '/' + order_id + '/' + order_akey + '/' + al_no + '/' + nl_no + '/' + shl_no + '/' + pl_no + '/' + gml_no + '/' + dl_no + '/' + ml_no + '/' + ol_no + '/' + kl_no + '/' + il_no + '/' + disl_no      
+      end      
       
       @yes_params = {
         :controller => 'tests', 
@@ -105,7 +102,7 @@ class TestsController < ApplicationController
         flash[:notice] = 'Test has ended successful. ' + result      
         
       else
-        flash[:notice] = 'There is problem with your ID or Akey. Hm... Maybe you`re hacker, aren`t you?'
+        flash[:notice] = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'
       end       
       
       redirect_to '/'      
