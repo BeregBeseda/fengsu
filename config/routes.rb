@@ -4,13 +4,14 @@ Rails.application.routes.draw do
   post '/',                                to: 'menus#index'           
   
   match 'about/',                          to: 'menus#index',                                       via: 'get'               
-  match 'about/:translit',                  to: 'orders#a_new_order',                               via: 'get'  
+  match 'about/:translit',                 to: 'orders#a_new_order',                                via: 'get'  
   post 'about/:translit',                  to: 'orders#a_new_order'                                
   post  '/orders',                         to: 'orders#create'                     # for OrderForm works (path for creating new order)
   
-  post '/i_have_payed/:details',                    to: 'orders#b_test_for_get_consult_after_pay'           
+  post '/i_have_payed/:details',           to: 'orders#b_test_for_get_consult_after_pay'
+  match '/i_have_payed/:details',          to: 'orders#b_test_for_get_consult_after_pay', via: 'get'                          
   
-  post '/test/:qw_number/:order_id/:order_akey/:al/:nl/:shl/:pl/:gml/:dl/:ml/:ol/:kl/:il/:disl', 
+  post '/test/:qw_number/:order_id/:order_akey/:al/:nl/:shl/:pl/:gml/:dl/:ml/:ol/:kl/:il/:disl'
                                            to: 'tests#load_page'     
     
     
