@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
         :currency       => 'UAH',
         :description    => "Оплата теста",
         #:details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
-        :server_url     => "http://feng-consult.herokuapp.com/i_have_payed",
+        :server_url     => "http://feng-consult.herokuapp.com/i_have_payed/#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :result_url     => "http://feng-consult.herokuapp.com/about/-#{flash[:translit] or 'lichnaya-zhizn'}",
         :sandbox        => '1'        
       }, liqpay)                                  
@@ -102,7 +102,7 @@ class OrdersController < ApplicationController
       #if data_hash["status"].in? ['success', 'sandbox']
       if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
         
-        details = '12asdf9fs980'
+        details = params[:details]
         order_id_length = ''        
         for i in 0..details.length-1
           unless details[i].in? ('a'..'z')
