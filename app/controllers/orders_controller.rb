@@ -42,7 +42,6 @@ class OrdersController < ApplicationController
         :amount         => "#{@order.sum_for_pay}",
         :currency       => 'UAH',
         :description    => "Оплата теста",
-        #:details        => "#{@order.id.to_s.length}#{('a'..'z')}#{@order.akey}#{@order.id}",
         :server_url     => "http://feng-consult.herokuapp.com/i_have_payed/#{@order.id.to_s.length}#{('a'..'z').to_a.shuffle.first}#{@order.akey}#{@order.id}",
         :result_url     => "http://feng-consult.herokuapp.com/about/-#{flash[:translit] or 'lichnaya-zhizn'}",
         :sandbox        => '1'        
@@ -118,9 +117,9 @@ class OrdersController < ApplicationController
            order_id += details[i]
         end        
     
-        akey = ''
+        order_akey = ''
         for i in (order_id_length-1)..(details.length-1-order_id_length)
-           akey += details[i]
+           order_akey += details[i]
         end                    
  
         @test_url = "/test/1/#{order_id}/#{order_akey}/0/0/0/0/0/0/0/0/0/0/0"
