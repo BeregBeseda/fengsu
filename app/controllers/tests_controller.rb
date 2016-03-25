@@ -1,23 +1,29 @@
 class TestsController < ApplicationController
   def load_page        
-    qw_number = params[:qw_number].to_i
-      al_no = params[:al]
-      nl_no = params[:nl]
-      shl_no = params[:shl]
-      pl_no = params[:pl]
-      gml_no = params[:gml]
-      dl_no = params[:dl]
-      ml_no = params[:ml]
-      ol_no = params[:ol]
-      kl_no = params[:kl]
-      il_no = params[:il]
-      disl_no = params[:disl]
-      
-      order_id = params[:order_id]
-      order_akey = params[:order_akey]      
+    test_url_encoded = params[:test_url_encoded]
+    test_url_json    = Base64.decode64(@test_url_encoded)    
+    test_url_hash    = JSON.parse(@test_url_json)    
+    
+    qw_number  = test_url_hash["qw_number"].to_i
+    order_id   = test_url_hash["order_id"]
+    order_akey = test_url_hash["order_akey"]
+    
+    al_no   = test_url_hash["al"]
+    nl_no   = test_url_hash["nl"]
+    shl_no  = test_url_hash["shl"]
+    pl_no   = test_url_hash["pl"]
+    gml_no  = test_url_hash["gml"]
+    dl_no   = test_url_hash["dl"]
+    ml_no   = test_url_hash["ml"]
+    ol_no   = test_url_hash["ol"]
+    kl_no   = test_url_hash["kl"]
+    il_no   = test_url_hash["il"]
+    disl_no = test_url_hash["disl"]
+        
           
     questions = Test.find(1).questions       
-    if qw_number.to_i < questions.count + 1
+    if qw_number < questions.count + 1
+    
       question = questions.find_by_number_of_question(qw_number)
       @question_title = question.title
       

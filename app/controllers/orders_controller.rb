@@ -121,8 +121,28 @@ class OrdersController < ApplicationController
         for i in (order_id_length-1)..(details.length-1-order_id_length)
            order_akey += details[i]
         end                    
- 
-        @test_url = "/test/1/#{order_id}/#{order_akey}/0/0/0/0/0/0/0/0/0/0/0"
+        
+        
+        test_url_hash = {
+          :qw_number   => '1',
+          :order_id    => "#{order_id}",
+          :order_akey  => "#{order_akey}",
+          :al          => '0',
+          :nl          => '0',
+          :shl         => '0',
+          :pl          => '0',
+          :gml         => '0',
+          :dl          => '0',
+          :ml          => '0',
+          :ol          => '0',
+          :kl          => '0',
+          :il          => '0',
+          :disl        => '0',
+        }        
+
+        test_url_json = JSON.generate(@test_url_hash)
+        test_url_encoded = (Base64.encode64 @test_url_json).chomp.delete("\n")
+        @test_url = "http://feng-consult.herokuapp.com/test/#{@test_url_encoded}"        
  
         @order = Order.find(order_id)      
         @order.payed = true
