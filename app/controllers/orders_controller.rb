@@ -140,9 +140,9 @@ class OrdersController < ApplicationController
           :disl        => '0',
         }        
 
-        test_url_json = JSON.generate(@test_url_hash)
-        test_url_encoded = (Base64.encode64 @test_url_json).chomp.delete("\n")
-        @test_url = "http://feng-consult.herokuapp.com/test/#{@test_url_encoded}"        
+        test_url_json = JSON.generate(test_url_hash)
+        test_url_encoded = (Base64.encode64 test_url_json).chomp.delete("\n")
+        @test_url = "http://feng-consult.herokuapp.com/test/#{test_url_encoded}"        
  
         @order = Order.find(order_id)      
         @order.payed = true

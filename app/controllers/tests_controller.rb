@@ -1,8 +1,8 @@
 class TestsController < ApplicationController
   def load_page        
     test_url_encoded = params[:test_url_encoded]
-    test_url_json    = Base64.decode64(@test_url_encoded)    
-    test_url_hash    = JSON.parse(@test_url_json)    
+    test_url_json    = Base64.decode64(test_url_encoded)    
+    test_url_hash    = JSON.parse(test_url_json)    
     
     qw_number  = test_url_hash["qw_number"].to_i
     order_id   = test_url_hash["order_id"]
