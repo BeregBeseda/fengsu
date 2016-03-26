@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   
   #post '/test/:qw_number/:order_id/:order_akey/:al/:nl/:shl/:pl/:gml/:dl/:ml/:ol/:kl/:il/:disl',
   #                                         to: 'tests#load_page'     
-  post '/test/:test_url_encoded',          to: 'tests#load_page'     
+
+  #post '/test/:test_url_encoded',          to: 'tests#load_page'
+  match '/test/:test_url_encoded',         to: 'tests#load_page',                                   via: 'get'    
                                                
     
   root 'menus#index'
