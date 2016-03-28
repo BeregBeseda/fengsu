@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.akey = akey
     @order.akey_payed = akey  
+    @order.able = true
             
     if @order.save
       ###LIQPAY      
@@ -170,7 +171,7 @@ class OrdersController < ApplicationController
     
   
   def order_params
-    params.require(:order).permit(:payed, :name, :email, :akey, :pay_way, :end_cards, :sum_for_pay, :when_payed, :akey_payed, :able)
+    params.require(:order).permit(:payed, :name, :email, :cool_time1, :cool_time2, :akey, :pay_way, :end_cards, :sum_for_pay, :when_payed, :akey_payed, :able, :sent_email_with_test, :group_title, :test_ended)
   end  
   
     
