@@ -99,8 +99,8 @@ class OrdersController < ApplicationController
     )       
     
     if sign == params[:signature]
-      #if data_hash["status"].in? ['success', 'sandbox']
-      if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
+      if data_hash["status"].in? ['success', 'sandbox']
+      #if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
         
         details = params[:details]
         order_id_length = ''        
@@ -119,7 +119,7 @@ class OrdersController < ApplicationController
         end        
     
         order_akey = ''
-        for i in (order_id_length-1)..(details.length-1-order_id_length)
+        for i in (order_id_length-1)..(details.length-1 - order_id_length)
            order_akey += details[i]
         end                    
         
