@@ -54,7 +54,7 @@ class TestsController < ApplicationController
           then disl_yes = (disl_no.to_i + 1).to_s
       end      
       
-      @yes_params = {
+      yes_params_hash = {
         :controller => 'tests', 
         :action => 'load_page', 
         :qw_number => next_qw_number,
@@ -72,8 +72,13 @@ class TestsController < ApplicationController
         :il => "#{il_yes or il_no or '0'}",
         :disl => "#{disl_yes or disl_no or '0'}"
         }
+        
+        yes_params_json = JSON.generate(yes_params_hash)
+        yes_params_encoded = (Base64.encode64 yes_params_json).chomp.delete("\n")
+        @yes_params = "http://feng-consult.herokuapp.com/test/#{yes_params_encoded}"
+                
          
-      @no_params = {
+      no_params_hash = {
         :controller => 'tests', 
         :action => 'load_page', 
         :qw_number => next_qw_number,
@@ -91,7 +96,12 @@ class TestsController < ApplicationController
         :il => "#{il_no or '0'}",
         :disl => "#{disl_no or '0'}"
         }
-                      
+        
+        no_params_json = JSON.generate(no_params_hash)
+        no_params_encoded = (Base64.encode64 no_params_json).chomp.delete("\n")
+        @no_params = "http://feng-consult.herokuapp.com/test/#{no_params_encoded}"
+        
+                                      
     else
           
       ill_group = al_no.to_i + nl_no.to_i + shl_no.to_i + pl_no.to_i + gml_no.to_i
