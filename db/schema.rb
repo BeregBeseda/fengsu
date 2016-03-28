@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328164201) do
+ActiveRecord::Schema.define(version: 20160328165200) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -77,6 +77,15 @@ ActiveRecord::Schema.define(version: 20160328164201) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "me_liqpays", force: :cascade do |t|
+    t.integer  "me_number"
+    t.string   "public_key"
+    t.string   "private_key"
+    t.string   "api_version"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

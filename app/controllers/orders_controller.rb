@@ -15,10 +15,14 @@ class OrdersController < ApplicationController
     @order.able = true
             
     if @order.save
-      ###LIQPAY      
+      me_liqpay = MeLiqpay.find_by_me_number(1)
+      public_key = me_liqpay.public_key
+      private_key = me_liqpay.privat_key      
+      api_version = me_liqpay.api_version
+    
       liqpay = Liqpay::Liqpay.new(
-        :public_key  => 'i35395571497',
-        :private_key => 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
+        :public_key  => public_key,
+        :private_key => privat_key
       )    
     
       def encode_json(params)
@@ -30,15 +34,14 @@ class OrdersController < ApplicationController
       end
     
       def cnb_form_request(params = {}, liqpay)
-        params[:public_key] = 'i35395571497'
+        params[:public_key] = public_key
         json_params = encode64 encode_json params
         signature = liqpay.cnb_signature params            
-        @liqpay_url = "https://liqpay.com/api/3/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
-        #@liqpay_url
+        @liqpay_url = "https://liqpay.com/api/#{api_version}/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
       end
       
       html = cnb_form_request({
-        :version        => '3',
+        :version        => api_version,
         :action         => 'pay',
         :amount         => "#{@order.sum_for_pay}",
         :currency       => 'UAH',
@@ -48,8 +51,7 @@ class OrdersController < ApplicationController
         :sandbox        => '1'        
       }, liqpay)                                  
 
-      @order.pay_way = @liqpay_url
-      OrderMailer.a_has_client_payed(@order).deliver    # email to CLIENT: with preparing to test (after pay)
+      OrderMailer.a_has_client_payed(@order, @liqpay_url).deliver    # email to CLIENT: with preparing to test (after pay)
       flash.delete(:order_name)
       flash.delete(:order_email)
       flash.delete(:translit)
@@ -80,8 +82,9 @@ class OrdersController < ApplicationController
   # and want to ENTER TEST (and after - get ACCESS to INFO)
             
   def b_test_for_get_consult_after_pay                
-    public_key = 'i35395571497'
-    private_key = 'irj04vFv5A7g7pdVVdJ59ja5nh79U5IlylVQk8jQ'
+    me_liqpay = MeLiqpay.find_by_me_number(1)
+    public_key = me_liqpay.public_key
+    private_key = me_liqpay.privat_key
         
     data = params[:data]     
     data_json = Base64.decode64(data)    
@@ -100,7 +103,6 @@ class OrdersController < ApplicationController
     
     if sign == params[:signature]
       if data_hash["status"].in? ['success', 'sandbox']
-      #if data_hash["status"] == 'success' or data_hash["status"] == 'sandbox' 
         
         details = params[:details]
         order_id_length = ''        
