@@ -118,7 +118,7 @@ class TestsController < ApplicationController
           order.group_title = 'GOOD GROUP' 
           
           group = GoodGroup.new
-          group.order_id = order.id
+          group.the_order_id = order.id
           group.order_email = order.email                     
           
           flash[:notice] = 'Client has gone to good group'
@@ -128,7 +128,7 @@ class TestsController < ApplicationController
           order.group_title = 'BAD GROUP'
           
           group = BadGroup.new
-          group.order_id = order.id
+          group.the_order_id = order.id
           group.order_email = order.email          
            
           flash[:notice] = 'Client has gone to bad group'

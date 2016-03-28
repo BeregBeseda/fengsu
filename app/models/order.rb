@@ -1,7 +1,8 @@
 class Order < ActiveRecord::Base
-
   before_save { |order| order.email = order.email.downcase }
   
+
+
 
 
   validates :name,         presence:       { message:       'please, enter your name' },        
@@ -10,6 +11,9 @@ class Order < ActiveRecord::Base
                                              too_long:      'name is too long',
                                              :if => :name? },
                            :on => :create
+
+
+
 
                            
   validates :email,        presence:       { message:       'please, enter email' },      
