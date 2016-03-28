@@ -142,12 +142,21 @@ class OrdersController < ApplicationController
 
         test_url_json = JSON.generate(test_url_hash)
         test_url_encoded = (Base64.encode64 test_url_json).chomp.delete("\n")
+        
+        
+        
         @test_url = "http://feng-consult.herokuapp.com/test/#{test_url_encoded}"        
  
         @order = Order.find(order_id)      
         @order.payed = true
-        @order.save
-        OrderMailer.b_info_to_client_that_pay_data_is_right(@order, @test_url).deliver        
+        
+        unless @order.sent_email_with_test
+          OrderMailer.b_info_to_client_that_pay_data_is_right(@order, @test_url).deliver        
+          @order.sent_email_with_test = true
+        end  
+        
+        @order.save        
+        
       else
         redirect_to '/'
       end  
