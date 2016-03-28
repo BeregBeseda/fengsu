@@ -1,6 +1,4 @@
 class Order < ActiveRecord::Base
-  belongs_to :good_group
-  belongs_to :bad_group  
 
   before_save { |order| order.email = order.email.downcase }
   
