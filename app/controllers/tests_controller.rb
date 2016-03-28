@@ -107,8 +107,8 @@ class TestsController < ApplicationController
       ill_group = al_no.to_i + nl_no.to_i + shl_no.to_i + pl_no.to_i + gml_no.to_i
       good_group = dl_no.to_i + ml_no.to_i + ol_no.to_i + kl_no.to_i + il_no.to_i + disl_no.to_i                
       
-      @order = Order.find(order_id)
-      if @order and @order.akey == order_akey        
+      order = Order.find(order_id)
+      if order and order.akey == order_akey        
       
         if ill_group < 2 or good_group > 1
           result = 'Client has gone to good group'
