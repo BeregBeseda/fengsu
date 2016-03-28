@@ -1,6 +1,7 @@
 class TestsController < ApplicationController
   def load_page        
     test_url_encoded = params[:test_url_encoded]
+    test_url_encoded[test_url_encoded.length-1] = ''
     test_url_json    = Base64.decode64(test_url_encoded)    
     test_url_hash    = JSON.parse(test_url_json)    
     
@@ -74,7 +75,8 @@ class TestsController < ApplicationController
         }
         
         yes_params_json = JSON.generate(yes_params_hash)
-        yes_params_encoded = (Base64.encode64 yes_params_json).chomp.delete("\n")
+        yes_params_encoded_64 = (Base64.encode64 yes_params_json).chomp.delete("\n")
+        yes_params_encoded = yes_params_encoded_64 + '='
         @yes_params = "http://feng-consult.herokuapp.com/test/#{yes_params_encoded}"
                 
          
@@ -98,7 +100,8 @@ class TestsController < ApplicationController
         }
         
         no_params_json = JSON.generate(no_params_hash)
-        no_params_encoded = (Base64.encode64 no_params_json).chomp.delete("\n")
+        no_params_encoded_64 = (Base64.encode64 no_params_json).chomp.delete("\n")
+        no_params_encoded = no_params_encoded_64 + '='
         @no_params = "http://feng-consult.herokuapp.com/test/#{no_params_encoded}"
         
                                       

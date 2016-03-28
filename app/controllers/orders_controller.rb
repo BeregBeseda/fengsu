@@ -142,10 +142,8 @@ class OrdersController < ApplicationController
         }        
 
         test_url_json = JSON.generate(test_url_hash)
-        test_url_encoded = (Base64.encode64 test_url_json).chomp.delete("\n")
-        
-        
-        
+        test_url_encoded_64 = (Base64.encode64 test_url_json).chomp.delete("\n")
+        test_url_encoded = test_url_encoded_64 + '='                 
         @test_url = "http://feng-consult.herokuapp.com/test/#{test_url_encoded}"        
  
         @order = Order.find(order_id)      
