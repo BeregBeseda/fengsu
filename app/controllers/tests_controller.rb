@@ -108,8 +108,7 @@ class TestsController < ApplicationController
       good_group = dl_no.to_i + ml_no.to_i + ol_no.to_i + kl_no.to_i + il_no.to_i + disl_no.to_i                
       
       @order = Order.find(order_id)
-      if @order and @order.akey == order_akey        
-        @order.test_ended = true
+      if @order and @order.akey == order_akey                
         
         if ill_group < 2 or good_group > 1
           @order.group_title = 'GOOD GROUP' 
@@ -118,9 +117,10 @@ class TestsController < ApplicationController
           @order.group_title = 'BAD GROUP' 
           result = 'Client has gone to bad group'
         end
+        @order.test_ended = true
         @order.save  
         
-      flash[:notice] = 'Test has ended successful. ' + result      
+        flash[:notice] = 'Test has ended successful. ' + result      
         
       else
         flash[:notice] = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'

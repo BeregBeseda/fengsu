@@ -150,6 +150,7 @@ class OrdersController < ApplicationController
  
         @order = Order.find(order_id)      
         @order.payed = true
+        @order.when_payed = Time.now.utc
         
         unless @order.sent_email_with_test
           OrderMailer.b_info_to_client_that_pay_data_is_right(@order, @test_url).deliver        
@@ -171,7 +172,7 @@ class OrdersController < ApplicationController
     
   
   def order_params
-    params.require(:order).permit(:payed, :name, :email, :cool_time1, :cool_time2, :akey, :pay_way, :end_cards, :sum_for_pay, :when_payed, :akey_payed, :able, :sent_email_with_test, :group_title, :test_ended)
+    params.require(:order).permit(:payed, :name, :email, :akey, :pay_way, :sum_for_pay, :when_payed, :akey_payed, :able, :sent_email_with_test, :group_title, :test_ended)
   end  
   
     
