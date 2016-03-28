@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
     if @order.save
       me_liqpay = MeLiqpay.find_by_me_number(1)
       public_key = me_liqpay.public_key
-      private_key = me_liqpay.privat_key      
+      private_key = me_liqpay.private_key      
       api_version = me_liqpay.api_version
     
       liqpay = Liqpay::Liqpay.new(
@@ -84,7 +84,7 @@ class OrdersController < ApplicationController
   def b_test_for_get_consult_after_pay                
     me_liqpay = MeLiqpay.find_by_me_number(1)
     public_key = me_liqpay.public_key
-    private_key = me_liqpay.privat_key
+    private_key = me_liqpay.private_key
         
     data = params[:data]     
     data_json = Base64.decode64(data)    
