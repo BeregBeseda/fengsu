@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
         (Base64.encode64 params).chomp.delete("\n")
       end
     
-      def cnb_form_request(params = {}, liqpay, public_key)
+      def cnb_form_request(params = {}, liqpay, public_key, api_version)
         params[:public_key] = public_key
         json_params = encode64 encode_json params
         signature = liqpay.cnb_signature params            
@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
         :server_url     => "http://feng-consult.herokuapp.com/i_have_payed/#{@order.id.to_s.length}#{('a'..'z').to_a.shuffle.first}#{@order.akey}#{@order.id}",
         :result_url     => "http://feng-consult.herokuapp.com/about/-#{flash[:translit] or 'lichnaya-zhizn'}",
         :sandbox        => '1'        
-      }, liqpay, public_key)                                  
+      }, liqpay, public_key, api_version)                                  
 
       OrderMailer.a_has_client_payed(@order, @liqpay_url).deliver    # email to CLIENT: with preparing to test (after pay)
       flash.delete(:order_name)
