@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328180200) do
+ActiveRecord::Schema.define(version: 20160329235300) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20160328180200) do
     t.boolean  "sent_email_with_test", default: false
     t.string   "group_title"
     t.boolean  "test_ended",           default: false
+    t.string   "pay_link"
   end
 
   create_table "questions", force: :cascade do |t|
