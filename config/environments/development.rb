@@ -52,7 +52,7 @@ Rails.application.configure do
     :user_name            => 'bereg.beseda@gmail.com',  
     :password             => 'gsh1978196819971',  
     :authentication       => 'Yes',  
-    :secure_connection    => 'Yes'
+    :secure_connection    => 'Yes',
     :enable_starttls_auto => true  
   }
   
