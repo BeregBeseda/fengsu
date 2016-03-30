@@ -51,7 +51,10 @@ class OrdersController < ApplicationController
         :sandbox        => '1'        
       }, liqpay, public_key, api_version)                                  
 
-      OrderMailer.a_has_client_payed(@order, @liqpay_url).deliver    # email to CLIENT: with preparing to test (after pay)
+      @order.pay_link = @liqpay_url
+      @order.save
+
+
       flash.delete(:order_name)
       flash.delete(:order_email)
       flash.delete(:translit)
@@ -150,6 +153,7 @@ class OrdersController < ApplicationController
  
         @order = Order.find(order_id)      
         @order.payed = true
+        @order.pay_link = ''
         @order.when_payed = Time.now.utc
         
         unless @order.sent_email_with_test

@@ -4,9 +4,8 @@ class OrderMailer < ActionMailer::Base
   default from: 'bereg.beseda@ukr.net'
 
   
-  def a_has_client_payed(order, liqpay_url)
+  def a_has_client_payed(order)
     @order = order        
-    @liqpay_url = liqpay_url
     mail(to: @order.email, subject: 'Контакты подходящих Вам людей для построения отношений')    
   end
     
