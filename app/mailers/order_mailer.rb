@@ -10,7 +10,7 @@ class OrderMailer < ActionMailer::Base
   end
     
       
-  def b_info_to_client_that_pay_data_is_right(order, test_url)
+  def b_test_to_client_for_get_contacts_after_cool_pay(order, test_url)
     @order = order            
     @test_url = test_url
     mail(to: @order.email, subject: 'Оплата прошла успешно')

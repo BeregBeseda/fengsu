@@ -83,12 +83,13 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp  
   config.action_mailer.default_url_options = {host: 'bereg.beseda@ukr.net'}   
   config.action_mailer.smtp_settings = {  
-    :address              => "smtp.gmail.com",  
-    :port                 => 587,  
-    :domain               => "http://feng-consult.herokuapp.com/",  
-    :user_name            => "bereg.beseda@gmail.com",  
-    :password             => "gsh1978196819971",  
-    :authentication       => "plain",  
+    :address              => 'smtp.gmail.com',  
+    :port                 => 465,  
+    :domain               => 'http://feng-consult.herokuapp.com/',  
+    :user_name            => 'bereg.beseda@gmail.com',  
+    :password             => 'gsh1978196819971',  
+    :authentication       => 'Yes',  
+    :secure_connection    => 'Yes'
     :enable_starttls_auto => true  
   }     
   

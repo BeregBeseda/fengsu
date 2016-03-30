@@ -54,6 +54,7 @@ class OrdersController < ApplicationController
       @order.pay_link = @liqpay_url
       @order.save
 
+      OrderMailer.a_has_client_payed(@order).deliver        
 
       flash.delete(:order_name)
       flash.delete(:order_email)
@@ -84,7 +85,7 @@ class OrdersController < ApplicationController
   # client ends the PAY PROCESS [SUCCESSFUL]
   # and want to ENTER TEST (and after - get ACCESS to INFO)
             
-  def b_test_for_get_consult_after_pay                
+  def b_test_for_get_contacts_after_pay                
     me_liqpay = MeLiqpay.find_by_me_number(1)
     public_key = me_liqpay.public_key
     private_key = me_liqpay.private_key
@@ -157,7 +158,7 @@ class OrdersController < ApplicationController
         @order.when_payed = Time.now.utc
         
         unless @order.sent_email_with_test
-          OrderMailer.b_info_to_client_that_pay_data_is_right(@order, @test_url).deliver        
+          OrderMailer.b_test_to_client_for_get_contacts_after_cool_pay(@order, @test_url).deliver        
           @order.sent_email_with_test = true
         end  
         
