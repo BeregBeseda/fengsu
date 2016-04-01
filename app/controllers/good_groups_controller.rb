@@ -1,0 +1,2 @@
+class GoodGroupsController < ApplicationController
+end

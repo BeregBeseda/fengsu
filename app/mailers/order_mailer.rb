@@ -16,4 +16,10 @@ class OrderMailer < ActionMailer::Base
     mail(to: @order.email, subject: 'Оплата прошла успешно')
   end
   
+  def c_see_contacts(order, link_with_contacts)
+    @order = order
+    @link_with_contacts = link_with_contacts
+    mail(to: @order.email, subject: 'Контакты подходящих Вам людей для построения отношений')
+  end
+  
 end
