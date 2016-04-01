@@ -88,8 +88,6 @@ Rails.application.configure do
     :domain               => 'http://feng-consult.herokuapp.com/',  
     :user_name            => 'bereg.beseda@gmail.com',  
     :password             => 'gsh1978196819971',  
-    :authentication       => 'Yes',  
-    :secure_connection    => 'Yes',
     :enable_starttls_auto => true  
   }     
   
