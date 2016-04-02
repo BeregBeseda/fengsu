@@ -107,48 +107,50 @@ class TestsController < ApplicationController
                                       
     else
           
-      ill_group = al_no.to_i + nl_no.to_i + shl_no.to_i + gml_no.to_i
+      bad_group = al_no.to_i + nl_no.to_i + shl_no.to_i + gml_no.to_i
       good_group = dl_no.to_i + ml_no.to_i + ol_no.to_i + pl_no.to_i + kl_no.to_i + il_no.to_i + disl_no.to_i                
       
       order = Order.find(order_id)
       if order and order.akey == order_akey                
         
         
-        if ill_group < 2 or good_group > 1
+        if bad_group < 2 or good_group > 1
           order.group_title = 'GOOD GROUP' 
           
           group = GoodGroup.new
           group.the_order_id = order.id
           group.order_email = order.email                     
           
-          #@link_with_contacts = "http://feng-consult.herokuapp.com/contacts/1#{order.id}/#{order.akey_payed}"
-          
+          #@link_with_contacts = "http://feng-consult.herokuapp.com/contacts/1#{order.id}#{order.akey_payed}"
+          # 11111
+           
           flash[:notice] = 'Client has gone to good group'
           
         else
         
           order.group_title = 'BAD GROUP'
           
-          group = BadGroup.new
-          group.the_order_id = order.id
-          group.order_email = order.email          
+          contact              = Contact.new
+          contact.order_id     = order.id
+          contact.order_email  = order.email          
            
-          #@link_with_contacts = "http://feng-consult.herokuapp.com/contacts/0#{order.id}/#{order.akey_payed}"           
+          #@link_with_contacts = "http://feng-consult.herokuapp.com/contacts/#{[0,2,4,6,8].shuffle.first}#{('a'..'z').to_a.shuffle.first}#{('a'..'z').to_a.shuffle.first}#{order.id}#{order.akey_payed}"           
            
           flash[:notice] = 'Client has gone to bad group'
         end
                                 
         order.test_ended = true
-        order.akey = ''
+        order.akey       = ''
         order.save  
         
         group.save
         #OrderMailer.c_see_contacts(@order, @link_with_contacts).deliver         !!!!!
       else
-        flash[:notice] = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'
+        flash[:notice]   = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'
       end       
       
       redirect_to '/'      
+      # redirect_to "@link_with_contacts" 
     end              
   end
 end

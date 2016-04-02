@@ -1,2 +1,0 @@
-class BadGroupsController < ApplicationController
-end
