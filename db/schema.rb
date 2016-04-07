@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330001300) do
+ActiveRecord::Schema.define(version: 20160407151900) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -46,14 +46,6 @@ ActiveRecord::Schema.define(version: 20160330001300) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
 
-  create_table "bad_groups", force: :cascade do |t|
-    t.string   "order_email"
-    t.boolean  "able_for_contact", default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "the_order_id"
-  end
-
   create_table "consults", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -67,18 +59,32 @@ ActiveRecord::Schema.define(version: 20160330001300) do
     t.datetime "updated_at"
   end
 
-  create_table "good_groups", force: :cascade do |t|
-    t.string   "order_email"
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "surname"
+    t.string   "city"
+    t.string   "country"
+    t.date     "birthday"
+    t.string   "about_yourself"
+    t.string   "email"
+    t.integer  "order_id"
     t.boolean  "able_for_contact", default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "the_order_id"
+    t.string   "group"
   end
 
   create_table "groups", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "me_constants", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.string   "content"
   end
 
   create_table "me_liqpays", force: :cascade do |t|
@@ -125,9 +131,9 @@ ActiveRecord::Schema.define(version: 20160330001300) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "sent_email_with_test", default: false
-    t.string   "group_title"
     t.boolean  "test_ended",           default: false
     t.string   "pay_link"
+    t.string   "group"
   end
 
   create_table "questions", force: :cascade do |t|

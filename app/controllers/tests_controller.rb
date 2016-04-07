@@ -1,5 +1,9 @@
 class TestsController < ApplicationController
-  def load_page        
+
+
+  def load_page     
+    root_path = MeConstant.find_by_title('root_path')
+     
     test_url_encoded = params[:test_url_encoded]
     test_url_encoded[test_url_encoded.length-1] = ''
     test_url_json    = Base64.decode64(test_url_encoded)    
@@ -20,7 +24,9 @@ class TestsController < ApplicationController
     kl_no   = test_url_hash["kl"]
     il_no   = test_url_hash["il"]
     disl_no = test_url_hash["disl"]
-        
+#_______________________________________________________________________________        
+          
+          
           
     questions = Test.find(1).questions       
     if qw_number < questions.count + 1
@@ -77,80 +83,97 @@ class TestsController < ApplicationController
         yes_params_json = JSON.generate(yes_params_hash)
         yes_params_encoded_64 = (Base64.encode64 yes_params_json).chomp.delete("\n")
         yes_params_encoded = yes_params_encoded_64 + '='
-        @yes_params = "http://feng-consult.herokuapp.com/test/#{yes_params_encoded}"
+        @yes_params = root_path + "test/#{yes_params_encoded}"
+#_______________________________________________________________________________
                 
          
+         
       no_params_hash = {
-        :controller => 'tests', 
-        :action => 'load_page', 
-        :qw_number => next_qw_number,
-        :order_id => order_id,
-        :order_akey => order_akey,
-        :al => "#{al_no or '0'}",
-        :nl => "#{nl_no or '0'}",
-        :shl => "#{shl_no or '0'}",
-        :pl => "#{pl_no or '0'}",
-        :gml => "#{gml_no or '0'}",
-        :dl => "#{dl_no or '0'}",
-        :ml => "#{ml_no or '0'}",
-        :ol => "#{ol_no or '0'}",
-        :kl => "#{kl_no or '0'}",
-        :il => "#{il_no or '0'}",
-        :disl => "#{disl_no or '0'}"
+        :controller  => 'tests', 
+        :action      => 'load_page', 
+        :qw_number   => next_qw_number,
+        :order_id    => order_id,
+        :order_akey  => order_akey,
+        :al          => "#{al_no or '0'}",
+        :nl          => "#{nl_no or '0'}",
+        :shl         => "#{shl_no or '0'}",
+        :pl          => "#{pl_no or '0'}",
+        :gml         => "#{gml_no or '0'}",
+        :dl          => "#{dl_no or '0'}",
+        :ml          => "#{ml_no or '0'}",
+        :ol          => "#{ol_no or '0'}",
+        :kl          => "#{kl_no or '0'}",
+        :il          => "#{il_no or '0'}",
+        :disl        => "#{disl_no or '0'}"
         }
         
         no_params_json = JSON.generate(no_params_hash)
         no_params_encoded_64 = (Base64.encode64 no_params_json).chomp.delete("\n")
         no_params_encoded = no_params_encoded_64 + '='
-        @no_params = "http://feng-consult.herokuapp.com/test/#{no_params_encoded}"
+        @no_params = root_path + "test/#{no_params_encoded}"
         
                                       
     else
+#_______________________________________________________________________________
           
-      bad_group = al_no.to_i + nl_no.to_i + shl_no.to_i + gml_no.to_i
-      good_group = dl_no.to_i + ml_no.to_i + ol_no.to_i + pl_no.to_i + kl_no.to_i + il_no.to_i + disl_no.to_i                
-      
-      order = Order.find(order_id)
+          
+          
+      bad_group  = to_i al_no   + 
+                   to_i nl_no   + 
+                   to_i shl_no  +  
+                   to_i gml_no
+                   
+      good_group = to_i dl_no   + 
+                   to_i ml_no   + 
+                   to_i ol_no   + 
+                   to_i pl_no   + 
+                   to_i kl_no   + 
+                   to_i il_no   + 
+                   to_i disl_no                
+
+      order = Order.find(order_id)            
+#_______________________________________________________________________________
+
+
+
       if order and order.akey == order_akey                
         
-        
+                
         if bad_group < 2 or good_group > 1
-          order.group_title = 'GOOD GROUP' 
-          
-          group = GoodGroup.new
-          group.the_order_id = order.id
-          group.order_email = order.email                     
-          
-          #@link_with_contacts = "http://feng-consult.herokuapp.com/contacts/1#{order.id}#{order.akey_payed}"
-          # 11111
-           
-          flash[:notice] = 'Client has gone to good group'
-          
-        else
         
-          order.group_title = 'BAD GROUP'
+          order.group         = 'GOOD GROUP'           
+          flash[:notice]      = 'Client has gone to good group'
+
+        else         
           
-          contact              = Contact.new
-          contact.order_id     = order.id
-          contact.order_email  = order.email          
-           
-          #@link_with_contacts = "http://feng-consult.herokuapp.com/contacts/#{[0,2,4,6,8].shuffle.first}#{('a'..'z').to_a.shuffle.first}#{('a'..'z').to_a.shuffle.first}#{order.id}#{order.akey_payed}"           
-           
-          flash[:notice] = 'Client has gone to bad group'
+          order.group         = 'BAD GROUP'                   
+          flash[:notice]      = 'Client has gone to bad group'
+          
         end
-                                
+#_______________________________________________________________________________
+            
+            
+                                           
         order.test_ended = true
         order.akey       = ''
-        order.save  
+        order.save         
+#_______________________________________________________________________________
         
-        group.save
-        #OrderMailer.c_see_contacts(@order, @link_with_contacts).deliver         !!!!!
+        
+        
       else
         flash[:notice]   = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'
+        redirect_to '/'
       end       
       
-      redirect_to '/'      
-      # redirect_to "@link_with_contacts" 
+      
+      link_with_more_info_form = root_path + 'much_form/' + order.id.to_s + redirect_letter + order.akey_payed
+      #OrderMailer.c_more_info_form(order, link_with_more_info_form).deliver      !!!!!
+      
+      redirect_letter = ('a'..'z').to_a.shuffle.first
+      redirect_to link_with_more_info_form
     end              
   end
+  
+  
 end

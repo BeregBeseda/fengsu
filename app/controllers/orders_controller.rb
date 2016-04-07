@@ -7,18 +7,29 @@ class OrdersController < ApplicationController
   def a_new_order
     @order = Order.new  
   end
+#_____________________________________________________________________________________________________________________________________________
+  
+  
   
   def create
-    @order = Order.new(order_params)
-    @order.akey = akey
+    root_path = MeConstant.find_by_title('root_path')  
+    
+    @order            = Order.new(order_params)
+    @order.akey       = akey
     @order.akey_payed = akey  
-    @order.able = true
+    @order.able       = true
+#_______________________________________________________________________________
+
+
             
     if @order.save
-      me_liqpay = MeLiqpay.find_by_me_number(1)
-      public_key = me_liqpay.public_key
+      me_liqpay   = MeLiqpay.find_by_me_number(1)
+      public_key  = me_liqpay.public_key
       private_key = me_liqpay.private_key      
-      api_version = me_liqpay.api_version
+      api_version = me_liqpay.api_version           
+#_______________________________________________________________________________if @order.save
+
+
     
       liqpay = Liqpay::Liqpay.new(
         :public_key  => public_key,
@@ -32,6 +43,9 @@ class OrdersController < ApplicationController
       def encode64(params)
         (Base64.encode64 params).chomp.delete("\n")
       end
+#_______________________________________________________________________________if @order.save
+
+
     
       def cnb_form_request(params = {}, liqpay, public_key, api_version)
         params[:public_key] = public_key
@@ -39,17 +53,23 @@ class OrdersController < ApplicationController
         signature = liqpay.cnb_signature params            
         @liqpay_url = "https://liqpay.com/api/#{api_version}/checkout?data=#{json_params.to_s}&signature=#{signature.to_s}"
       end
+#_______________________________________________________________________________if @order.save
+
+
       
       html = cnb_form_request({
         :version        => api_version,
         :action         => 'pay',
-        :amount         => "#{@order.sum_for_pay}",
+        :amount         => @order.sum_for_pay,
         :currency       => 'UAH',
         :description    => "Оплата теста",
-        :server_url     => "http://feng-consult.herokuapp.com/i_have_payed/#{@order.id.to_s.length}#{('a'..'z').to_a.shuffle.first}#{@order.akey}#{@order.id}",
-        :result_url     => "http://feng-consult.herokuapp.com/about/-#{flash[:translit] or 'lichnaya-zhizn'}",
+        :server_url     => root_path + "i_have_payed/#{@order.id.to_s.length}#{('a'..'z').to_a.shuffle.first}#{@order.akey}#{@order.id}",
+        :result_url     => root_path + "about/-#{flash[:translit] or 'lichnaya-zhizn'}",
         :sandbox        => '1'        
       }, liqpay, public_key, api_version)                                  
+#_______________________________________________________________________________if @order.save
+
+
 
       @order.pay_link = @liqpay_url
       @order.save
@@ -61,6 +81,9 @@ class OrdersController < ApplicationController
       flash.delete(:translit)
 
       redirect_to html     
+#_______________________________________________________________________________if @order.save
+       
+       
        
     else  
       flash[:order_name] = @order.name
@@ -79,7 +102,8 @@ class OrdersController < ApplicationController
     end  
   end
 
-#*********************************************************************************************************************************************  
+#_____________________________________________________________________________________________________________________________________________
+  
   
   
   # client ends the PAY PROCESS [SUCCESSFUL]
@@ -93,6 +117,8 @@ class OrdersController < ApplicationController
     data = params[:data]     
     data_json = Base64.decode64(data)    
     data_hash = JSON.parse(data_json)
+    
+    root_path = MeConstant.find_by_title('root_path')
         
     liqpay = Liqpay::Liqpay.new(
       :public_key  => public_key,
@@ -104,6 +130,9 @@ class OrdersController < ApplicationController
     data +
     private_key
     )       
+#_______________________________________________________________________________
+  
+  
     
     if sign == params[:signature]
       if data_hash["status"].in? ['success', 'sandbox']
@@ -150,7 +179,7 @@ class OrdersController < ApplicationController
         test_url_json = JSON.generate(test_url_hash)
         test_url_encoded_64 = (Base64.encode64 test_url_json).chomp.delete("\n")
         test_url_encoded = test_url_encoded_64 + '='                 
-        @test_url = "http://feng-consult.herokuapp.com/test/#{test_url_encoded}"        
+        @test_url = root_path + "test/#{test_url_encoded}"        
  
         @order = Order.find(order_id)      
         @order.payed = true
@@ -163,6 +192,9 @@ class OrdersController < ApplicationController
         end  
         
         @order.save        
+#_______________________________________________________________________________
+  
+  
         
       else
         redirect_to '/'
@@ -171,30 +203,43 @@ class OrdersController < ApplicationController
       redirect_to '/'  
     end       
   end    
-  
-  
-#*********************************************************************************************************************************************  
+#_____________________________________________________________________________________________________________________________________________    
+
     
   
   def order_params
-    params.require(:order).permit(:payed, :name, :email, :akey, :pay_link, :sum_for_pay, :when_payed, :akey_payed, :able, :sent_email_with_test, :group_title, :test_ended)
+    params.require(:order).permit(:payed, :name, :email, :akey, :pay_link, :sum_for_pay, :when_payed, :akey_payed, :able, :sent_email_with_test, :group, :test_ended)
   end  
+#_____________________________________________________________________________________________________________________________________________
+
   
     
   private
+  
+    
   def set_menu
     translit = params[:translit]
+    
     if translit[0] == '-'
       @info_msg = (OrderInfoPage.find_by translit: 'proverte_email_posle_oplaty').msg
       translit[0] = ''
     end
+    
+    if translit[translit.length-1] == '-'
+      @info_msg = (OrderInfoPage.find_by translit: 'pismo_s_kontaktami_otpravleno').msg
+      translit[translit.length-1] = ''
+    end    
+    
     @menu = Menu.find_by translit: translit  # 1)   get menu-record with title == params[:translit]     // like 'lichnaja-zhizn' etc.
     @menu ||= Menu.first                     # 2)   if record not found -> display the first record  
     flash[:translit] = translit
   end  
     
+    
   def set_all_menus
     @menus = Menu.all
   end                                                 
+  
+
 end    
   

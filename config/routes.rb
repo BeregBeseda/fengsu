@@ -15,7 +15,8 @@ Rails.application.routes.draw do
 
   post '/test/:test_url_encoded',          to: 'tests#load_page'
   match '/test/:test_url_encoded',         to: 'tests#load_page',                                   via: 'get'    
-  
+
+  match '/much_form/:order_info',          to: 'contacts#more_info_form',                           via: 'get'        
   match '/contacts/:details',              to: 'contacts#show',                                     via: 'get'      
                                                
     
