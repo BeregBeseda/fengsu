@@ -2,7 +2,7 @@ class TestsController < ApplicationController
 
 
   def load_page     
-    root_path = MeConstant.find_by_title('root_path')
+    root_path = MeConstant.find_by_title('root_path').content
      
     test_url_encoded = params[:test_url_encoded]
     test_url_encoded[test_url_encoded.length-1] = ''
@@ -118,18 +118,18 @@ class TestsController < ApplicationController
           
           
           
-      bad_group  = to_i al_no   + 
-                   to_i nl_no   + 
-                   to_i shl_no  +  
-                   to_i gml_no
+      bad_group  = al_no.to_i   + 
+                   nl_no.to_i   + 
+                   shl_no.to_i  +  
+                   gml_no.to_i
                    
-      good_group = to_i dl_no   + 
-                   to_i ml_no   + 
-                   to_i ol_no   + 
-                   to_i pl_no   + 
-                   to_i kl_no   + 
-                   to_i il_no   + 
-                   to_i disl_no                
+      good_group = dl_no.to_i   + 
+                   ml_no.to_i   + 
+                   ol_no.to_i   + 
+                   pl_no.to_i   + 
+                   kl_no.to_i   + 
+                   il_no.to_i   + 
+                   disl_no.to_i                
 
       order = Order.find(order_id)            
 #_______________________________________________________________________________

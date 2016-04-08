@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
   
   
   def create
-    root_path = MeConstant.find_by_title('root_path')  
+    root_path = MeConstant.find_by_title('root_path').content  
     
     @order            = Order.new(order_params)
     @order.akey       = akey
@@ -118,7 +118,7 @@ class OrdersController < ApplicationController
     data_json = Base64.decode64(data)    
     data_hash = JSON.parse(data_json)
     
-    root_path = MeConstant.find_by_title('root_path')
+    root_path = MeConstant.find_by_title('root_path').content
         
     liqpay = Liqpay::Liqpay.new(
       :public_key  => public_key,

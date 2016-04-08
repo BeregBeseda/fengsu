@@ -1,18 +1,17 @@
 class ContactsController < ApplicationController
 
-  before_action :set_order,  only: [:more_info_form]
-#_____________________________________________________________________________________________________________________________________________    
-  
-  
+
 
   def more_info_form
+    @contact = Contact.new
+  
     order_info = params[:order_info]
     order_id = ''
     order_akey_payed = ''
     
     for i in 0..order_info.length-1
-      unless details[i].in? ('a'..'z')
-        order_id += "#{details[i]}"
+      unless order_info[i].in? ('a'..'z')
+        order_id += "#{order_info[i]}"
       else
         @current_i = i.to_i + 1
         break
@@ -20,7 +19,7 @@ class ContactsController < ApplicationController
     end    
         
     for i in @current_i..order_info.length - 1
-      order_akey_payed += "#{details[i]}"
+      order_akey_payed += "#{order_info[i]}"
     end        
 #_______________________________________________________________________________        
         
@@ -39,62 +38,45 @@ class ContactsController < ApplicationController
 
 
   
-  def save_more_info
+  def create
     contact = Contact.new(contact_params) 
-    if contact.save
+    root_path = MeConstant.find_by_title('root_path').content
     
-    root_path = MeConstant.find_by_title('root_path')
+    if contact.save        
 
-    order = Order.find(contact.order_id)    
+    order = Order.find(contact.order_number)    
     if order 
     
-        if order.group == 'GOOD GROUP'        
-        
-          contacts_status     = [1,3,5,7,9].shuffle.first
-          plus_2_letters      = ('a'..'z').to_a.shuffle.first + 
-                                ('a'..'z').to_a.shuffle.first
-                                
-          contacts_details    = contacts_status               +
-                                plus_2_letters                + 
-                                order.id.to_s                 + 
-                                order.akey_payed          
-                                
-          @link_with_contacts = root_path                     +
-                                'contacts/'                   +
-                                contacts_details                      
-        end
-#_______________________________________________________________________________
+      contacts_status = if order.group == 'GOOD GROUP'                     
+        [1,3,5,7,9].shuffle.first.to_s
+      else
+        [2,4,6,8].shuffle.first.to_s      
+      end
 
+      plus_2_letters      = ('a'..'z').to_a.shuffle.first + 
+                            ('a'..'z').to_a.shuffle.first
+           
+      contacts_details    = contacts_status               + 
+                            order.id.to_s                 + 
+                            plus_2_letters                + 
+                            order.akey_payed                     
 
-
-        if order.group == 'BAD GROUP'
-                
-          contacts_status     = [2,4,6,8].shuffle.first
-          plus_2_letters      = ('a'..'z').to_a.shuffle.first + 
-                                ('a'..'z').to_a.shuffle.first
-                
-                                
-          contacts_details    = contacts_status               +
-                                plus_2_letters                + 
-                                order.id.to_s                 + 
-                                order.akey_payed          
-                                
-          @link_with_contacts = root_path                     +
-                                'contacts/'                   +
-                                contacts_details                      
-        end
-#_______________________________________________________________________________
+      @link_with_contacts = root_path                     + 
+                            'contacts/'                   + 
+                            contacts_details                      
 
 
 
       #OrderMailer.d_see_contacts(order, @link_with_contacts).deliver      !!!!!      
-      redirect_to "#{@link_with_contacts}"                         
+      redirect_to @link_with_contacts                         
 
     else
       flash[:notice]   = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'
       redirect_to '/'
     end       
-
+    
+  else
+    flash[:notice] = 'can`t save'
   end
 
   end
@@ -132,9 +114,9 @@ class ContactsController < ApplicationController
     end               
     
     @contacts = if ( status % 2 == 0 )
-      Contact.find_all_by_group('GOOD GROUP' ).where.not(order_id: order_id)
+      Contact.where(group: 'GOOD GROUP').where.not(order_number: order_id)
     else  
-      Contact.find_all_by_group( 'BAD GROUP' ).where.not(order_id: order_id)
+      Contact.where(group: 'BAD GROUP' ).where.not(order_number: order_id)
     end        
   end
 #_____________________________________________________________________________________________________________________________________________
@@ -142,16 +124,8 @@ class ContactsController < ApplicationController
 
 
   def contact_params
-    params.require(:contact).permit(:name, :surname, :city, :country, :birthday, :about_yourself, :email, :order_id, :able_for_contact, :group)
+    params.require(:contact).permit(:name, :surname, :city, :country, :birthday, :about_yourself, :email, :order_number, :able_for_contact, :group)
   end  
-#_____________________________________________________________________________________________________________________________________________
-  
 
-
-  private
-    
-  def set_menu
-    @order = Order.find(params[:order_id])    
-  end
   
 end
