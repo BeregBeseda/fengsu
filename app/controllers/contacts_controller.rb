@@ -67,7 +67,7 @@ class ContactsController < ApplicationController
 
 
 
-      #OrderMailer.d_see_contacts(order, @link_with_contacts).deliver      !!!!!      
+      OrderMailer.d_see_contacts(order, @link_with_contacts).deliver      
       redirect_to @link_with_contacts                         
 
     else

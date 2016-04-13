@@ -15,6 +15,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 
 gem 'mail'
+#gem 'aws-sdk-rails'
 
 
 gem 'passenger'

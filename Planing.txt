@@ -1,5 +1,9 @@
+ENV["DOMAIN_NAME"]
+vars?
 
-
+-
+mailing:
+AWS: https://aws.amazon.com/ru/ses/getting-started/
 -
 
 qw able -> false HOW?

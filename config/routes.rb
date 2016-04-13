@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   match '/test/:test_url_encoded',         to: 'tests#load_page',                                   via: 'get'    
 
   match '/much_form/:order_info',          to: 'contacts#more_info_form',                           via: 'get'        
-  post  '/contacts',                       to: 'contacts#create'                     # for OrderForm works (path for creating new order)  
+  post  '/contacts',                       to: 'contacts#create'                     # for MoreContactsForm works (path for creating new contact)  
   match '/contacts/:details',              to: 'contacts#show',                                     via: 'get'      
                                                
     

@@ -168,7 +168,7 @@ class TestsController < ApplicationController
       
       
       link_with_more_info_form = root_path + 'much_form/' + order.id.to_s + redirect_letter + order.akey_payed
-      #OrderMailer.c_more_info_form(order, link_with_more_info_form).deliver      !!!!!
+      OrderMailer.c_more_info_form(order, link_with_more_info_form).deliver      
       
       redirect_letter = ('a'..'z').to_a.shuffle.first
       redirect_to link_with_more_info_form
