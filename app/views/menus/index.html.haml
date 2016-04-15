@@ -6,7 +6,7 @@
 
 #title_text
   
-- @menus.take(3).each do |menu|
+- @menus.take(3).reverse.each do |menu|
   = link_to "../../../../../../../../../../../../about/#{menu.translit}" do
     %div{id: menu.name}      
 
