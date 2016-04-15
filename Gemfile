@@ -17,6 +17,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 
 gem 'mail'
+#gem 'tlsmail'
 #gem 'aws-sdk-rails'
 
 

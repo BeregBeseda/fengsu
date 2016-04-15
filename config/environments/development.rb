@@ -1,4 +1,7 @@
 Rails.application.configure do
+
+  #---require 'tlsmail'
+  
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -14,7 +17,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -41,21 +44,24 @@ Rails.application.configure do
 
 
 
-  config.action_mailer.delivery_method = :sendmail
+  #---config.action_mailer.default_content_type = "text/html"  
+  
+
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true  
   ###
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = {host: 'localhost:3000'}   
-
+ 
   config.action_mailer.smtp_settings = {
     address:               'smtp.gmail.com',
     port:                  587,
-    domain:                'http://localhost:3000',
-    authentication:        'plain',
-    enable_starttls_auto:  true,
+    #port:                  465,    
+    #---domain:                'localhost:3000',
     user_name:             'bereg.beseda@gmail.com',
-    password:              'gsh1978196819971'  
+    password:              'gsh1978196819971',
+    #---  tls:                    true,
+    authentication:        'plain',
+    enable_starttls_auto:   true      
   }
 
   # Send email in development mode.
