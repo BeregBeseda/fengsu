@@ -1,7 +1,11 @@
 - unless @contacts.count == 0 
 
   - @contacts.each do |contact|
+    =contact.id
+    %span :
     =contact.email
+    %span -> 
+    =contact.group
     %hr/
     
 - else    

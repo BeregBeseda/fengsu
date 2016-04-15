@@ -48,9 +48,9 @@ class ContactsController < ApplicationController
     if order 
     
       contacts_status = if order.group == 'GOOD GROUP'                     
-        [1,3,5,7,9].shuffle.first.to_s
+        [2,4,6,8].shuffle.first.to_s
       else
-        [2,4,6,8].shuffle.first.to_s      
+        [1,3,5,7,9].shuffle.first.to_s      
       end
 
       plus_2_letters      = ('a'..'z').to_a.shuffle.first + 
@@ -86,7 +86,6 @@ class ContactsController < ApplicationController
 
   def show
     details = params[:details]
-    #details = 1#{order.id}#{('a'..'z').to_a.shuffle.first}#{('a'..'z').to_a.shuffle.first}#{order.akey_payed}
     status  = details[0]
    
     order_id   = ''
@@ -114,10 +113,12 @@ class ContactsController < ApplicationController
     end               
     
     @contacts = if ( status % 2 == 0 )
-      Contact.where(group: 'GOOD GROUP').where.not(order_number: order_id)
+      Contact.where(group: 'GOOD GROUP')
     else  
-      Contact.where(group: 'BAD GROUP' ).where.not(order_number: order_id)
+      Contact.where(group: 'BAD GROUP' )
     end        
+    
+    @contacts = @contacts.where.not(order_number: order_id)
   end
 #_____________________________________________________________________________________________________________________________________________
 

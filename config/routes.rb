@@ -10,9 +10,8 @@ Rails.application.routes.draw do
   
   post '/i_have_payed/:details',           to: 'orders#b_test_for_get_contacts_after_pay'
   
-  #post '/test/:qw_number/:order_id/:order_akey/:al/:nl/:shl/:pl/:gml/:dl/:ml/:ol/:kl/:il/:disl',
-  #                                         to: 'tests#load_page'     
-
+  
+  
   post '/test/:test_url_encoded',          to: 'tests#load_page'
   match '/test/:test_url_encoded',         to: 'tests#load_page',                                   via: 'get'    
 
@@ -20,6 +19,7 @@ Rails.application.routes.draw do
   post  '/contacts',                       to: 'contacts#create'                     # for MoreContactsForm works (path for creating new contact)  
   match '/contacts/:details',              to: 'contacts#show',                                     via: 'get'      
                                                
+  
     
   root 'menus#index'
   

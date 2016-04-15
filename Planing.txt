@@ -1,11 +1,8 @@
-STYLES_PART
+MoreInfoForm-link -> show in EMAIL
 
-Menu:
-*block
-*fond
-*response
-break
+show right contacts in SHOW.html
 
+right pain/unpair by DIGIT
 __________________
 
 
@@ -13,13 +10,11 @@ ENV["DOMAIN_NAME"]
 vars?
 
 -
-mailing:
-AWS: https://aws.amazon.com/ru/ses/getting-started/
--
 
-qw able -> false HOW?
+all able -> false HOW?
++default in ALL
 
-Get Honey via site work
+Get Honey via site work !*)
 
 
 
