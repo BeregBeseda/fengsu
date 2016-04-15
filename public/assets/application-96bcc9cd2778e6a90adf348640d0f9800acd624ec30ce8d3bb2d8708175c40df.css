@@ -1,13 +1,11 @@
 /*** Adds ***/
+
 @import "adds/bootstrap";
 @import "adds/bootstrap-responsive";
 
 /*** Lexemes ***/
 @import "lexemes/colorful-vars";
 @import "lexemes/mixins";
-
-/*** Common ***/
-@import "common/html-body";
 
 /*** Elements ***/
 @import "elements/block-main";

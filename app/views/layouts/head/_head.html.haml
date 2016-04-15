@@ -1,0 +1,22 @@
+%meta{content: 'vitalina.liane@gmail.com', name: 'author'}/
+%meta{content: 'Vitalina Vakulchyk', name: 'author'}/
+%meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+%meta{content: 'becf6957ba9d4519dcc2633c24ec215a', name: 'interkassa-verification'}/
+<meta name="interkassa-verification" content="becf6957ba9d4519dcc2633c24ec215a" />
+
+= csrf_meta_tags
+= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+= javascript_include_tag 'application', 'data-turbolinks-track' => true
+
+
+/[if IE]
+  %script{type: 'text/javascript', src: 'html5'}
+
+%title
+  Создать пару++ 
+  
+  - if @title
+    = @title
+  - else
+    Хочу счастья
+

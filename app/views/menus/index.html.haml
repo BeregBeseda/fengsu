@@ -1,11 +1,16 @@
-- @menus.take(3).each do |menu|
-  = link_to "../../../../../../../../../../../../about/#{menu.translit}" do
-    #{menu.id}: about/#{menu.translit}
-  %br/
-  
-%h3
-  = flash[:notice]
+- @menu_up_item = 'menus_main'
 
+- @title='Ощутить счастье'
+
+
+
+#main_block
+
+  #title_text
+  
+  - @menus.take(3).each do |menu|
+    = link_to "../../../../../../../../../../../../about/#{menu.translit}" do
+      %div{id: menu.name}      
 
 
 

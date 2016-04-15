@@ -137,11 +137,11 @@ class OrdersController < ApplicationController
     if sign == params[:signature]
       if data_hash["status"].in? ['success', 'sandbox']
         
-        details = params[:details]
+        details = params[:details]  
         order_id_length = ''        
         for i in 0..details.length-1
           unless details[i].in? ('a'..'z')
-            order_id_length += "#{details[i]}"
+            order_id_length += "#{details[i]}"  
           else
             break
           end
@@ -178,7 +178,7 @@ class OrdersController < ApplicationController
 
         test_url_json = JSON.generate(test_url_hash)
         test_url_encoded_64 = (Base64.encode64 test_url_json).chomp.delete("\n")
-        test_url_encoded = test_url_encoded_64 + '='                 
+        test_url_encoded = test_url_encoded_64 + '=' 
         @test_url = root_path + "test/#{test_url_encoded}"        
  
         @order = Order.find(order_id)      

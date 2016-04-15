@@ -4,7 +4,6 @@ Menu:
 *block
 *fond
 *response
-break
 
 __________________
 
