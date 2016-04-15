@@ -1,4 +1,9 @@
-- @contacts.each do |contact|
-  =contact.email
-  %hr/
+- if @contacts 
+
+  - @contacts.each do |contact|
+    =contact.email
+    %hr/
+    
+- else    
+  %p Пусто)
 

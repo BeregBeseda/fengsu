@@ -1,10 +1,27 @@
 = form_for @contact, action: 'create' do |f|
-
+  
+  %div
+    Пожалуйста, введите Ваше имя:
   = f.text_field    :name
+  
+  %div
+    Фамилию:
   = f.text_field    :surname
+  
+  %div
+    Город проживания:
   = f.text_field    :city
+  
+  %div
+    Страну:
   = f.text_field    :country
+  
+  %div
+    Дату рождения:
   = f.date_field    :birthday
+  
+  %div
+    О себе:
   = f.text_area     :about_yourself
   
   = f.hidden_field  :email,              value:  "#{@order.email}"
