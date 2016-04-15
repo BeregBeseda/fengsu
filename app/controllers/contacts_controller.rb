@@ -61,14 +61,14 @@ class ContactsController < ApplicationController
                             plus_2_letters                + 
                             order.akey_payed                     
 
-      @link_with_contacts = root_path                     + 
+      link_with_contacts = root_path                     + 
                             'contacts/'                   + 
                             contacts_details                      
 
 
 
-      OrderMailer.d_see_contacts(order, @link_with_contacts).deliver      
-      redirect_to @link_with_contacts                         
+      OrderMailer.d_see_contacts(order, link_with_contacts).deliver      
+      redirect_to link_with_contacts                         
 
     else
       flash[:notice]   = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'
