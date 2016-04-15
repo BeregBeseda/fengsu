@@ -1,6 +1,7 @@
 /*** Adds ***/
-@import "adds/bootstrap";
-@import "adds/bootstrap-responsive";
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
 /*** Lexemes ***/
 @import "lexemes/colorful-vars";
