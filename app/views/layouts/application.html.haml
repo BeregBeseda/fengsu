@@ -2,13 +2,39 @@
 %html
   %head
     = render partial: 'layouts/head/head'
-    
-  %body
-  
-    #fond_green_layer
-    = image_tag 'fond_main/forest_original.jpg', id: 'fond_forest_main', alt: 'Умиротворяющий лес'
 
-    = yield      
+    
+  %body.unselected
+
+
+    #fond_green_layer
+    
+    
+      
+    - unless @menu_up_item == 'menus_main'
+    
+      = image_tag 'fond_main/forest_white_blur_50_opacity.jpg', id: 'fond_forest_main', alt: 'Умиротворяющий лес'
+     
+      .row-fluid
+        .span8.offset1#block
+          #block_not_main
+            = yield
+            
+            
+    - else      
+    
+      = image_tag 'fond_main/forest_original.jpg', id: 'fond_forest_main', alt: 'Умиротворяющий лес'
+    
+      .row-fluid
+        .offset5#block
+          #block_main
+            = yield      
+
+        
+      
+      
+
+          
 
 
 

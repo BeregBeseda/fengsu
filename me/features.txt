@@ -1,6 +1,7 @@
 IMG IN CSS
 css: background: asset_url('bred.png');
 $ rake assets:precompile RAILS_ENV=development
+// $ rake assets:precompile RAILS_ENV
 
 
 

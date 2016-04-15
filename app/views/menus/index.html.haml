@@ -4,13 +4,11 @@
 
 
 
-#main_block
-
-  #title_text
+#title_text
   
-  - @menus.take(3).each do |menu|
-    = link_to "../../../../../../../../../../../../about/#{menu.translit}" do
-      %div{id: menu.name}      
+- @menus.take(3).each do |menu|
+  = link_to "../../../../../../../../../../../../about/#{menu.translit}" do
+    %div{id: menu.name}      
 
 
 
