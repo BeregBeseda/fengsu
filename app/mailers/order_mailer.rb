@@ -6,7 +6,7 @@ class OrderMailer < ActionMailer::Base
   
   def a_has_client_payed(order)
     @order = order        
-    mail(to: @order.email, subject: 'Контакты подходящих Вам людей для построения отношений')    
+    mail(to: @order.email, subject: 'Контакты')    
   end
     
       
