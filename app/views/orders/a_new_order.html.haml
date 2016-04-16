@@ -2,35 +2,37 @@
   %h3 
     =@info_msg
 
-%div
-  = @menu.description.html_safe  
+%section
+  %div
+    = @menu.description.html_safe  
 
-%div
-  = form_for @order, action: "create" do |f|
+%section
+  %div
+    = form_for @order, action: "create" do |f|
   
-    %div
-      - if flash[:order_errors]
-        - flash[:order_errors].each do |attr, error_msg|
-          - error_msg.each do |msg|
-            %div
-              =msg              
+      %div
+        - if flash[:order_errors]
+          - flash[:order_errors].each do |attr, error_msg|
+            - error_msg.each do |msg|
+              %div
+                =msg              
     
-    %div  
-      Пожалуйста, введите Ваше имя:    
-    %div    
-      = f.text_field :name, value: "#{flash[:order_name] || nil}"
+      %div  
+        Пожалуйста, введите Ваше имя:    
+      %div    
+        = f.text_field :name, value: "#{flash[:order_name] || nil}"
 
-    %div  
-      И E-mail:      
-    %div    
-      = f.text_field :email, value: "#{flash[:order_email] || nil}"      
+      %div  
+        И E-mail:      
+      %div    
+        = f.text_field :email, value: "#{flash[:order_email] || nil}"      
 
-    = f.hidden_field :sum_for_pay, value: "#{@menu.price}"
+      = f.hidden_field :sum_for_pay, value: "#{@menu.price}"
 
-    %div       
-      = f.submit 'Ok'
+      %div       
+        = f.submit 'Ok'
 
       
-      
-%div
-  = render partial: 'a_list_of_menus_without_current' 
+%nav      
+  %div
+    = render partial: 'a_list_of_menus_without_current' 
