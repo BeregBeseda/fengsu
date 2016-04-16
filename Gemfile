@@ -4,7 +4,7 @@ ruby '2.2.3'
 gem 'rails', '4.2.4'
 
 
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '>= 5.0.2'
 gem 'haml'
 
 gem 'country_select', github: 'stefanpenner/country_select'
