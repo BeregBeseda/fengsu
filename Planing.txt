@@ -26,6 +26,8 @@ attach photo by 2nd form via compressing & min
 browser caching??
 
 create sitemap
+
+can select emails in contact
 __________________
 
 
