@@ -86,10 +86,31 @@ class OrdersController < ApplicationController
        
        
     else  
-      flash[:order_name] = @order.name
+      flash[:order_name]  = @order.name
       flash[:order_email] = @order.email    
-      flash[:translit] = flash[:translit] || 'lichnaya-zhizn'
-      flash[:order_errors] = @order.errors
+      flash[:translit]    = flash[:translit] || 'lichnaya-zhizn'      
+      
+      
+      anchor = ''
+      @order.errors.each do |attr, msg|
+        flash[:error_class_name]  = 'error_field' if attr == :name
+        flash[:error_class_email] = 'error_field' if attr == :email
+                
+        flash[:autofocus_email] = false                
+        flash[:autofocus_email] = false         
+        if attr == :name
+          flash[:autofocus_name] = true
+        else
+          if attr == :email
+            flash[:autofocus_email] = true
+          end
+        end                
+                
+        if attr.in? [:name, :email]
+          anchor = '#form'
+        end
+      end
+      
       
       #if cookies are OFF -> show errors in FIRST menu url-case
       @url = '/about/' + 
@@ -97,8 +118,9 @@ class OrdersController < ApplicationController
           "#{flash[:translit]}"
         else
           'lichnaya-zhizn'
-        end        
-      redirect_to "#{@url}"
+        end +        
+        anchor
+      redirect_to @url 
     end  
   end
 

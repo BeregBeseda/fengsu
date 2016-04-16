@@ -1,0 +1,6 @@
+Temporary remove Google-Fonts
+from MainCSS File for
+precompile assets 
+via $rake assets:precompile
+
+ 

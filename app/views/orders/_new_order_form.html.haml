@@ -1,0 +1,35 @@
+= form_for @order, action: "create" do |f|
+  
+
+
+  %a{name: 'form'}
+  .dark-green{class: flash[:error_class_name]}
+    Пожалуйста, введите Ваше имя :    
+  %div    
+    = f.text_field :name,  required: '', 
+                           class: 'input-xlarge', 
+                           value: "#{flash[:order_name] || nil}",
+                           autofocus: flash[:autofocus_name]
+
+
+
+  .dark-green{class: flash[:error_class_email]}
+    - if flash[:error_class_email]
+      Пожалуйста, введите
+    и E-mail :      
+  %div    
+    = f.text_field :email, type: 'email', required: '', 
+                           class: 'input-xlarge', 
+                           placeholder: 'email@example.com', 
+                           value: "#{flash[:order_email] || nil}",
+                           autofocus: flash[:autofocus_email] 
+
+
+
+  = f.hidden_field :sum_for_pay, value: "#{@menu.price}"
+
+
+
+  %div       
+    = f.submit 'Перейти к оплате', class: 'btn btn-success btn-large'
+

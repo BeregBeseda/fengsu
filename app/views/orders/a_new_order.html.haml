@@ -3,36 +3,15 @@
     =@info_msg
 
 %section
-  %div
-    = @menu.description.html_safe  
+  %h3
+    = @menu.title
+  = @menu.description.html_safe  
 
 %section
-  %div
-    = form_for @order, action: "create" do |f|
-  
-      %div
-        - if flash[:order_errors]
-          - flash[:order_errors].each do |attr, error_msg|
-            - error_msg.each do |msg|
-              %div
-                =msg              
-    
-      %div  
-        Пожалуйста, введите Ваше имя:    
-      %div    
-        = f.text_field :name, value: "#{flash[:order_name] || nil}"
-
-      %div  
-        И E-mail:      
-      %div    
-        = f.text_field :email, value: "#{flash[:order_email] || nil}"      
-
-      = f.hidden_field :sum_for_pay, value: "#{@menu.price}"
-
-      %div       
-        = f.submit 'Ok'
-
+  #form.lead
+    %b
+      = render partial: 'new_order_form' 
       
 %nav      
   %div
-    = render partial: 'a_list_of_menus_without_current' 
+    = render partial: 'list_of_menus_without_current' 
