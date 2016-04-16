@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+
   before_save { |order| order.email = order.email.downcase }
   
 
@@ -13,7 +14,7 @@ class Order < ActiveRecord::Base
                            :on => :create
 
 
-
+#____________________________________________________________________________________________________________________________________________
 
                            
   validates :email,        presence:       { message:       'please, enter email' },      

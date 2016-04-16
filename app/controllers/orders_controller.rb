@@ -96,7 +96,7 @@ class OrdersController < ApplicationController
         flash[:error_class_name]  = 'error_field' if attr == :name
         flash[:error_class_email] = 'error_field' if attr == :email
                 
-        flash[:autofocus_email] = false                
+        flash[:autofocus_name] = false                
         flash[:autofocus_email] = false         
         if attr == :name
           flash[:autofocus_name] = true
@@ -113,14 +113,14 @@ class OrdersController < ApplicationController
       
       
       #if cookies are OFF -> show errors in FIRST menu url-case
-      @url = '/about/' + 
+      url = '/about/' + 
         if flash[:translit]
           "#{flash[:translit]}"
         else
           'lichnaya-zhizn'
         end +        
         anchor
-      redirect_to @url 
+      redirect_to url 
     end  
   end
 

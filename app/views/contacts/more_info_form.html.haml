@@ -1,31 +1,95 @@
-= form_for @contact, action: 'create' do |f|
+#form.lead
+  = form_for @contact, action: 'create' do |f|
   
-  %div
-    Пожалуйста, введите Ваше имя:
-  = f.text_field    :name
-  
-  %div
-    Фамилию:
-  = f.text_field    :surname
-  
-  %div
-    Город проживания:
-  = f.text_field    :city
-  
-  %div
-    Страну:
-  = f.text_field    :country
-  
-  %div
-    Дату рождения:
-  = f.date_field    :birthday
-  
-  %div
-    О себе:
-  = f.text_area     :about_yourself
-  
-  = f.hidden_field  :email,              value:  "#{@order.email}"
-  = f.hidden_field  :group,              value:  "#{@order.group}"      
-  = f.hidden_field  :order_number,       value:  "#{@order.id}"    
 
-  = f.submit        'Ok'
+    
+    %a{name: 'name'}    
+    .dark-green{class: flash[:error_class_name]}
+      Введите Ваше имя:
+    
+    %div    
+      = f.text_field :name,             required: '', 
+                                        class: 'input-xlarge', 
+                                        value: "#{flash[:contact_name] || nil}",
+                                        autofocus: flash[:autofocus_name]
+  
+
+  
+
+    %a{name: 'surname'}
+    .dark-green{class: flash[:error_class_surname]}
+      Фамилия:
+    
+    %div    
+      = f.text_field :surname,          required: '', 
+                                        class: 'input-xlarge', 
+                                        value: "#{flash[:contact_surname] || nil}",
+                                        autofocus: flash[:autofocus_surname]
+  
+
+  
+
+    %a{name: 'city'}
+    .dark-green{class: flash[:error_class_city]}
+      Город проживания:
+    
+    %div    
+      = f.text_field :city,             required: '', 
+                                        class: 'input-xlarge', 
+                                        value: "#{flash[:contact_city] || nil}",
+                                        autofocus: flash[:autofocus_city]
+  
+
+  
+
+    %a{name: 'country'}
+    .dark-green{class: flash[:error_class_country]}
+      Страна:
+    
+    %div    
+      = f.text_field :country,          required: '', 
+                                        class: 'input-xlarge', 
+                                        value: "#{flash[:contact_country] || nil}",
+                                        autofocus: flash[:autofocus_country]
+  
+
+  
+
+    %a{name: 'birthday'}
+    .dark-green{class: flash[:error_class_birthday]}
+      Дата рождения:
+    
+    %div    
+      = f.text_field :birthday,         required: '', 
+                                        class: 'input-xlarge', 
+                                        value: "#{flash[:contact_birthday] || nil}",
+                                        autofocus: flash[:autofocus_birthday]
+  
+
+  
+
+    %a{name: 'about_yourself'}
+    .dark-green{class: flash[:error_class_about_yourself]}
+      О себе:
+    
+    %div    
+      = f.text_field :about_yourself,   required: '', 
+                                        class: 'input-xlarge', 
+                                        value: "#{flash[:contact_about_yourself] || nil}",
+                                        autofocus: flash[:autofocus_about_yourself]
+  
+  
+  
+
+    = f.hidden_field  :email,             value:  "#{@order.email}"
+    = f.hidden_field  :group,             value:  "#{@order.group}"      
+    = f.hidden_field  :order_number,      value:  "#{@order.id}"    
+
+
+
+
+    %div       
+      = f.submit 'Сохранить', class: 'btn btn-success btn-large'  
+  
+  
+  

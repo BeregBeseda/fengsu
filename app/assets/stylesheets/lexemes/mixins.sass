@@ -22,6 +22,29 @@
   
 
 
+=border-radius-one-arg($arg)   
+  -webkit-border-radius:        $arg
+  -moz-border-radius:           $arg
+  border-radius:                $arg
+  
+  border-bottom-right-radius:   $arg
+  border-bottom-left-radius:    $arg  
+  border-top-right-radius:      $arg  
+  border-top-left-radius:       $arg  
+
+
+
+=box-shadow-inset($x, $y, $blur, $color)
+  -webkit-box-shadow:   $x $y $blur $color inset
+  -moz-box-shadow:      $x $y $blur $color inset
+  box-shadow:           $x $y $blur $color inset
+  
+  filter: progid:DXImageTransform.Microsoft.dropshadow(offX=$x, offY=$y, color=$color)
+  filter: progid:DXImageTransform.Microsoft.shadow(direction=120, color=$color, strength=10) 
+
+
+
+
 
 
 

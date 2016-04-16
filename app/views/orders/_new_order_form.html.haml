@@ -5,6 +5,7 @@
   %a{name: 'form'}
   .dark-green{class: flash[:error_class_name]}
     Чтобы оплатить, введите Ваше имя :    
+    
   %div    
     = f.text_field :name,  required: '', 
                            class: 'input-xlarge', 
@@ -17,6 +18,7 @@
     - if flash[:error_class_email]
       Пожалуйста, введите
     и E-mail :      
+    
   %div    
     = f.text_field :email, type: 'email', required: '', 
                            class: 'input-xlarge', 

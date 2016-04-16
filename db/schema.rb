@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415204200) do
+ActiveRecord::Schema.define(version: 20160417011700) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(version: 20160415204200) do
     t.string   "surname"
     t.string   "city"
     t.string   "country"
-    t.date     "birthday"
     t.string   "about_yourself"
     t.string   "email"
     t.boolean  "able_for_contact", default: true
@@ -72,6 +71,7 @@ ActiveRecord::Schema.define(version: 20160415204200) do
     t.datetime "updated_at"
     t.string   "group"
     t.integer  "order_number"
+    t.string   "birthday"
   end
 
   create_table "groups", force: :cascade do |t|

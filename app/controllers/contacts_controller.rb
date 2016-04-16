@@ -41,11 +41,14 @@ class ContactsController < ApplicationController
   def create
     contact = Contact.new(contact_params) 
     root_path = MeConstant.find_by_title('root_path').content
-    
-    if contact.save        
 
     order = Order.find(contact.order_number)    
-    if order 
+    
+    if order
+    
+        
+    if contact.save        
+
     
       contacts_status = if order.group == 'GOOD GROUP'                     
         [2,4,6,8].shuffle.first.to_s
@@ -69,16 +72,121 @@ class ContactsController < ApplicationController
 
       OrderMailer.d_see_contacts(order, link_with_contacts).deliver      
       redirect_to link_with_contacts                         
+          
+    else
+    
 
+
+      flash[:contact_name]            = contact.name
+      flash[:contact_surname]         = contact.surname
+      flash[:contact_city]            = contact.city
+      flash[:contact_country]         = contact.country
+      flash[:contact_birthday]        = contact.birthday
+      flash[:contact_about_yourself]  = contact.about_yourself
+      
+      
+      
+      anchor = ''
+      contact.errors.each do |attr, msg|
+        flash[:error_class_name]            = 'error_field' if attr == :name
+        flash[:error_class_surname]         = 'error_field' if attr == :surname
+        flash[:error_class_city]            = 'error_field' if attr == :city
+        flash[:error_class_country]         = 'error_field' if attr == :country
+        flash[:error_class_birthday]        = 'error_field' if attr == :birthday
+        flash[:error_class_about_yourself]  = 'error_field' if attr == :about_yourself
+                
+                
+                
+        flash[:autofocus_name]      = false                
+        flash[:autofocus_surname]   = false         
+        flash[:autofocus_city]      = false                
+        flash[:autofocus_country]   = false         
+        flash[:autofocus_birthday]  = false                
+        flash[:about_yourself]      = false         
+        
+                        
+                        
+        if attr == :name
+          flash[:autofocus_name] = true
+        else
+        
+          if attr == :surname
+            flash[:autofocus_surname] = true
+          else
+          
+            if attr == :city
+              flash[:autofocus_city] = true
+            else
+          
+              if attr == :country
+                flash[:autofocus_country] = true
+              else
+          
+                if attr == :birthday
+                  flash[:autofocus_birthday] = true
+                else
+          
+                  if attr == :yourself
+                    flash[:autofocus_yourself] = true
+                  end                        
+                end                        
+              end            
+            end            
+          end
+        end     
+
+        
+                
+        if attr == :name
+          anchor = 'name'
+        else  
+        
+          if attr == :surname
+            anchor = 'surname'
+          else  
+          
+            if attr == :city
+              anchor = 'city'
+            else  
+            
+              if attr == :country
+                anchor = 'country'
+              else  
+              
+                if attr == :birthday
+                  anchor = 'birthday'
+                else  
+                
+                  if attr == :about_yourself
+                    anchor = 'about_yourself'
+                  else  
+                  end                                            
+                end                                        
+              end                        
+            end                    
+          end                  
+        end
+        
+      end    
+      
+           
+           
+      letter      = ('a'..'z').to_a.shuffle.first
+      
+      url = root_path           +
+             'much_form/'       + 
+             order.id.to_s      +
+             letter             +        
+             order.akey_payed   +
+             '#'                +
+             anchor
+             
+      redirect_to url         
+  end
     else
       flash[:notice]   = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'
       redirect_to '/'
     end       
-    
-  else
-    flash[:notice] = 'can`t save'
-  end
-
   end
 #_____________________________________________________________________________________________________________________________________________
 
