@@ -86,7 +86,7 @@ class ContactsController < ApplicationController
 
   def show
     details = params[:details]
-    status  = details[0]
+    status  = details[0].to_i
    
     order_id   = ''
     akey_payed = ''
@@ -115,7 +115,7 @@ class ContactsController < ApplicationController
     @contacts = if ( status % 2 == 0 )
       Contact.where(group: 'GOOD GROUP')
     else  
-      Contact.where(group: 'BAD GROUP' )
+      Contact.where(group: 'BAD GROUP')
     end        
     
     @contacts = @contacts.where.not(order_number: order_id)

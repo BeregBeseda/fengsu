@@ -1,8 +1,5 @@
 MoreInfoForm-link -> show in EMAIL
 
-show right contacts in SHOW.html
-
-right pain/unpair by DIGIT
 __________________
 
 
