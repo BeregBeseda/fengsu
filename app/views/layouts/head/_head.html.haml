@@ -1,7 +1,8 @@
 = render partial: 'layouts/head/meta'
 
-= render partial: 'layouts/head/prerender_pages'
-= render partial: 'layouts/head/prerender_prefetch_imgs'
+= render partial: 'layouts/head/pre/prerender_pages'
+= render partial: 'layouts/head/pre/prerender_prefetch_original_imgs'
+= render partial: 'layouts/head/pre/refetch_current_imgs'
 
 = csrf_meta_tags
 
