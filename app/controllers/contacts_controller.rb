@@ -3,6 +3,8 @@ class ContactsController < ApplicationController
 
 
   def more_info_form
+    @page       = Page.find_by_page :more_info_form
+  
     @site_title = MeConstant.find_by_title('site_title').content
   
     @contact = Contact.new
@@ -195,8 +197,10 @@ class ContactsController < ApplicationController
 
 
   def show
-    details = params[:details]
-    status  = details[0].to_i
+    @page      = Page.find_by_page :contacts
+  
+    details    = params[:details]
+    status     = details[0].to_i
    
     order_id   = ''
     akey_payed = ''

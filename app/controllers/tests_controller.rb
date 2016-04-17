@@ -2,6 +2,8 @@ class TestsController < ApplicationController
 
 
   def load_page 
+    @page       = Page.find_by_page :test
+  
     @site_title = MeConstant.find_by_title('site_title').content
       
     root_path = MeConstant.find_by_title('root_path').content
