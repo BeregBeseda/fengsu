@@ -4,28 +4,25 @@
     = render partial: 'layouts/head/head'
 
     
-  %body.un_select_able
+  %body.un_selectable
 
     = render partial: 'layouts/fond-content/text'
     #fond_green_layer
     
-    = image_tag 'fond_main/forest_original.jpg', id: 'fond_forest_main', alt: 'Умиротворяющий лес'
+    = image_tag 'fond_main/forest_original.jpg', id: 'fond_forest_main', alt: 'Умиротворяющий лес', title: 'Лес. Фон сайта для пойска пары.'
     
             
-    - unless @menu_up_item == 'menus_main'
-    
-      -#= image_tag 'fond_main/forest_white_blur_50_opacity.jpg', id: 'fond_forest_main', alt: 'Умиротворяющий лес'
+            
+    - unless @menu_up_item == 'main'    
      
       %main
         .row-fluid
           .span5.offset2#block
             %article.lead.info_msg
               = yield
-            
+                          
             
     - else      
-    
-      -#= image_tag 'fond_main/forest_original.jpg', id: 'fond_forest_main', alt: 'Умиротворяющий лес'
     
       %main
         .row-fluid
