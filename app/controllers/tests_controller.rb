@@ -170,8 +170,17 @@ class TestsController < ApplicationController
         redirect_to '/'
       end       
       
-      redirect_letter = ('a'..'z').to_a.shuffle.first
-      link_with_more_info_form = root_path + 'much_form/' + order.id.to_s + redirect_letter + order.akey_payed
+      
+      
+      redirect_letter          = ('a'..'z').to_a.shuffle.first
+      link_details             = order.id.to_s + redirect_letter + order.akey_payed
+      
+      link_details_encoded_64  = (Base64.encode64 link_details).chomp.delete("\n")
+      link_details_encoded     = link_details_encoded_64 + '=' 
+      
+      link_with_more_info_form = root_path + 'much_form/' + link_details_encoded 
+      
+      
       
       OrderMailer.c_more_info_form(order, link_with_more_info_form).deliver      
             

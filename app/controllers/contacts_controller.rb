@@ -8,8 +8,16 @@ class ContactsController < ApplicationController
     @site_title = MeConstant.find_by_title('site_title').content
   
     @contact = Contact.new
+
+
   
-    order_info = params[:order_info]
+    order_info  = params[:order_info]
+           
+    order_info[order_info.length-1] = ''
+    order_info  = Base64.decode64(order_info)        
+
+
+
     order_id = ''
     order_akey_payed = ''
     
@@ -43,10 +51,10 @@ class ContactsController < ApplicationController
 
   
   def create
-    contact = Contact.new(contact_params) 
-    root_path = MeConstant.find_by_title('root_path').content
+    contact    = Contact.new(contact_params) 
+    root_path  = MeConstant.find_by_title('root_path').content
 
-    order = Order.find(contact.order_number)    
+    order      = Order.find(contact.order_number)    
     
     if order
     
@@ -175,17 +183,25 @@ class ContactsController < ApplicationController
       
            
            
-      letter      = ('a'..'z').to_a.shuffle.first
+      letter                    = ('a'..'z').to_a.shuffle.first
       
-      url = root_path           +
-             'much_form/'       + 
-             order.id.to_s      +
-             letter             +        
-             order.akey_payed   +
-             '#'                +
-             anchor
+      url_with_contacts_details = order.id.to_s      +
+                                  letter             +        
+                                  order.akey_payed   +
+                                  '#'                +
+                                  anchor
+                                                                                                      
+      url_with_contacts_details_encoded_64  = (Base64.encode64 url_with_contacts_details).chomp.delete("\n")
+      url_with_contacts_details = url_with_contacts_details_encoded_64 + '=' 
+      
+      
+      
+      url_with_contacts         = root_path           +
+                                 'much_form/'         + 
+                                  url_with_contacts_details
+                                               
              
-      redirect_to url         
+      redirect_to url_with_contacts         
   end
     else
       flash[:notice]   = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'
@@ -197,9 +213,16 @@ class ContactsController < ApplicationController
 
 
   def show
-    @page      = Page.find_by_page :contacts
+    @page            = Page.find_by_page :contacts
   
-    details    = params[:details]
+    details_encoded  = params[:details]
+    
+    details_encoded[details_encoded.length-1] = ''
+    details          = Base64.decode64(details_encoded)    
+    
+    
+    
+    
     status     = details[0].to_i
    
     order_id   = ''
