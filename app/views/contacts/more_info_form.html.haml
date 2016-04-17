@@ -8,10 +8,11 @@
       Введите Ваше имя:
     
     %div    
-      = f.text_field :name,             required: '', 
-                                        class: 'input-xlarge', 
-                                        value: "#{flash[:contact_name] || nil}",
-                                        autofocus: flash[:autofocus_name]
+      = f.text_field :name,             required:    '', 
+                                        class:       'input-xlarge', 
+                                        maxlength:   '100',
+                                        value:       "#{flash[:contact_name] || nil}",
+                                        autofocus:    flash[:autofocus_name]
   
 
   
@@ -21,10 +22,11 @@
       Фамилия:
     
     %div    
-      = f.text_field :surname,          required: '', 
-                                        class: 'input-xlarge', 
-                                        value: "#{flash[:contact_surname] || nil}",
-                                        autofocus: flash[:autofocus_surname]
+      = f.text_field :surname,          required:    '', 
+                                        class:       'input-xlarge', 
+                                        maxlength:   '100',
+                                        value:       "#{flash[:contact_surname] || nil}",
+                                        autofocus:    flash[:autofocus_surname]
   
 
   
@@ -34,10 +36,11 @@
       Город проживания:
     
     %div    
-      = f.text_field :city,             required: '', 
-                                        class: 'input-xlarge', 
-                                        value: "#{flash[:contact_city] || nil}",
-                                        autofocus: flash[:autofocus_city]
+      = f.text_field :city,             required:    '', 
+                                        class:       'input-xlarge', 
+                                        maxlength:   '100',
+                                        value:       "#{flash[:contact_city] || nil}",
+                                        autofocus:    flash[:autofocus_city]
   
 
   
@@ -47,10 +50,11 @@
       Страна:
     
     %div    
-      = f.text_field :country,          required: '', 
-                                        class: 'input-xlarge', 
-                                        value: "#{flash[:contact_country] || nil}",
-                                        autofocus: flash[:autofocus_country]
+      = f.text_field :country,          required:    '', 
+                                        class:       'input-xlarge', 
+                                        maxlength:   '100',
+                                        value:       "#{flash[:contact_country] || nil}",
+                                        autofocus:    flash[:autofocus_country]
   
 
   
@@ -60,10 +64,11 @@
       Дата рождения:
     
     %div    
-      = f.text_field :birthday,         required: '', 
-                                        class: 'input-xlarge', 
-                                        value: "#{flash[:contact_birthday] || nil}",
-                                        autofocus: flash[:autofocus_birthday]
+      = f.text_field :birthday,         required:    '', 
+                                        class:       'input-xlarge', 
+                                        maxlength:   '100',
+                                        value:       "#{flash[:contact_birthday] || nil}",
+                                        autofocus:    flash[:autofocus_birthday]
   
 
   
@@ -73,10 +78,12 @@
       О себе:
     
     %div    
-      = f.text_area :about_info,        required: '', 
-                                        class: 'input-xlarge', 
-                                        value: "#{flash[:contact_about_info] || nil}",
-                                        autofocus: flash[:autofocus_about_info]
+      = f.text_area :about_info,        size:        '25x5',
+                                        required:    '', 
+                                        class:       'input-xlarge', 
+                                        maxlength:   '1000',
+                                        value:       "#{flash[:contact_about_info] || nil}",
+                                        autofocus:    flash[:autofocus_about_info]
   
   
   
