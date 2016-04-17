@@ -73,7 +73,7 @@
       О себе:
     
     %div    
-      = f.text_field :about_info,       required: '', 
+      = f.text_area :about_info,        required: '', 
                                         class: 'input-xlarge', 
                                         value: "#{flash[:contact_about_info] || nil}",
                                         autofocus: flash[:autofocus_about_info]
