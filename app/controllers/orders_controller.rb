@@ -48,17 +48,25 @@ class OrdersController < ApplicationController
 #_______________________________________________________________________________if @order.save
 
 
+
+      letter = ('a'..'z').to_a.shuffle.first
+      server_url_details  = @order.id.to_s.length.to_s + letter + @order.akey + @order.id.to_s
+      
+      details_json        = JSON.generate(server_url_details)
+      details_encoded_64  = (Base64.encode64 details_json).chomp.delete("\n")
+      details_encoded     = details_encoded_64 + '=' 
+      server_url_details  = details_encoded
       
       html = cnb_form_request({
-        :version        => api_version,
-        :action         => 'pay',
-        :amount         => @order.sum_for_pay,
-        :currency       => 'UAH',
-        :description    => "Оплата теста",
-        :server_url     => root_path + "i_have_payed/#{@order.id.to_s.length}#{('a'..'z').to_a.shuffle.first}#{@order.akey}#{@order.id}",
-        :result_url     => root_path + 'info/proverte_email_posle_oplaty',
-        :sandbox        => '1'        
-      }, liqpay, public_key, api_version)                                  
+        :version          => api_version,
+        :action           => 'pay',
+        :amount           => @order.sum_for_pay,
+        :currency         => 'UAH',
+        :description      => "Оплата теста",
+        :server_url       => root_path + 'i_have_payed/' + server_url_details,
+        :result_url       => root_path + 'info/proverte_email_posle_oplaty',
+        :sandbox          => '1'        
+      }, liqpay, public_key, api_version, server_url_details)                                  
 #_______________________________________________________________________________if @order.save
 
 
@@ -149,7 +157,18 @@ class OrdersController < ApplicationController
     if sign == params[:signature]
       if data_hash["status"].in? ['success', 'sandbox']
         
-        details = params[:details]  
+        
+        
+        
+        details         = params[:details]  
+        
+        details_encoded = details
+        details_encoded[details_encoded.length-1] = ''
+        details_json    = Base64.decode64(details_encoded)    
+        details         = JSON.parse(details_json)  
+        
+        
+        
         order_id_length = ''        
         for i in 0..details.length-1
           unless details[i].in? ('a'..'z')
