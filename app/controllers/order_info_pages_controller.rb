@@ -11,10 +11,11 @@ class OrderInfoPagesController < ApplicationController
   private
   
     
-  def set_order_info_page
-    msg = params[:msg]
-    
-    @info_msg = (OrderInfoPage.find_by translit: msg).msg
+  def set_page_and_order_info_page
+    @page       = Page.find_by_page :info
+  
+    msg         = params[:msg]    
+    @info_msg   = (OrderInfoPage.find_by translit: msg).msg
   end  
     
     
