@@ -68,15 +68,15 @@
 
   
 
-    %a{name: 'about_yourself'}
-    .dark-green{class: flash[:error_class_about_yourself]}
+    %a{name: 'about_info'}
+    .dark-green{class: flash[:error_class_about_info]}
       О себе:
     
     %div    
-      = f.text_field :about_yourself,   required: '', 
+      = f.text_field :about_info,       required: '', 
                                         class: 'input-xlarge', 
-                                        value: "#{flash[:contact_about_yourself] || nil}",
-                                        autofocus: flash[:autofocus_about_yourself]
+                                        value: "#{flash[:contact_about_info] || nil}",
+                                        autofocus: flash[:autofocus_about_info]
   
   
   

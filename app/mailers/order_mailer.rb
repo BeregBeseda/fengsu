@@ -27,7 +27,7 @@ class OrderMailer < ActionMailer::Base
   def d_see_contacts(order, link_with_contacts)
     @order = order
     @link_with_contacts = link_with_contacts
-    mail(to: @order.email, subject: 'Контакты подходящих Вам людей для построения отношений')  
+    mail(to: @order.email, subject: 'Контакты')  
   end
   
       

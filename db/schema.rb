@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417140200) do
+ActiveRecord::Schema.define(version: 20160417163200) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20160417140200) do
     t.boolean  "able_for_contact", default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "about_info"
   end
 
   create_table "groups", force: :cascade do |t|

@@ -84,7 +84,7 @@ class ContactsController < ApplicationController
       flash[:contact_city]            = contact.city
       flash[:contact_country]         = contact.country
       flash[:contact_birthday]        = contact.birthday
-      flash[:contact_about_yourself]  = contact.about_yourself
+      flash[:contact_about_info]      = contact.about_info
       
       
       
@@ -95,7 +95,7 @@ class ContactsController < ApplicationController
         flash[:error_class_city]            = 'error_field' if attr == :city
         flash[:error_class_country]         = 'error_field' if attr == :country
         flash[:error_class_birthday]        = 'error_field' if attr == :birthday
-        flash[:error_class_about_yourself]  = 'error_field' if attr == :about_yourself
+        flash[:error_class_about_info]      = 'error_field' if attr == :about_info
                 
                 
                 
@@ -104,7 +104,7 @@ class ContactsController < ApplicationController
         flash[:autofocus_city]      = false                
         flash[:autofocus_country]   = false         
         flash[:autofocus_birthday]  = false                
-        flash[:about_yourself]      = false         
+        flash[:about_info]      = false         
         
                         
                         
@@ -128,8 +128,8 @@ class ContactsController < ApplicationController
                   flash[:autofocus_birthday] = true
                 else
           
-                  if attr == :yourself
-                    flash[:autofocus_yourself] = true
+                  if attr == :about_info
+                    flash[:autofocus_about_info] = true
                   end                        
                 end                        
               end            
@@ -159,8 +159,8 @@ class ContactsController < ApplicationController
                   anchor = 'birthday'
                 else  
                 
-                  if attr == :about_yourself
-                    anchor = 'about_yourself'
+                  if attr == :about_info
+                    anchor = 'about_info'
                   else  
                   end                                            
                 end                                        
