@@ -1,7 +1,7 @@
 # encoding: utf-8
 class OrderMailer < ActionMailer::Base
 
-  default from: 'bereg.beseda@ukr.net'
+  default from: ENV['site_email']
 
   
   def a_has_client_payed(order)
@@ -27,7 +27,7 @@ class OrderMailer < ActionMailer::Base
   def d_see_contacts(order, link_with_contacts)
     @order = order
     @link_with_contacts = link_with_contacts
-    mail(to: @order.email, subject: 'Контакты')  
+    mail(to: @order.email, subject: 'Страница с контактами')  
   end
   
       

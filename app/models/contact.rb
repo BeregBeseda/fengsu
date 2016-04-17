@@ -1,11 +1,11 @@
 class Contact < ActiveRecord::Base
 
 
-  before_save { |order| 
-    order.name          = order.name.humanize
-    order.surname       = order.surname.humanize
-    order.city          = order.city.humanize
-    order.country       = order.country.humanize
+  before_save { |contact| 
+    contact.name          = contact.name.humanize
+    contact.surname       = contact.surname.humanize
+    contact.city          = contact.city.humanize
+    contact.country       = contact.country.humanize
   }  
 #____________________________________________________________________________________________________________________________________________  
 
