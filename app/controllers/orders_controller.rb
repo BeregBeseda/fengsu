@@ -66,7 +66,7 @@ class OrdersController < ApplicationController
       @order.pay_link = @liqpay_url
       @order.save
 
-      OrderMailer.a_has_client_payed(@order, from).deliver       
+      OrderMailer.a_has_client_payed(@order).deliver       
 
       #flash.delete(:order_name)
       #flash.delete(:order_email)
