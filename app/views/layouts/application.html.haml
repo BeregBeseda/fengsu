@@ -35,6 +35,14 @@
 
 
 = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true        
+-#= javascript_include_tag 'application', 'data-turbolinks-track' => true
+
+
+
+= render partial: 'layouts/head/pre/prerender_pages'
+= render partial: 'layouts/head/pre/prefetch_current_precompiled_imgs'
+/[if IE]
+  %script{type: 'text/javascript', src: 'http://html5shiv.googlecode.com/svn/trunk/html5.js'}
       
       
 

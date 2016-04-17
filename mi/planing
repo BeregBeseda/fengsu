@@ -5,23 +5,19 @@ from form to browser cache till save
 
 +Сформировать структуру fond`а
 +with sitemap
-+
-+Вынести элементы fond`а в базу данных:
-+title, keys, descr
-+
+
 +attach photo by 2nd form via compressing & min
 +
-+Удалить имя с git`а отовсюду
++Удалить лишнее с git`а отовсюду
 
 bootsy в базе: поле(я) описания
 +
 +Прикреплять срок действия к precompiled assets
-+
 +browser caching??
 +
 +create sitemap
 
-qw able -> false HOW?
+qw (&all) able -> change status cool?
 __________________
 
 

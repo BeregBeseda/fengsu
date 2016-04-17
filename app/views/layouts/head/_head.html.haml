@@ -1,9 +1,8 @@
+= csrf_meta_tags
+
+
 = render partial: 'layouts/head/meta'
 
-= render partial: 'layouts/head/pre/prerender_pages'
-= render partial: 'layouts/head/pre/prefetch_current_precompiled_imgs'
-
-= csrf_meta_tags
 
 
 %title
@@ -15,9 +14,8 @@
     Хочу счастья
 
 
--#= javascript_include_tag 'application', 'data-turbolinks-track' => true
 
 
-/[if IE]
-  %script{type: 'text/javascript', src: 'http://html5shiv.googlecode.com/svn/trunk/html5.js'}
+
+
 
