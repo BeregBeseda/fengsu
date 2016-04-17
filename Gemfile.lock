@@ -128,6 +128,8 @@ GEM
     heroku-api (0.4.2)
       excon (~> 0.45)
       multi_json (~> 1.8)
+    heroku-deflater (0.6.2)
+      rack (>= 1.4.5)
     i18n (0.7.0)
     i18n_data (0.7.0)
     inherited_resources (1.6.0)
@@ -269,6 +271,7 @@ DEPENDENCIES
   figaro
   haml
   heroku
+  heroku-deflater
   jbuilder (~> 2.0)
   jquery-rails
   json (~> 1.8, >= 1.8.3)

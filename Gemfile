@@ -45,5 +45,7 @@ end
 group :production do
   gem 'pg'
   gem 'json', '~> 1.8', '>= 1.8.3'
+  
+  gem 'heroku-deflater'
 end
 

@@ -1,6 +1,6 @@
 class MainPagesController < ApplicationController
 
-  before_action :set_main_page_and_new_order, only: [:index]
+  before_action :set_pages_and_new_order, only: [:index]
 #_____________________________________________________________________________________________________________________________________________
 
   
@@ -15,8 +15,9 @@ class MainPagesController < ApplicationController
   
    
   private
-  def set_main_page_and_new_order
-    @main_page = MainPage.find(1)       
-    @order = Order.new      
+  def set_pages_and_new_order
+    @main_page  = MainPage.find(1)       
+    @page       = Page.find_by_page :main
+    @order      = Order.new      
   end          
 end

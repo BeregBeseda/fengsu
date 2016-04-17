@@ -6,7 +6,7 @@
     
   %body.un_select_able
 
-
+    = render partial: 'layouts/fond-content/text'
     #fond_green_layer
     
     = image_tag 'fond_main/forest_original.jpg', id: 'fond_forest_main', alt: 'Умиротворяющий лес'
@@ -37,9 +37,6 @@
 = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true        
 -#= javascript_include_tag 'application', 'data-turbolinks-track' => true
 
-= gzip_stylesheet_link_tag 'application'
--#= gzip_javascript_include_tag 'application'
-
 
 
 = render partial: 'layouts/head/pre/prerender_pages'
@@ -49,7 +46,7 @@
       
       
 
-          
+%link{href: 'https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=latin,cyrillic', rel: 'stylesheet', type: 'text/css'}/          
 
 
 
