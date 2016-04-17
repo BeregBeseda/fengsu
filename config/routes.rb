@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   match '/',                               to: 'main_pages#index',                                  via: 'get'  
   post  '/',                               to: 'main_pages#index'           
   
-  match 'about/',                          to: 'main_pages#index',                                  via: 'get'               
-  match 'about/:translit',                 to: 'orders#a_new_order',                                via: 'get'  
-  post  'about/:translit',                 to: 'orders#a_new_order'                                
+  #match 'about/',                          to: 'main_pages#index',                                  via: 'get'               
+  match 'info/:msg',                       to: 'orders#a_new_order',                                via: 'get'  
+  post  'info/:msg',                       to: 'orders#a_new_order'                                
   post  '/orders',                         to: 'orders#create'                     # for OrderForm works (path for creating new order)
   
   post  '/i_have_payed/:details',          to: 'orders#b_test_for_get_contacts_after_pay'
@@ -26,5 +26,5 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)    
     
-  match "*path",                           to: 'main_pages#index',                                       via: 'get'
+  match "*path",                           to: 'main_pages#index',                                  via: 'get'
 end

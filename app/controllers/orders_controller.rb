@@ -1,13 +1,10 @@
 # encoding: utf-8
 class OrdersController < ApplicationController
 
-  before_action :set_menu, :set_all_menus,  only: [:a_new_order]
+  before_action :set_order_info_page, :set_site_title_and_new_order,  only: [:a_new_order]
   
 
   def a_new_order
-    @site_title = MeConstant.find_by_title('site_title').content
-      
-    @order = Order.new  
   end
 #_____________________________________________________________________________________________________________________________________________
   
@@ -66,7 +63,7 @@ class OrdersController < ApplicationController
         :currency       => 'UAH',
         :description    => "Оплата теста",
         :server_url     => root_path + "i_have_payed/#{@order.id.to_s.length}#{('a'..'z').to_a.shuffle.first}#{@order.akey}#{@order.id}",
-        :result_url     => root_path + "about/-#{flash[:translit] or 'lichnaya-zhizn'}",
+        :result_url     => root_path + 'info/proverte_email_posle_oplaty',
         :sandbox        => '1'        
       }, liqpay, public_key, api_version)                                  
 #_______________________________________________________________________________if @order.save
@@ -78,9 +75,8 @@ class OrdersController < ApplicationController
 
       OrderMailer.a_has_client_payed(@order).deliver       
 
-      flash.delete(:order_name)
-      flash.delete(:order_email)
-      flash.delete(:translit)
+      #flash.delete(:order_name)
+      #flash.delete(:order_email)
 
       redirect_to html     
 #_______________________________________________________________________________if @order.save
@@ -90,7 +86,6 @@ class OrdersController < ApplicationController
     else  
       flash[:order_name]  = @order.name
       flash[:order_email] = @order.email    
-      flash[:translit]    = flash[:translit] || 'lichnaya-zhizn'      
       
       
       anchor = ''
@@ -98,8 +93,10 @@ class OrdersController < ApplicationController
         flash[:error_class_name]  = 'error_field' if attr == :name
         flash[:error_class_email] = 'error_field' if attr == :email
                 
+                
         flash[:autofocus_name] = false                
-        flash[:autofocus_email] = false         
+        flash[:autofocus_email] = false     
+            
         if attr == :name
           flash[:autofocus_name] = true
         else
@@ -108,13 +105,13 @@ class OrdersController < ApplicationController
           end
         end                
                 
+                
         if attr.in? [:name, :email]
           anchor = '#form'
         end
       end
       
       
-      #if cookies are OFF -> show errors in FIRST menu url-case
       url = root_path +        
             anchor
       redirect_to url 
@@ -126,9 +123,13 @@ class OrdersController < ApplicationController
   
   
   # client ends the PAY PROCESS [SUCCESSFUL]
+  # she gets TEST LINK via her email
   # and want to ENTER TEST (and after - get ACCESS to INFO)
             
   def b_test_for_get_contacts_after_pay                
+    root_path = MeConstant.find_by_title('root_path').content
+    
+      
     me_liqpay    = MeLiqpay.find_by_me_number(1)
     public_key   = me_liqpay.public_key
     private_key  = ENV['lp_private_key']
@@ -137,7 +138,6 @@ class OrdersController < ApplicationController
     data_json = Base64.decode64(data)    
     data_hash = JSON.parse(data_json)
     
-    root_path = MeConstant.find_by_title('root_path').content
         
     liqpay = Liqpay::Liqpay.new(
       :public_key  => public_key,
@@ -198,28 +198,28 @@ class OrdersController < ApplicationController
         test_url_json = JSON.generate(test_url_hash)
         test_url_encoded_64 = (Base64.encode64 test_url_json).chomp.delete("\n")
         test_url_encoded = test_url_encoded_64 + '=' 
-        @test_url = root_path + "test/#{test_url_encoded}"        
+        test_url = root_path + 'test/' + test_url_encoded        
  
-        @order = Order.find(order_id)      
-        @order.payed = true
-        @order.pay_link = ''
-        @order.when_payed = Time.now.utc
+        order = Order.find(order_id)      
+        order.payed = true
+        order.pay_link = ''
+        order.when_payed = Time.now.utc
         
-        unless @order.sent_email_with_test
-          OrderMailer.b_test_to_client_for_get_contacts_after_cool_pay(@order, @test_url).deliver        
-          @order.sent_email_with_test = true
+        unless order.sent_email_with_test
+          OrderMailer.b_test_to_client_for_get_contacts_after_cool_pay(order, test_url).deliver        
+          order.sent_email_with_test = true
         end  
         
-        @order.save        
+        order.save        
 #_______________________________________________________________________________
   
   
         
-      else
-        redirect_to '/'
+      #else
+      #  redirect_to '/'
       end  
-    else
-      redirect_to '/'  
+    #else
+    #  redirect_to '/'  
     end       
   end    
 #_____________________________________________________________________________________________________________________________________________    
@@ -236,27 +236,19 @@ class OrdersController < ApplicationController
   private
   
     
-  def set_menu
-    translit = params[:translit]
+  def set_order_info_page
+    msg = params[:msg]
     
-    if translit[0] == '-'
-      @info_msg = (OrderInfoPage.find_by translit: 'proverte_email_posle_oplaty').msg
-      translit[0] = ''
+    if msg
+      @info_msg = (OrderInfoPage.find_by translit: msg).msg
     end
-    
-    if translit[translit.length-1] == '-'
-      @info_msg = (OrderInfoPage.find_by translit: 'pismo_s_kontaktami_otpravleno').msg
-      translit[translit.length-1] = ''
-    end    
-    
-    @menu = Menu.find_by translit: translit  # 1)   get menu-record with title == params[:translit]     // like 'lichnaja-zhizn' etc.
-    @menu ||= Menu.first                     # 2)   if record not found -> display the first record  
-    flash[:translit] = translit
   end  
     
     
-  def set_all_menus
-    @menus = Menu.all
+  def set_site_title_and_new_order  
+    @site_title = MeConstant.find_by_title('site_title').content      
+    
+    @order = Order.new  
   end                                                 
   
 

@@ -31,7 +31,7 @@ class ContactsController < ApplicationController
     if order and order.akey_payed == order_akey_payed            
       @order = order
     else
-      flash[:notice]   = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'
+      #Mail to Admin
       redirect_to '/'
     end       
 
@@ -66,9 +66,9 @@ class ContactsController < ApplicationController
                             plus_2_letters                + 
                             order.akey_payed                     
 
-      link_with_contacts = root_path                     + 
-                            'contacts/'                   + 
-                            contacts_details                      
+      link_with_contacts = root_path                      + 
+                           'contacts/'                    + 
+                           contacts_details                      
 
 
 
@@ -217,15 +217,15 @@ class ContactsController < ApplicationController
       akey_payed += details[i].to_s
     end     
     
-    @order = Order.find(order_id)   
-    unless ( @order and @order.akey_payed == akey_payed )
+    order = Order.find(order_id)   
+    unless ( order and order.akey_payed == akey_payed )
       redirect_to '/'  
     end               
     
     @contacts = if ( status % 2 == 0 )
-      Contact.where(group: 'GOOD GROUP')
+      Contact.where( group: 'GOOD GROUP')
     else  
-      Contact.where(group: 'BAD GROUP')
+      Contact.where( group: 'BAD GROUP' )
     end        
     
     @contacts = @contacts.where.not(order_number: order_id)

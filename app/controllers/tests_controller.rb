@@ -164,7 +164,7 @@ class TestsController < ApplicationController
         
         
       else
-        flash[:notice]   = 'There is problem with your ID or Akey. Hm: Maybe you`re hacker, aren`t you?'
+        #Mail to Admin
         redirect_to '/'
       end       
       
