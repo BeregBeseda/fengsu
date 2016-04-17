@@ -1,6 +1,3 @@
-+Набрать главный текст
-
-+
 +encrypting + RSA
 +
 
@@ -15,6 +12,8 @@ from form to browser cache till save
 +attach photo by 2nd form via compressing & min
 +
 +Удалить имя с git`а отовсюду
+
+bootsy в базе: поле(я) описания
 +
 +Прикреплять срок действия к precompiled assets
 +

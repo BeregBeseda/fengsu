@@ -1,7 +1,7 @@
 # encoding: utf-8
 class OrderMailer < ActionMailer::Base
 
-  default from: ENV['site_email']
+  default from: 'bereg.beseda@gmail.com'
 
   
   def a_has_client_payed(order)

@@ -8810,20 +8810,22 @@ HTML, BODY {
 /* line 11, /home/vitalina/fengsu/app/assets/stylesheets/elements/form.sass */
 #form INPUT, #form TEXTAREA {
   background-color: #F6F9CA;
-  width: 95%;
+  width: 97%;
   height: 170%;
   margin: 1%;
   padding: 1%;
   text-align: center;
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: bold;
+  line-height: 110%;
 }
-/* line 25, /home/vitalina/fengsu/app/assets/stylesheets/elements/form.sass */
+/* line 26, /home/vitalina/fengsu/app/assets/stylesheets/elements/form.sass */
 #form INPUT[name^="order"],
-#form INPUT[name^="contact"] {
+#form INPUT[name^="contact"],
+#form TEXTAREA {
   color: #32601D;
 }
-/* line 30, /home/vitalina/fengsu/app/assets/stylesheets/elements/form.sass */
+/* line 32, /home/vitalina/fengsu/app/assets/stylesheets/elements/form.sass */
 #form .btn {
   padding: 2% 1%;
 }
