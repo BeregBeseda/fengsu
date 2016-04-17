@@ -27,7 +27,7 @@ Rails.application.configure do
   # Compress JavaScripts and CSS.
   config.assets.js_compressor  = :uglifier
   config.assets.css_compressor = :sass
-  #Sass::Plugin.option[:style]  = :conpressed
+  #+++Sass::Plugin.option[:style]  = :compressed
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
@@ -83,16 +83,16 @@ Rails.application.configure do
 
   
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = {host: 'feng-consult.herokuapp.com'}   
+  config.action_mailer.default_url_options = {host: ENV['site_root']}   
 
  
   config.action_mailer.smtp_settings = {
-    address:               'smtp.gmail.com',
-    port:                  587,
+    address:               ENV['mailing_address'],
+    port:                  ENV['mailing_port'],
     #port:                  465,    
     #---domain:                'localhost:3000',
-    user_name:             'bereg.beseda@gmail.com',
-    password:              'gsh1978196819971',
+    user_name:             ENV['mailing_user_name'],
+    password:              ENV['mailing_password'],
     #---  tls:                    true,
     authentication:        'plain',
     enable_starttls_auto:   true      

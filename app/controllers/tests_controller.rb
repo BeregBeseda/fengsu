@@ -1,7 +1,9 @@
 class TestsController < ApplicationController
 
 
-  def load_page     
+  def load_page 
+    @site_title = MeConstant.find_by_title('site_title').content
+      
     root_path = MeConstant.find_by_title('root_path').content
      
     test_url_encoded = params[:test_url_encoded]

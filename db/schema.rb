@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417011700) do
+ActiveRecord::Schema.define(version: 20160417103100) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -80,6 +80,17 @@ ActiveRecord::Schema.define(version: 20160417011700) do
     t.datetime "updated_at"
   end
 
+  create_table "main_pages", force: :cascade do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "form_name_text"
+    t.string   "form_email_text"
+    t.string   "count_of_columns"
+    t.string   "count_of_left_offsets"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "me_constants", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -130,6 +141,14 @@ ActiveRecord::Schema.define(version: 20160417011700) do
     t.boolean  "test_ended",           default: false
     t.string   "pay_link"
     t.string   "group"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string   "title_tag"
+    t.string   "description_meta"
+    t.string   "keywords_meta"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "questions", force: :cascade do |t|

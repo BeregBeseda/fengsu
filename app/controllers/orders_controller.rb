@@ -5,6 +5,8 @@ class OrdersController < ApplicationController
   
 
   def a_new_order
+    @site_title = MeConstant.find_by_title('site_title').content
+  
     @order = Order.new  
   end
 #_____________________________________________________________________________________________________________________________________________
@@ -24,8 +26,8 @@ class OrdersController < ApplicationController
             
     if @order.save
       me_liqpay   = MeLiqpay.find_by_me_number(1)
-      public_key  = me_liqpay.public_key
-      private_key = me_liqpay.private_key      
+      public_key   = me_liqpay.public_key
+      private_key  = ENV['lp_private_key']
       api_version = me_liqpay.api_version           
 #_______________________________________________________________________________if @order.save
 
@@ -132,9 +134,9 @@ class OrdersController < ApplicationController
   # and want to ENTER TEST (and after - get ACCESS to INFO)
             
   def b_test_for_get_contacts_after_pay                
-    me_liqpay = MeLiqpay.find_by_me_number(1)
-    public_key = me_liqpay.public_key
-    private_key = me_liqpay.private_key
+    me_liqpay    = MeLiqpay.find_by_me_number(1)
+    public_key   = me_liqpay.public_key
+    private_key  = ENV['lp_private_key']
         
     data = params[:data]     
     data_json = Base64.decode64(data)    

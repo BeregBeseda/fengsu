@@ -3,6 +3,8 @@ class ContactsController < ApplicationController
 
 
   def more_info_form
+    @site_title = MeConstant.find_by_title('site_title').content
+  
     @contact = Contact.new
   
     order_info = params[:order_info]

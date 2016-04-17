@@ -1,6 +1,8 @@
 class PaysController < ApplicationController
 
   def please_visit_your_email # client come from email & start PAY PROCESS  
+    @site_title = MeConstant.find_by_title('site_title').content
+   
     @consult = Consult.first  # payment gateway gets ACTUAL PRICE
     
   end #   when client ends the PAY PROCESS, 

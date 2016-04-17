@@ -54,12 +54,12 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {host: 'localhost:3000'}   
  
   config.action_mailer.smtp_settings = {
-    address:               'smtp.gmail.com',
-    port:                  587,
+    address:               ENV['mailing_address'],
+    port:                  ENV['mailing_port'],
     #port:                  465,    
     #---domain:                'localhost:3000',
-    user_name:             'bereg.beseda@gmail.com',
-    password:              'gsh1978196819971',
+    user_name:             ENV['mailing_user_name'],
+    password:              ENV['mailing_password'],
     #---  tls:                    true,
     authentication:        'plain',
     enable_starttls_auto:   true      
