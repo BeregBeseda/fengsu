@@ -1,6 +1,6 @@
 class OrderInfoPagesController < ApplicationController
 
-  before_action :set_order_info_page, :set_site_title,  only: [:show]
+  before_action :set_page_and_order_info_page, :set_site_title,  only: [:show]
 
   def show
   end
