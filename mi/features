@@ -5,3 +5,11 @@ $ rake assets:precompile RAILS_ENV=development
 
 
 
+FIGARO ~> HEROKU
+$ figaro heroku:set -e production
+
+
+
+
+
+

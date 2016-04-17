@@ -1,24 +1,31 @@
-STYLES_PART
++Набрать главный текст
 
-Menu:
-*block
-*fond
-*response
++Проверить стили для всех страниц
++
++encrypting + RSA
++
++Сформировать структуру fond`а
++with sitemap
++
++Вынести элементы fond`а в базу данных:
++title, keys, descr
++
++attach photo by 2nd form via compressing & min
++
++Удалить имя с git`а отовсюду
++
++Прикреплять срок действия к precompiled assets
++
++browser caching??
++
++create sitemap
 
+qw able -> false HOW?
 __________________
 
 
-ENV["DOMAIN_NAME"]
-vars?
 
--
-mailing:
-AWS: https://aws.amazon.com/ru/ses/getting-started/
--
-
-qw able -> false HOW?
-
-Get Honey via site work
+Get Honey via site work ;~)
 
 
 

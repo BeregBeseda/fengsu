@@ -1,12 +1,5 @@
 # encoding: utf-8
 class OrdersController < ApplicationController
-
-  before_action :set_order_info_page, :set_site_title_and_new_order,  only: [:a_new_order]
-  
-
-  def a_new_order
-  end
-#_____________________________________________________________________________________________________________________________________________
   
   
   
@@ -229,28 +222,6 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:payed, :name, :email, :akey, :pay_link, :sum_for_pay, :when_payed, :akey_payed, :able, :sent_email_with_test, :group, :test_ended)
   end  
-#_____________________________________________________________________________________________________________________________________________
-
-  
-    
-  private
-  
-    
-  def set_order_info_page
-    msg = params[:msg]
-    
-    if msg
-      @info_msg = (OrderInfoPage.find_by translit: msg).msg
-    end
-  end  
-    
-    
-  def set_site_title_and_new_order  
-    @site_title = MeConstant.find_by_title('site_title').content      
-    
-    @order = Order.new  
-  end                                                 
-  
 
 end    
   
