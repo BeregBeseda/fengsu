@@ -8714,10 +8714,12 @@ HTML, BODY {
 
 /* line 1, /home/vitalina/fengsu/app/assets/stylesheets/common/block.sass */
 #block {
+  max-width: 98%;
   position: absolute;
   top: 0;
   left: 0;
   margin-top: 7%;
+  padding: 5%;
   background: url(/assets/bred-c61f10a528a1d976ac87b1e55cc8684126f3aa3412a1836da6f5d4771019c3fd.png);
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
@@ -8729,11 +8731,11 @@ HTML, BODY {
   font-size: 1.3em;
   font-family: "Open Sans", Helvetica, sans-serif;
 }
-/* line 19, /home/vitalina/fengsu/app/assets/stylesheets/common/block.sass */
+/* line 22, /home/vitalina/fengsu/app/assets/stylesheets/common/block.sass */
 #block P {
   margin-bottom: 2%;
 }
-/* line 22, /home/vitalina/fengsu/app/assets/stylesheets/common/block.sass */
+/* line 25, /home/vitalina/fengsu/app/assets/stylesheets/common/block.sass */
 #block P::before {
   content: "";
   width: 30px;
@@ -8793,100 +8795,6 @@ HTML, BODY {
   position: fixed;
   top: 0;
   left: 0;
-}
-
-/* line 1, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#block_main {
-  width: 350px;
-  text-align: center;
-  max-width: 98%;
-  padding: 5%;
-}
-
-/* line 10, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#title_text {
-  width: 350px;
-  height: 107px;
-  background: url(/assets/menu_main/title_text-63432957bf620223eac7dc695cd2dddf066bef05c6fff587e5eb158d6424ab6d.png);
-  -webkit-background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  background-size: 100% 100%;
-}
-
-/* line 19, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#life {
-  width: 350px;
-  height: 76px;
-  background: url(/assets/menu_main/life_text1-9ef7669e00896e8ac5dddad36f1c39b51739192306dbbcc3db5d1f5785849fdc.png);
-  -webkit-background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  background-size: 100% 100%;
-  -webkit-transition: background 0.5s ease;
-  -moz-transition: background 0.5s ease;
-  -o-transition: background 0.5s ease;
-  transition: background 0.5s ease;
-}
-/* line 28, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#life:hover, #life:focus {
-  background: url(/assets/menu_main/life_text2-68cf884149c57a41c17ba7cb13aab2970972a453112873e56bc99a933bb49661.png);
-}
-/* line 32, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#life:active {
-  background: url(/assets/menu_main/life_text1-9ef7669e00896e8ac5dddad36f1c39b51739192306dbbcc3db5d1f5785849fdc.png);
-}
-
-/* line 37, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#creation {
-  width: 350px;
-  height: 131px;
-  background: url(/assets/menu_main/creation_text1-a2aaf3e81c48e574d4bc85c56d0be9172e29d89ae70b9816ad06bcdb154674c2.png);
-  -webkit-background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  background-size: 100% 100%;
-  -webkit-transition: background 0.5s ease;
-  -moz-transition: background 0.5s ease;
-  -o-transition: background 0.5s ease;
-  transition: background 0.5s ease;
-}
-/* line 46, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#creation:hover, #creation:focus {
-  background: url(/assets/menu_main/creation_text2-087ec360ec7b262808007ffa00750b7a192751cc841694b2264902ab863bb9a2.png);
-}
-/* line 50, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#creation:active {
-  background: url(/assets/menu_main/creation_text1-a2aaf3e81c48e574d4bc85c56d0be9172e29d89ae70b9816ad06bcdb154674c2.png);
-}
-
-/* line 55, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#habit {
-  width: 350px;
-  height: 136px;
-  background: url(/assets/menu_main/habit_text1-4e1d9a54f492f3047a19007b0d2e4d055f2a7e0f19356e2ce744a805c17423a4.png);
-  -webkit-background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  background-size: 100% 100%;
-  -webkit-transition: background 0.5s ease;
-  -moz-transition: background 0.5s ease;
-  -o-transition: background 0.5s ease;
-  transition: background 0.5s ease;
-}
-/* line 64, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#habit:hover, #habit:focus {
-  background: url(/assets/menu_main/habit_text2-a8b1318c8f94a4fcd02b8dffbf218dabaff67e294fdce424b0b8677d26edc4f5.png);
-}
-/* line 68, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-main.sass */
-#habit:active {
-  background: url(/assets/menu_main/habit_text1-4e1d9a54f492f3047a19007b0d2e4d055f2a7e0f19356e2ce744a805c17423a4.png);
-}
-
-/* line 1, /home/vitalina/fengsu/app/assets/stylesheets/elements/block-not-main.sass */
-#block_not_main {
-  max-width: 98%;
-  padding: 10% 15%;
 }
 
 /* line 1, /home/vitalina/fengsu/app/assets/stylesheets/elements/form.sass */

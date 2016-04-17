@@ -4,7 +4,7 @@
 
   %a{name: 'form'}
   .dark-green{class: flash[:error_class_name]}
-    Чтобы оплатить, введите Ваше имя :    
+    =@main_page.form_name_text.html_safe      
     
   %div    
     = f.text_field :name,  required: '', 
@@ -17,7 +17,7 @@
   .dark-green{class: flash[:error_class_email]}
     - if flash[:error_class_email]
       Введите
-    и E-mail :      
+    =@main_page.form_email_text      
     
   %div    
     = f.text_field :email, type: 'email', required: '', 
@@ -28,7 +28,7 @@
 
 
 
-  = f.hidden_field :sum_for_pay, value: "#{@menu.price}"
+  = f.hidden_field :sum_for_pay, value: "#{@main_page.price}"
 
 
 

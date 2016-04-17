@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417121944) do
+ActiveRecord::Schema.define(version: 20160417132200) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20160417121944) do
     t.string   "count_of_left_offsets"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "price"
   end
 
   create_table "me_constants", force: :cascade do |t|
@@ -99,17 +100,6 @@ ActiveRecord::Schema.define(version: 20160417121944) do
     t.string   "api_version"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "menus", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.boolean  "able"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "price"
-    t.string   "name"
-    t.string   "translit"
   end
 
   create_table "order_info_pages", force: :cascade do |t|

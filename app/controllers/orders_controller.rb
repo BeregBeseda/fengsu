@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
 
   def a_new_order
     @site_title = MeConstant.find_by_title('site_title').content
-  
+      
     @order = Order.new  
   end
 #_____________________________________________________________________________________________________________________________________________
@@ -25,10 +25,10 @@ class OrdersController < ApplicationController
 
             
     if @order.save
-      me_liqpay   = MeLiqpay.find_by_me_number(1)
+      me_liqpay    = MeLiqpay.find_by_me_number(1)
       public_key   = me_liqpay.public_key
       private_key  = ENV['lp_private_key']
-      api_version = me_liqpay.api_version           
+      api_version  = me_liqpay.api_version           
 #_______________________________________________________________________________if @order.save
 
 
@@ -115,13 +115,8 @@ class OrdersController < ApplicationController
       
       
       #if cookies are OFF -> show errors in FIRST menu url-case
-      url = '/about/' + 
-        if flash[:translit]
-          "#{flash[:translit]}"
-        else
-          'lichnaya-zhizn'
-        end +        
-        anchor
+      url = root_path +        
+            anchor
       redirect_to url 
     end  
   end

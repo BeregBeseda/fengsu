@@ -28,9 +28,8 @@
     
       %main
         .row-fluid
-          %nav.offset5#block
-            #block_main
-              = yield      
+          %nav#block{class: "span#{@main_page.count_of_columns} offset#{@main_page.count_of_left_offsets}"}
+            = yield      
 
 
 
