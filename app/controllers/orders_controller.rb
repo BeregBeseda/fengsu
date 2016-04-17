@@ -52,8 +52,7 @@ class OrdersController < ApplicationController
       letter = ('a'..'z').to_a.shuffle.first
       server_url_details  = @order.id.to_s.length.to_s + letter + @order.akey + @order.id.to_s
       
-      details_json        = JSON.generate(server_url_details)
-      details_encoded_64  = (Base64.encode64 details_json).chomp.delete("\n")
+      details_encoded_64  = (Base64.encode64 server_url_details).chomp.delete("\n")
       details_encoded     = details_encoded_64 + '=' 
       server_url_details  = details_encoded
       
@@ -164,8 +163,7 @@ class OrdersController < ApplicationController
         
         details_encoded = details
         details_encoded[details_encoded.length-1] = ''
-        details_json    = Base64.decode64(details_encoded)    
-        details         = JSON.parse(details_json)  
+        details         = Base64.decode64(details_encoded)    
         
         
         
