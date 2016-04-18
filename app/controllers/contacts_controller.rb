@@ -76,6 +76,13 @@ class ContactsController < ApplicationController
                             plus_2_letters                + 
                             order.akey_payed                     
 
+
+
+      contacts_details_encoded_64  = (Base64.encode64 contacts_details).chomp.delete("\n")
+      contacts_details     = contacts_details_encoded_64 + '='
+
+
+
       link_with_contacts = root_path                      + 
                            'contacts/'                    + 
                            contacts_details                      
@@ -214,6 +221,8 @@ class ContactsController < ApplicationController
 
   def show
     @page            = Page.find_by_page :contacts
+  
+  
   
     details_encoded  = params[:details]
     

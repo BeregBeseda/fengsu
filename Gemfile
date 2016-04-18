@@ -13,12 +13,12 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 
 
+
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 
 gem 'mail'
-#gem 'tlsmail'
-#gem 'aws-sdk-rails'
+
 
 
 gem 'passenger'
@@ -30,8 +30,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rails_12factor'
 
 
+
 gem 'liqpay', github: 'liqpay/sdk-ruby'
 gem 'figaro'
+gem 'rsa'
 
 
 
@@ -42,10 +44,11 @@ group :development, :test do
   gem 'sqlite3'  
 end
 
+
+
 group :production do
   gem 'pg'
-  gem 'json', '~> 1.8', '>= 1.8.3'
-  
+  gem 'json', '~> 1.8', '>= 1.8.3'  
   gem 'heroku-deflater'
 end
 
