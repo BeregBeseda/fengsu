@@ -219,6 +219,7 @@ GEM
     rest-client (1.6.8)
       mime-types (~> 1.16)
       rdoc (>= 2.4.2)
+    rsa (0.1.4)
     rubyzip (1.1.7)
     sass (3.4.22)
     sass-rails (5.0.4)
@@ -281,6 +282,7 @@ DEPENDENCIES
   pg
   rails (= 4.2.4)
   rails_12factor
+  rsa
   sass-rails (>= 5.0.2)
   sdoc (~> 0.4.0)
   spring
