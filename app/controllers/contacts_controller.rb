@@ -17,10 +17,10 @@ class ContactsController < ApplicationController
     
     
     
-    link_details_begin_for_url = order_info
-    link_details_begin_ascii_8 = URI.decode(link_details_begin_for_url)    
-    key_pair  = @key_pair      
-    order_info = key_pair.decrypt(link_details_begin_ascii_8)          
+    #link_details_begin_for_url = order_info
+    #link_details_begin_ascii_8 = URI.decode(link_details_begin_for_url)    
+    #key_pair  = @key_pair      
+    #order_info = key_pair.decrypt(link_details_begin_ascii_8)          
 #_______________________________________________________________________________
       
 

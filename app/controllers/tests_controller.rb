@@ -187,20 +187,21 @@ class TestsController < ApplicationController
 
 
             
-      key_pair  = RSA::KeyPair.generate(1000)
-      link_details_begin_ascii_8 = key_pair.encrypt(link_details_encoded)
-      link_details_begin_for_url = URI.encode(link_details_begin_ascii_8)         
+      #key_pair  = RSA::KeyPair.generate(1024)
+      #link_details_begin_ascii_8 = key_pair.encrypt(link_details_encoded)
+      #link_details_begin_for_url = URI.encode(link_details_begin_ascii_8)         
       
             
       
+      #link_details_begin_ascii_8 = key_pair.encrypt(link_details_encoded)      
       
       
       
+      #link_details_begin = link_details_begin_for_url 
       
-      link_details_begin = link_details_begin_for_url 
       
-      
-      link_with_more_info_form = root_path + 'much_form/' + link_details_begin
+      #link_with_more_info_form = root_path + 'much_form/' + link_details_begin
+      link_with_more_info_form = root_path + 'much_form/' + link_details_encoded       
 #_______________________________________________________________________________      
       
       
