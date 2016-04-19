@@ -1,3 +1,8 @@
+in db: date fields: by
+f.date_select :title
+
+in controller:  def params -> to privat
+
 +testo encrypting + RSA
 +
 SHORT path via cache when cookie in ON

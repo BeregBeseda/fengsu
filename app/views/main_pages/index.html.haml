@@ -3,20 +3,25 @@
 - @title = @page.title_tag
 
 
+%div
+  =@link_details_begin
+  %hr/  
+
 
 - unless @info_msg.nil? and @info_msg == ''
   %h3 
-    = @info_msg
+    =@info_msg
 
 %section
   %h3
-    = @main_page.title
-  = @main_page.description.html_safe  
+    =@main_page.title
+  =@main_page.description.html_safe  
 
 %section
   #form.lead
     %b
-      = render partial: 'new_order_form' 
+      =render partial: 'new_order_form' 
+
 
 
 

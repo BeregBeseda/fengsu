@@ -1,3 +1,5 @@
+require 'rsa'
+require 'uri'
 class TestsController < ApplicationController
 
 
@@ -169,21 +171,41 @@ class TestsController < ApplicationController
         #Mail to Admin
         redirect_to '/'
       end       
+#_______________________________________________________________________________
       
       
       
       redirect_letter          = ('a'..'z').to_a.shuffle.first
       link_details             = order.id.to_s + redirect_letter + order.akey_payed
+#_______________________________________________________________________________
+
+
       
       link_details_encoded_64  = (Base64.encode64 link_details).chomp.delete("\n")
       link_details_encoded     = link_details_encoded_64 + '=' 
-      
-      link_with_more_info_form = root_path + 'much_form/' + link_details_encoded 
-      
-      
-      
-      OrderMailer.c_more_info_form(order, link_with_more_info_form).deliver      
+#_______________________________________________________________________________
+
+
             
+      key_pair  = RSA::KeyPair.generate(1000)
+      link_details_begin_ascii_8 = key_pair.encrypt(link_details_encoded)
+      link_details_begin_for_url = URI.encode(link_details_begin_ascii_8)         
+      
+            
+      
+      
+      
+      
+      
+      link_details_begin = link_details_begin_for_url 
+      
+      
+      link_with_more_info_form = root_path + 'much_form/' + link_details_begin
+#_______________________________________________________________________________      
+      
+      
+      
+      OrderMailer.c_more_info_form(order, link_with_more_info_form).deliver                  
       redirect_to link_with_more_info_form
     end              
   end

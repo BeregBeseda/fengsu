@@ -1,3 +1,4 @@
+# encoding: utf-8
 class OrderInfoPagesController < ApplicationController
 
   before_action :set_page_and_order_info_page, :set_site_title,  only: [:show]

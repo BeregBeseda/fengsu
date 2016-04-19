@@ -1,20 +1,33 @@
+require 'rsa'
+require 'uri'
+# encoding: utf-8
 class ContactsController < ApplicationController
 
 
-
+#_____________________________________________________________________________________________________________________________________________
   def more_info_form
-    @page       = Page.find_by_page :more_info_form
-  
+    @page       = Page.find_by_page :more_info_form  
     @site_title = MeConstant.find_by_title('site_title').content
   
     @contact = Contact.new
+#_______________________________________________________________________________
 
 
-  
     order_info  = params[:order_info]
-           
+    
+    
+    
+    link_details_begin_for_url = order_info
+    link_details_begin_ascii_8 = URI.decode(link_details_begin_for_url)    
+    key_pair  = @key_pair      
+    order_info = key_pair.decrypt(link_details_begin_ascii_8)          
+#_______________________________________________________________________________
+      
+
+                   
     order_info[order_info.length-1] = ''
     order_info  = Base64.decode64(order_info)        
+#_______________________________________________________________________________
 
 
 
@@ -23,15 +36,18 @@ class ContactsController < ApplicationController
     
     for i in 0..order_info.length-1
       unless order_info[i].in? ('a'..'z')
-        order_id += "#{order_info[i]}"
+        order_id += order_info[i]
       else
         @current_i = i.to_i + 1
         break
       end
     end    
+#_______________________________________________________________________________        
+
+
         
     for i in @current_i..order_info.length - 1
-      order_akey_payed += "#{order_info[i]}"
+      order_akey_payed += order_info[i]
     end        
 #_______________________________________________________________________________        
         
