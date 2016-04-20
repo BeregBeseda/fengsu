@@ -68,7 +68,8 @@
                                         class:       'input-xlarge', 
                                         maxlength:   '100',
                                         value:       "#{flash[:contact_birthday] || nil}",
-                                        autofocus:    flash[:autofocus_birthday]
+                                        autofocus:    flash[:autofocus_birthday],
+                                        start_year:   1900
   
 
   
@@ -83,8 +84,8 @@
                                         class:       'input-xlarge', 
                                         maxlength:   '1000',
                                         value:       "#{flash[:contact_about_info] || nil}",
-                                        autofocus:    flash[:autofocus_about_info],
-                                        start_year:   1900
+                                        autofocus:    flash[:autofocus_about_info]
+                                        
                                          
   
   

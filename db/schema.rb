@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418185700) do
+ActiveRecord::Schema.define(version: 20160420172000) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 20160418185700) do
     t.datetime "updated_at"
     t.decimal  "price"
     t.string   "text_on_submit_button"
+    t.string   "fond_img_forest_title"
+    t.string   "fond_img_forest_alt_text"
   end
 
   create_table "me_constants", force: :cascade do |t|

@@ -283,6 +283,10 @@ class ContactsController < ApplicationController
     end        
     
     @contacts = @contacts.where.not(order_number: order_id)
+    
+    if @contacts.count == 0 
+      #Email to ConsER
+    end
   end
 #_____________________________________________________________________________________________________________________________________________
 
