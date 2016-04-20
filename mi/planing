@@ -1,14 +1,15 @@
+календарь: события редактировать по авторизации
+
 in db: date fields: by
 f.date_select :title
 
 in controller:  def params -> to privat
 
-+testo encrypting + RSA
++testo encrypting by RSA with my_keys + testing
 +
-SHORT path via cache when cookie in ON
+SHORT path via cache when cookie is ON
 
 from form to browser cache till save
-
 
 +attach photo by 2nd form via compressing & min
 +
