@@ -139,7 +139,7 @@ class ContactsController < ApplicationController
         flash[:autofocus_city]      = false                
         flash[:autofocus_country]   = false         
         flash[:autofocus_birthday]  = false                
-        flash[:about_info]      = false         
+        flash[:about_info]          = false         
         
                         
                         

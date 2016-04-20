@@ -8,10 +8,6 @@ class MainPagesController < ApplicationController
   
   
   def index 
-    @env = ENV['mailing_address']
-  
-  
-  
     @site_title             = MeConstant.find_by_title('site_title').content
     
     root_path               = MeConstant.find_by_title('root_path').content      
