@@ -78,12 +78,15 @@
       О себе:
     
     %div    
-      = f.text_area :about_info,        size:        '25x5',
-                                        required:    '', 
+      = f.text_area :about_info,        required:    '',
+                                        size:        '25x5',                                         
                                         class:       'input-xlarge', 
                                         maxlength:   '1000',
+                                        
                                         value:       "#{flash[:contact_about_info] || nil}",
-                                        autofocus:    flash[:autofocus_about_info]
+                                        autofocus:    flash[:autofocus_about_info],
+                                        start_year:   1900
+                                         
   
   
   
