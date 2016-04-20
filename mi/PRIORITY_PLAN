@@ -1,15 +1,20 @@
-
+0) АЛ, НЛ, ГМЛ
 
                 [3ч15м] СРЕДА (13/14 [с 16:47] лунный день - 20.4.16)
                        
 
 3) [30] pay: real
 
-4) [45] чистый email + мой email too
-
-5) [30] чистый rep
+4) [45] чистый email все + мой email too
 
 6) [30] новые rep и url: план     
+  public/sitemap - root
+  just simple clean migrating
+  init/act_adm.rb: config.default_namespace = :fairytale -> :fairytale_panel
+  & config.site_title = ENV['site_title'] in app.yml
+  check init/session_store.rb
+  check app.yml
+  check order_mailer
 
 
 1) [30] форма заказа

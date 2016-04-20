@@ -64,7 +64,7 @@ class OrdersController < ApplicationController
         :description      => "Оплата теста",
         :server_url       => root_path + 'i_have_payed/' + server_url_details,
         :result_url       => root_path + 'info/proverte_email_posle_oplaty',
-        :sandbox          => '0'        
+        :sandbox          => '1'        
       }, liqpay, public_key, api_version)                                  
 #_______________________________________________________________________________if @order.save
 
@@ -154,8 +154,8 @@ class OrdersController < ApplicationController
   
     
     if sign == params[:signature]
-      #if data_hash["status"].in? ['success', 'sandbox']
-      if data_hash['status'] == 'success'
+      #if data_hash['status'] == 'success'
+      if data_hash["status"].in? ['success', 'sandbox']      
         
         
         
