@@ -1,11 +1,12 @@
 календарь: события редактировать по авторизации
 
++testo encrypting by RSA with my_keys + testing
+
 in db: date fields: by
 f.date_select :title
 
 in controller:  def params -> to privat
 
-+testo encrypting by RSA with my_keys + testing
 +
 SHORT path via cache when cookie is ON
 
