@@ -68,6 +68,8 @@ class ContactsController < ApplicationController
   
   def create
     contact    = Contact.new(contact_params) 
+    #@consult = Consult.new
+    
     root_path  = MeConstant.find_by_title('root_path').content
 
     order      = Order.find(contact.order_number)    

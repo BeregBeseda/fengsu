@@ -64,7 +64,7 @@
       Дата рождения:
     
     %div    
-      = f.text_field :birthday,         required:    '', 
+      = f.date_select :birthday,        required:    '', 
                                         class:       'input-xlarge', 
                                         maxlength:   '100',
                                         value:       "#{flash[:contact_birthday] || nil}",

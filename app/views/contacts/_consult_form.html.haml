@@ -1,0 +1,37 @@
+= form_for @consult, action: "create" do |f|
+  
+
+
+  %a{name: 'form'}
+  .dark-green{class: flash[:error_class_name]}
+    =@main_page.form_name_text.html_safe      
+    
+  %div    
+    = f.text_field :name,  required: '', 
+                           class: 'input-xlarge', 
+                           value: "#{flash[:order_name] || nil}",
+                           autofocus: flash[:autofocus_name]
+
+
+
+  .dark-green{class: flash[:error_class_email]}
+    - if flash[:error_class_email]
+      Введите
+    =@main_page.form_email_text      
+    
+  %div    
+    = f.text_field :email, type: 'email', required: '', 
+                           class: 'input-xlarge', 
+                           placeholder: 'email@example.com', 
+                           value: "#{flash[:order_email] || nil}",
+                           autofocus: flash[:autofocus_email] 
+
+
+
+  = f.hidden_field :sum_for_pay, value: "#{@main_page.price}"
+
+
+
+  %div       
+    = f.submit @main_page.text_on_submit_button, class: 'btn btn-success btn-large'
+
