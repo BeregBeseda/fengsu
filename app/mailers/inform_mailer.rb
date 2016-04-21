@@ -1,5 +1,5 @@
 # encoding: utf-8
-class OrderMailer < ActionMailer::Base
+class InformMailer < ActionMailer::Base
 
   default from: 'bereg.beseda@gmail.com'
   
