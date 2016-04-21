@@ -37,9 +37,13 @@ class TestsController < ApplicationController
 #_______________________________________________________________________________        
           
           
+    
+    order = Order.find(order_id)
+          
+    redirect_to '/' if order.test_ended == true      
           
     questions = Test.find(1).questions       
-    if qw_number < questions.count + 1
+    if qw_number < questions.count + 1 
     
       question = questions.find_by_number_of_question(qw_number)
       @question_title = question.title
@@ -139,9 +143,7 @@ class TestsController < ApplicationController
                    pl_no.to_i   + 
                    kl_no.to_i   + 
                    il_no.to_i   + 
-                   disl_no.to_i                
-
-      order = Order.find(order_id)            
+                   disl_no.to_i                                  
 #_______________________________________________________________________________
 
 

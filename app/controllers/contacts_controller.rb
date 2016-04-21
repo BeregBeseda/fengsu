@@ -77,7 +77,7 @@ class ContactsController < ApplicationController
 
     order      = Order.find(contact.order_number)    
     
-    if order
+    if order and order.more_info_save != true
     
         
     if contact.save        
@@ -110,6 +110,9 @@ class ContactsController < ApplicationController
 
 
 
+      order.more_info_save = true
+      order.save
+
       OrderMailer.d_see_contacts(order, link_with_contacts).deliver      
       redirect_to link_with_contacts                         
           
@@ -118,7 +121,7 @@ class ContactsController < ApplicationController
 
 
       flash[:contact_name]            = contact.name
-      flash[:contact_surname]         = contact.surname
+      #flash[:contact_surname]         = contact.surname
       flash[:contact_city]            = contact.city
       flash[:contact_country]         = contact.country
       flash[:contact_birthday]        = contact.birthday
@@ -129,7 +132,7 @@ class ContactsController < ApplicationController
       anchor = ''
       contact.errors.each do |attr, msg|
         flash[:error_class_name]            = 'error_field' if attr == :name
-        flash[:error_class_surname]         = 'error_field' if attr == :surname
+        #flash[:error_class_surname]         = 'error_field' if attr == :surname
         flash[:error_class_city]            = 'error_field' if attr == :city
         flash[:error_class_country]         = 'error_field' if attr == :country
         flash[:error_class_birthday]        = 'error_field' if attr == :birthday
@@ -138,7 +141,7 @@ class ContactsController < ApplicationController
                 
                 
         flash[:autofocus_name]      = false                
-        flash[:autofocus_surname]   = false         
+        #flash[:autofocus_surname]   = false         
         flash[:autofocus_city]      = false                
         flash[:autofocus_country]   = false         
         flash[:autofocus_birthday]  = false                
@@ -150,9 +153,9 @@ class ContactsController < ApplicationController
           flash[:autofocus_name] = true
         else
         
-          if attr == :surname
-            flash[:autofocus_surname] = true
-          else
+          #if attr == :surname
+          #  flash[:autofocus_surname] = true
+          #else
           
             if attr == :city
               flash[:autofocus_city] = true
@@ -172,7 +175,7 @@ class ContactsController < ApplicationController
                 end                        
               end            
             end            
-          end
+          #end
         end     
 
         

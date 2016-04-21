@@ -17,12 +17,13 @@
 
   
 
-    %a{name: 'surname'}
-    .dark-green{class: flash[:error_class_surname]}
-      Фамилия:
+    -#
+      %a{name: 'surname'}
+      .dark-green{class: flash[:error_class_surname]}
+        Фамилия:
     
-    %div    
-      = f.text_field :surname,          required:    '', 
+      %div    
+        = f.text_field :surname,          required:    '', 
                                         class:       'input-xlarge', 
                                         maxlength:   '100',
                                         value:       "#{flash[:contact_surname] || nil}",
@@ -76,7 +77,7 @@
 
     %a{name: 'about_info'}
     .dark-green{class: flash[:error_class_about_info]}
-      О себе:
+      Жизненные ценности, интересы, надежды:
     
     %div    
       = f.text_area :about_info,        size:        '25x5',
