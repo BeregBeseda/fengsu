@@ -33,4 +33,5 @@ class MainPagesController < ApplicationController
       @page       = Page.find_by_page :main
       @order      = Order.new      
     end          
+    
 end

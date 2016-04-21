@@ -2,7 +2,11 @@ require 'rsa'
 require 'uri'
 class TestsController < ApplicationController
 
+  before_action :set_main_page, only: [:load_page]
+#_____________________________________________________________________________________________________________________________________________
 
+  
+  
   def load_page 
     @page       = Page.find_by_page :test
   
@@ -210,6 +214,15 @@ class TestsController < ApplicationController
       redirect_to link_with_more_info_form
     end              
   end
+#_______________________________________________________________________________      
+
+  
+  
+  private
+  
+    def set_main_page
+      @main_page  = MainPage.find(1)       
+    end    
   
   
 end

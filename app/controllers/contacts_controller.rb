@@ -3,8 +3,11 @@ require 'uri'
 # encoding: utf-8
 class ContactsController < ApplicationController
 
-
+  before_action :set_main_page, only: [:more_info_form, :show]
 #_____________________________________________________________________________________________________________________________________________
+
+  
+  
   def more_info_form
     @page       = Page.find_by_page :more_info_form  
     @site_title = MeConstant.find_by_title('site_title').content
@@ -291,10 +294,15 @@ class ContactsController < ApplicationController
 #_____________________________________________________________________________________________________________________________________________
 
 
+  private
+  
+    def set_main_page
+      @main_page  = MainPage.find(1)       
+    end          
 
-  def contact_params
-    params.require(:contact).permit(:name, :surname, :city, :country, :birthday, :about_info, :email, :order_number, :able_for_contact, :group)
-  end  
-
+    def contact_params
+      params.require(:contact).permit(:name, :surname, :city, :country, :birthday, :about_info, :email, :order_number, :able_for_contact, :group)
+    end  
+ 
   
 end
