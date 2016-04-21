@@ -285,7 +285,7 @@ class ContactsController < ApplicationController
     @contacts = @contacts.where.not(order_number: order_id)
     
     if @contacts.count == 0 
-      #Email to ConsER
+      InformMailer.if_contacts_null(order).deliver        
     end
   end
 #_____________________________________________________________________________________________________________________________________________
